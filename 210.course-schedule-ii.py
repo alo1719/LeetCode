@@ -73,7 +73,8 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n^2) if each course only has limited prerequisites
+# SC: O(n)
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         # 1. Build graph
@@ -83,6 +84,7 @@ class Solution:
         # print(g)
         v = [False] * numCourses
         r = []
+
         # 2. DFS
         def dfs(c):
             if v[c]:
