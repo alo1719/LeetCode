@@ -44,9 +44,21 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        for i in range(len(nums)):
-            if nums[i] == 0:
-                nums.remove(0)
-                nums.append(0)
-        return nums
+        #  0  1  0  3  12
+        #  l
+        #     r
+        #  1  0  0  3  12
+        #     l
+        #           r
+        #  1  3  0  0  12
+        #        l
+        #               r
+        n = len(nums)
+        left = 0
+        right = 0
+        while right < n:
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+            right += 1
 # @lc code=end
