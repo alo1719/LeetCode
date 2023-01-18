@@ -67,28 +67,71 @@
 #
 
 # @lc code=start
+# K,V -> dict
+# O(1) -> Doubly linked list
+class Node:
+    def __init__(self, k = 0, v = 0):
+        self.key = k
+        self.value = v
+        self.prev = None
+        self.next = None
+
 class LRUCache:
 
     def __init__(self, capacity: int):
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.cache = {} # cache stores Node
         self.capacity = capacity
-        self.cache = {}
+        self.size = 0
 
     def get(self, key: int) -> int:
-        if key in self.cache:
-            value = self.cache[key]
-            del self.cache[key]
-            self.cache[key] = value
-            return value
-        return -1
+        if key not in self.cache:
+            return -1
+        else:
+            node = self.cache[key]
+            self.move2Head(node) # 2B impl
+            return node.value
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            del self.cache[key]
-        elif len(self.cache) == self.capacity:
-            for k in self.cache:
-                del self.cache[k]
-                break
-        self.cache[key] = value
+        if key not in self.cache:
+            node = Node(key, value)
+            self.add2Head(node) # 2B impl
+            self.size += 1
+            self.cache[key] = node
+            if self.size > self.capacity:
+                node = self.removeTail() # 2B impl
+                self.cache.pop(node.key)
+                self.size -= 1
+        else:
+            node = self.cache[key]
+            node.value = value
+            self.move2Head(node)
+    
+    
+    def move2Head(self, node):
+        self.removeNode(node) # 2B impl
+        self.add2Head(node)
+    
+    # head <-> nodeXXX
+    #     nodeWeWant2Add
+    def add2Head(self, node):
+        node.prev = self.head
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+    
+    # node2BRemoved <-> tail
+    def removeTail(self):
+        return self.removeNode(self.tail.prev)
+    
+    # node1 <-> node <-> node2
+    def removeNode(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        return node
 
 
 # Your LRUCache object will be instantiated and called as such:
