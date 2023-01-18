@@ -60,22 +60,43 @@
 
 # @lc code=start
 class Solution:
+    # sliding window
     def minOperations(self, nums: List[int], x: int) -> int:
-        sum = 0
-        for num in nums:
-            sum += num
-        goal = sum - x
+        sum_nums = sum(nums)
+        goal = sum_nums - x
         n = len(nums)
         now = 0
         ans = -1
-        l = 0
-        for r in range(n):
-            now += nums[r]
-            while (now > goal and l < n):
-                now -= nums[l]
-                l += 1
+        left = 0
+        for right in range(n):
+            now += nums[right]
+            while (now > goal and left < n):
+                now -= nums[left]
+                left += 1
             if now == goal:
-                ans = max(ans, r - l + 1)
+                ans = max(ans, right - left + 1)
         return n - ans if ans != -1 else -1
+    
+class Solution:
+    # prefix & postfix sum
+    def minOperations(self, nums: List[int], x: int) -> int:
+        sum = 0
+        n = len(nums)
+        prefix = [0] * n
+        for i in range(n):
+            sum += nums[i]
+            prefix[i] = sum
+        sum = 0
+        postfix = {}
+        for i in range(n - 1, -1, -1):
+            sum += nums[i]
+            postfix[sum] = i
+        postfix[0] = n
+        ans = float("inf")
+        for i in range(-1, n):
+            latter_part = x - prefix[i] if i >=0 else x
+            if latter_part in postfix and postfix[latter_part] > i:
+                ans = min(ans, (i + 1) + (n - postfix[latter_part]))
+        return ans if ans != float("inf") else -1
 # @lc code=end
 
