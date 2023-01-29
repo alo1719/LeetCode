@@ -61,16 +61,12 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        max_sum = nums[0]
-        current_sum = 0
-        for num in nums:
-            current_sum += num
-            if current_sum > max_sum:
-                max_sum = current_sum
-            if current_sum < 0:
-                current_sum = 0
-        print(max_sum)
-        return max_sum
+        n, ans = len(nums), -float("inf")
+        dp = 0
+        for i in range(n):
+            dp = max(nums[i], nums[i] + dp)
+            ans = max(ans, dp)
+        return ans
 
 
 Solution().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])

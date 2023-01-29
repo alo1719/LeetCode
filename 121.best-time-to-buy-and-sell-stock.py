@@ -59,13 +59,11 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        a = prices
-        ans = 0
-        i = 0
-        for j in range(len(a)):
-            if a[j] < a[i]:
-                i = j
-            else:
-                ans = max(ans, a[j] - a[i])
+        ans, n = 0, len(prices)
+        buy_in = 0
+        for sell_out in range(n):
+            if prices[sell_out] < prices[buy_in]:
+                buy_in = sell_out
+            ans = max(ans, prices[sell_out] - prices[buy_in])
         return ans
 # @lc code=end
