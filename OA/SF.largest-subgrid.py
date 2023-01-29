@@ -1,5 +1,5 @@
+# https://leetcode.com/discuss/interview-question/850974/hackerrank-online-assessment-roblox-new-grad-how-to-solve-this
 def largest_subgrid(grid, max_sum) -> int:
-    # https://leetcode.com/discuss/interview-question/850974/hackerrank-online-assessment-roblox-new-grad-how-to-solve-this
     if not grid or not grid[0]: return 0
 
     # create culmulative sum 2D array. O(n^2) pre computation
