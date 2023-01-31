@@ -1,5 +1,3 @@
-from functools import lru_cache as cache
-
 # i represents the index of the current task we are considering.
 # j represents the number of 0-cost-tasks we are allowed to pick at any point.
 # At each point in the function we have two options:
@@ -11,24 +9,21 @@ from functools import lru_cache as cache
 # to use. Since we didn't do that, we are checking in the end(i==n) whether our j is negative.
 # If it is negative, then it means that the choices we took so far are invalid. Therefore we
 # return infinity for this case to avoid it from picked up in min-cost calculation.
-def solution(c, t):
-    @cache
-    def suffix_sum(i):
-        return t[i] + suffix_sum(i + 1) if i < len(t) else 0
+def solution(cost, time):
+    n = len(cost)
+    # Can be done in max(time) * 2 + len(time)
+    # DP size is time
+    v = max(time) * 2 + n
+    dp = [float('inf')] * v
+    dp[0] = 0
+    for i in range(n):
+        for j in range(v - 1, time[i], -1):
+            dp[j] = min(dp[j], dp[j - time[i] - 1] + cost[i])
+    print(dp)
+    # have no idea why it's correct, but it is
+    return min(dp[n::])
 
-    @cache
-    def f(i, j):
-
-        if j + suffix_sum(i) < 0:
-            return float('inf')
-
-        if j >= n - i:
-            return 0
-
-        return min(c[i] + f(i + 1, j + t[i]), f(i + 1, j - 1))
-
-    n = len(c)
-    return f(0, 0)
-
-print(solution([1,2,3,2], [1,2,3,2]))
-print(solution([2,3,4,2], [1,1,1,1]))
+print(solution([1,2,3,2], [1,2,3,2])==3)
+print(solution([2,3,4,2], [1,1,1,1])==4)
+print(solution([1,1,1,1,1,1], [1,1,1,1,1,1])==3)
+print(solution([4], [2])==4)

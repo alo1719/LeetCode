@@ -13,10 +13,13 @@ for i in range(1, n+1):
             # 在选和不选的情况中选出最大值
             dp[i][j] = max(dp[i][j], dp[i-1][j-goods[i-1][0]] + goods[i-1][1])
 
-# 一维数组优化
+print(dp[-1][-1])
+
+# 一维数组优化，复用第 i 件物品
+# 数组下标依然表示容量
 for i in range(n):
-    for j in range(v, -1, -1):
+    for j in range(v, -1, -1): # 需要从后往前遍历
         if j >= goods[i][0]:
             dp[j] = max(dp[j], dp[j-goods[i][0]] + goods[i][1])
 
-print(dp[-1][-1])
+print(dp[-1])

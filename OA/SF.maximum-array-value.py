@@ -7,10 +7,10 @@ def max_array_val(nums):
     
     low = nums[0]
     high = max(nums)
-    while (low < high):
+    while low < high:
         mid = (low + high) // 2
         if can_achieve(nums, mid):
-            high = mid - 1
+            high = mid
         else:
             low = mid + 1
     return low
