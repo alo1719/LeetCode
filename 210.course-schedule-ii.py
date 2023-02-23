@@ -71,44 +71,28 @@
 #
 
 # @lc code=start
+from collections import defaultdict, deque
 from typing import List
 
-# TC: O(n^2) if each course only has limited prerequisites
-# SC: O(n)
+# Karat OA, Snowflake VOE
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        # 1. Build graph
-        g = [[] for _ in range(numCourses)]
-        for course, pre in prerequisites:
-            g[course].append(pre)
-        # print(g)
-        v = [False] * numCourses
-        r = []
 
-        # 2. DFS
-        def dfs(c):
-            if v[c]:
-                return
-            v[c] = True
-            r.append(c)
-            for course in range(numCourses):
-                if v[course]: continue
-                course_ok = True
-                for pre in g[course]:
-                    if not v[pre]:
-                        course_ok = False
-                        break
-                if course_ok:
-                    dfs(course)
-        
-        for c in range(numCourses):
-            if not g[c]:
-                dfs(c)
-        
-        for vv in v:
-            if not vv:
-                return []
-        return r
+        edges = defaultdict(list)
+        node_in_num = [0] * numCourses
+        ans = []
+        for pre in prerequisites:
+            edges[pre[1]].append(pre[0])
+            node_in_num[pre[0]] += 1
+        dq = deque([i for i in range(numCourses) if node_in_num[i] == 0])
+        while dq:
+            node_popped = dq.popleft()
+            ans.append(node_popped)
+            for to_node in edges[node_popped]:
+                node_in_num[to_node] -= 1
+                if node_in_num[to_node] == 0:
+                    dq.append(to_node)
+        return ans if len(ans) == numCourses else []
 
 
 

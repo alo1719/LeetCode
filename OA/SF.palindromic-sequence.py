@@ -1,37 +1,25 @@
+# "attract" palindromic subsequences: [a,t,r,c,aa,tt,ata,ara,ttt,trt,tat,tct,atta]
+# 2 non-overlapping palindromic with maximum product is |atta| * |c| (or |t|) = 4
+# notice that r cannot be chosen because it's before a
 def maxScore(s):
-    # double dp approach
-    # O(n^2) Soluiton considering len(s)<=3000
-    # lets find out first the length of palindromic subsequence for each valid subarray
-    n = len(s)
-    dp = [[0] * n for _ in range(n)]
-    mx_left = [1] * n
-    mx_right = [1] * n
-    for size in range(1, n+1):
-        for l in range(n):
-            r = l + size - 1 # [l, r]
-            if r < n:
-                if size == 1:
-                    dp[l][l] = 1
-                elif size == 2:
-                    if s[l] == s[r]:
-                        dp[l][r] = 2
-                    else:
-                        dp[l][r] = 1
-                else:
-                    if s[l] == s[r]:
-                        dp[l][r] = 2 + dp[l+1][r-1]
-                    else:
-                        dp[l][r] = max(dp[l][r], dp[l][r-1], dp[l+1][r])
-
-                # capture max len of subsequence in left and right so far for l and r
-                # kind of double dp...
-                mx_left[r] = max(mx_left[r], dp[l][r])
-                mx_right[l] = max(mx_right[l], dp[l][r])
-    ans = 0
+    ans, n = 0, len(s)
+    dp = [[0 for _ in range(n)] for _ in range(n)] # means s[i] to s[j] palindrome potential length
+    max_left = [1] * n
+    max_right = [1] * n
+    for i in range(n - 1, -1, -1):
+        dp[i][i] = 1
+        for j in range(i + 1, n):
+            if j == i+1 and s[i] == s[j]:
+                dp[i][j] = 2
+            elif dp[i+1][j-1] and s[i] == s[j]:
+                dp[i][j] = 2+dp[i+1][j-1]
+            else:
+                dp[i][j] = max(dp[i][j], dp[i+1][j], dp[i][j-1])
+            max_left[j] = max(max_left[j], dp[i][j])
+            max_right[i] = max(max_right[i], dp[i][j])
     for i in range(n-1):
-        # consider i has the right end of first subarray
-        ans = max(ans, mx_left[i] * mx_right[i+1])
+        ans = max(ans, max_left[i] * max_right[i+1])
     return ans
 
-print(maxScore("attract"))
-print(maxScore("acdapmpomp"))
+print(maxScore("attract")) # atta c
+print(maxScore("acdapmpomp")) # ada pmpmp

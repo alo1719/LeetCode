@@ -56,6 +56,7 @@
 # @lc code=start
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        # Sliding window
         char_set = set()
         # right = -1 means take nothing, result is [left, right]
         right, ans = -1, 0

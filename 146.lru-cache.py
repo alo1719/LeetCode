@@ -69,6 +69,11 @@
 # @lc code=start
 # K,V -> dict
 # O(1) -> Doubly linked list
+# Snowflake VOE
+# LFU -> Another dict to store frequency
+# freq dict: (freq, node), every freq has a doubly linked list, each node stores
+# key, value and freq
+# key dict: (key, mem address of the node)
 class Node:
     def __init__(self, k = 0, v = 0):
         self.key = k
@@ -83,7 +88,7 @@ class LRUCache:
         self.tail = Node()
         self.head.next = self.tail
         self.tail.prev = self.head
-        self.cache = {} # cache stores Node
+        self.cache = {} # value : Node
         self.capacity = capacity
         self.size = 0
 

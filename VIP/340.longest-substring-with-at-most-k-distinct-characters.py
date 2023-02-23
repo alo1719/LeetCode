@@ -45,7 +45,7 @@
 # @lc code=start
 from collections import defaultdict
 
-
+# Sliding window
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
         left, right, ans, n = 0, -1, 0, len(s)

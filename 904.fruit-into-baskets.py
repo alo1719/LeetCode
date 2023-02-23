@@ -79,7 +79,7 @@ class Solution:
         # Sliding window
         left, right, n, ans = 0, -1, len(fruits), 0
         basket_dict = defaultdict(int)
-        for left in range(n): # [left, right]  
+        for left in range(n): # [left, right]
             if left >= 1:
                 basket_dict[fruits[left - 1]] -= 1
                 if basket_dict[fruits[left - 1]] == 0:
