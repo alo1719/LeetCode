@@ -63,6 +63,10 @@ class ListNode:
 class Solution:
 
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        # if need O(1) SC
+        # 1. fast and slow node to find center
+        # 2. reverse the latter half
+        # 3. compare
         a = []
         while head:
             a.append(head.val)

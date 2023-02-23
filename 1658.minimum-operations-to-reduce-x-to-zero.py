@@ -59,22 +59,19 @@
 #
 
 # @lc code=start
+# Apple VOE
 class Solution:
-    # sliding window
     def minOperations(self, nums: List[int], x: int) -> int:
+        # Sliding window
         sum_nums = sum(nums)
-        goal = sum_nums - x
-        n = len(nums)
-        now = 0
-        ans = -1
-        left = 0
-        for right in range(n):
-            now += nums[right]
-            while (now > goal and left < n):
-                now -= nums[left]
-                left += 1
-            if now == goal:
-                ans = max(ans, right - left + 1)
+        goal, n, ans, right, current_sum = sum_nums - x, len(nums), -1, -1, 0
+        for left in range(n):
+            if left >= 1: current_sum -= nums[left-1]
+            while right+1 <= n-1 and current_sum+nums[right+1] <= goal:
+                right += 1
+                current_sum += nums[right]
+            if current_sum == goal:
+                ans = max(ans, right-left+1)
         return n - ans if ans != -1 else -1
     
 class Solution:

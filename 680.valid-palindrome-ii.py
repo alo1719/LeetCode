@@ -57,10 +57,10 @@ class Solution:
             return True
         for i in range(len(s)//2):
             if s[i] != s[-i-1]:
-                dl = s[i+1:-i] if i > 0 else s[i+1:]
-                dr = s[i:-i-1]
-                print(dl, dr)
-                return dl == dl[::-1] or dr == dr[::-1]
+                # Manual judge if want O(1) SC
+                delete_left_res = s[i+1:-i] if i > 0 else s[i+1:]
+                delete_right_res = s[i:-i-1]
+                return delete_left_res == delete_left_res[::-1] or delete_right_res == delete_right_res[::-1]
 
 print(Solution.validPalindrome(None, "aba"))
 print(Solution.validPalindrome(None, "abccb"))

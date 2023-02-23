@@ -42,17 +42,21 @@
 #
 
 # @lc code=start
+# Palindrome DP
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        # Can also use center expansion, TC O(n^2), SC O(1)
+        # Can use Rabin-Karp and binary search to optimize center expansion, TC O(nlogn), SC O(n)
+        # The ultimate answer is Manacher, TC O(n), SC O(n)
         ans, max, n = s[0], 1, len(s)
-        dp = [[False for _ in range(n)] for _ in range(n)]
+        dp = [[False for _ in range(n)] for _ in range(n)] # means s[i] to s[j] whether is palindrome
         for i in range(n - 1, -1, -1):
             dp[i][i] = True
             for j in range(i + 1, n):
-                if (dp[i][j-1] and s[j] == s[i] and (i+1 > j-1 or dp[i+1][j-1])) or (dp[i+1][j-1] and s[j] == s[i]):
+                if (j == i+1 and s[i] == s[j]) or (dp[i+1][j-1] and s[i] == s[j]):
                     dp[i][j] = True
-                    if j - i + 1 > max:
-                        max = j - i + 1
+                    if j-i+1 > max:
+                        max = j-i+1
                         ans = s[i:j+1]
         return ans
 # @lc code=end

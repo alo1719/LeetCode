@@ -48,20 +48,24 @@
 # @lc code=start
 class Solution:
     def trap(self, height: List[int]) -> int:
-        n = len(height)
-        stk = []
-        ans = 0
+        n, stack, ans = len(height), [], 0 # stack stores position accroding to its value monotonically
         for i in range(n):
             now_height = height[i]
-            if not stk or height[stk[-1]] >= now_height:
-                stk.append(i)
-            if stk and now_height > height[stk[-1]]:
-                while stk and height[stk[-1]] <= now_height:
-                    now = stk.pop()
-                    if not stk: break
-                    left = stk[-1]
-                    ans += (min(height[left], now_height) - height[now]) * (i - left - 1)
-                stk.append(i)
+            if not stack or now_height <= height[stack[-1]]:
+                stack.append(i)
+            if stack and now_height >= height[stack[-1]]: # not monotonically decreasing, pop
+                while stack and now_height >= height[stack[-1]]:
+                    popped_pos = stack.pop()
+                    if not stack: break
+                    # the usage of monotonic stack
+                    # but for this question it's not the closest bigger pos for **current node**,
+                    # but for the **popped** node because trapped water needs to be accumulated
+                    # step by step.
+                    closest_bigger_pos = stack[-1] 
+                    trapped_height = min(height[closest_bigger_pos], now_height) - height[popped_pos]
+                    trapped_length = i - closest_bigger_pos - 1
+                    ans += trapped_height * trapped_length
+                stack.append(i)
         return ans
 # @lc code=end
 

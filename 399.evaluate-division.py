@@ -76,46 +76,99 @@
 #
 
 # @lc code=start
+# Snowflake VOE
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        m={}
-        l=[]
-        r={}
-        for i in range(0,len(equations)):
-            fst=equations[i][0]
-            sec=equations[i][1]
-            if fst not in m:
-                m[fst]={}
-                r[fst]={}
-                l.append(fst)
-            if sec not in m:
-                m[sec]={}
-                r[sec]={}
-                l.append(sec)
-            m[fst][sec]=values[i]
-            m[sec][fst]=1/values[i]
-            r[fst][sec]=[fst,sec]
-            r[sec][fst]=[sec,fst]
-        print(m)
-        print(l)
-        for k in l:
-            for i in l:
-                for j in l:
-                    if j not in m[i] and (k in m[i] and j in m[k]):
-                        m[i][j]=m[i][k]*m[k][j]
-                        r[i][j]=r[i][k]+r[k][j]
-        print(m)
-        ans=[]
-        ans2=[]
-        for q in queries:
-            fst=q[0]
-            sec=q[1]
-            if fst in m and sec in m and sec in m[fst]:
-                ans.append(m[fst][sec])
-                ans2.append(r[fst][sec])
+        # 1. queries much, floyd
+        # graph = defaultdict(lambda: defaultdict(lambda: 0))
+        # for i, e in enumerate(equations):
+        #     fst, sec = e[0], e[1]
+        #     graph[fst][sec] = values[i]
+        #     graph[sec][fst] = 1/values[i]
+        # # floyd
+        # nodes = graph.keys()
+        # print(nodes)
+        # for k in nodes:
+        #     for i in nodes:
+        #         for j in nodes:
+        #             graph[i][j] = max(graph[i][j], graph[i][k]*graph[k][j])
+        # print(graph)
+        # ans = []
+        # for q in queries:
+        #     fst, sec = q[0], q[1]
+        #     ans.append(graph[fst][sec] if graph[fst][sec] != 0 else -1)
+        # return ans
+        # 2. queris less, bfs/dijkstra (bfs is easier to impl)
+        # graph = defaultdict(lambda: defaultdict(lambda: 0))
+        # for i, e in enumerate(equations):
+        #     fst, sec = e[0], e[1]
+        #     graph[fst][sec] = values[i]
+        #     graph[sec][fst] = 1/values[i]
+        # ans = []
+        # for q in queries:
+        #     fr, to = q[0], q[1]
+        #     dq = deque()
+        #     if fr in graph.keys():
+        #         dq.append((fr, 1))
+        #     visited = set()
+        #     ans_one_time = -1
+        #     while dq:
+        #         element = dq.popleft()
+        #         if element[0] == to: ans_one_time = max(ans_one_time, element[1])
+        #         visited.add(element[0])
+        #         for node_to in graph[element[0]]:
+        #             if not node_to in visited:
+        #                 dq.append((node_to, element[1]*graph[element[0]][node_to]))
+        #     ans.append(ans_one_time)
+        # return ans
+        # 3. weighted union find set, optimal but tricky to impl
+        wufs = WUFS()
+        for (a, b), v in zip(equations, values):
+            wufs.add(a)
+            wufs.add(b)
+            wufs.merge(a, b, v)
+        ans = []
+        print(wufs.root)
+        print(wufs.weight)
+        for (a, b) in queries:
+            if a in wufs.root and b in wufs.root and wufs.find(a) == wufs.find(b):
+                ans.append(wufs.weight[a] / wufs.weight[b])
             else:
                 ans.append(-1)
-                ans2.append("Not Possible")
-        print(ans2)
         return ans
+
+class WUFS:
+    def __init__(self):
+        self.root = defaultdict(int)
+        self.weight = defaultdict(int)
+    
+    def find(self, x):
+        if self.root[x] == x: return x
+        original_root = self.root[x]
+        self.root[x] = self.find(self.root[x]) # path compression
+        self.weight[x] *= self.weight[original_root]
+        return self.root[x]
+    
+    def merge(self, a, b, v):
+        root_a, root_b = self.find(a), self.find(b)
+        self.root[root_a] = root_b
+        self.weight[root_a] = v / self.weight[a] * self.weight[b]
+
+    def add(self, x):
+        if x not in self.root:
+            self.root[x] = x
+            self.weight[x] = 1
+
+class UFS:
+    def __init__(self, n):
+        self.root = [i for i in range(n)]
+    
+    def find(self, x):
+        if self.root[x] == x: return x
+        self.root[x] = self.find(self.root[x]) # path compression
+        return self.root[x]
+    
+    def merge(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        self.root[root_a] = root_b
 # @lc code=end
