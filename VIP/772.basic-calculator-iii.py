@@ -59,6 +59,7 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(n)
 class Solution:
     def calculate(self, s: str) -> int:
         num_stk = []
@@ -67,25 +68,20 @@ class Solution:
         i = 0
         priority = {"(":0, "+":1, "-":1, "*":2, "/":2}
         while i < n:
-            # print(num_stk)
-            # print(opt_stk)
-            if s[i] == " ":
-                i += 1
-                continue
             if "0" <= s[i] <= "9":
                 j = i
-                while i + 1 < n and "0" <= s[i + 1] <= "9":
+                while i+1 < n and "0" <= s[i+1] <= "9":
                     i += 1
-                num_stk.append(int(s[j:i + 1]))
+                num_stk.append(int(s[j:i+1]))
             elif s[i] == "(":
                 opt_stk.append("(")
             elif s[i] == ")":
                 while opt_stk[-1] != "(":
                     self.calc(num_stk, opt_stk)
                 opt_stk.pop()
-            else:
+            else: # + - * /
                 while opt_stk and priority[opt_stk[-1]] >= priority[s[i]]:
-                    self.calc(num_stk, opt_stk)
+                    self.calc(num_stk, opt_stk) # respect to priority
                 opt_stk.append(s[i])
             i += 1
 
@@ -109,6 +105,6 @@ class Solution:
         if opt == "*":
             return A * B
         if opt == "/":
-            return int(A / B)
+            return int(A / B) # truncate toward zero
 # @lc code=end
 

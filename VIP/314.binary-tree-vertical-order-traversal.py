@@ -54,6 +54,7 @@
 # @lc code=start
 # Definition for a binary tree node.
 from typing import List, Optional
+from collections import defaultdict, deque
 
 
 class TreeNode:
@@ -63,21 +64,20 @@ class TreeNode:
         self.right = right
 
 
+# TC: O(n)  SC: O(n)
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-        ans = {}
-        q = [(root, 0)]
+        if not root: return []
+        ans = defaultdict(list)
+        q = deque([(root, 0)])
         while q:
-            node, pos = q.pop(0)
-            ans.setdefault(pos, []).append(node.val)
+            node, pos = q.popleft()
+            ans[pos].append(node.val)
             if node.left:
                 q.append((node.left, pos-1))
             if node.right:
                 q.append((node.right, pos+1))
-        print([ans[i] for i in sorted(ans.keys())])
-        return [ans[i] for i in sorted(ans.keys())]
+        return [ans[pos] for pos in sorted(ans.keys())]
 
 
 root = TreeNode(3)
@@ -85,5 +85,5 @@ root.left = TreeNode(9)
 root.right = TreeNode(20)
 root.right.left = TreeNode(15)
 root.right.right = TreeNode(7)
-Solution().verticalOrder(root)
+print(Solution().verticalOrder(root))
 # @lc code=end

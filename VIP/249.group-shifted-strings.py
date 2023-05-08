@@ -51,19 +51,19 @@
 
 # @lc code=start
 from typing import List
+from collections import defaultdict
 
 
+# TC: O(nl)  SC: O(n)
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
-        dist_dict = {}
-        for s in strings:
-            dist = tuple([(26 + ord(c) - ord(s[0])) % 26 for c in s])
-            dist_dict.setdefault(dist, []).append(s)
-        # print(dist_dict)
-        # print(list(dist_dict.values()))
-        return list(dist_dict.values())
+        dict = defaultdict(list)
+        for string in strings:
+            offsets = str([(ord(ch)-ord(string[0])+26) % 26 for ch in string])
+            dict[offsets].append(string)
+        return list(dict.values())
 
 
-Solution().groupStrings(["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"])
-Solution().groupStrings(["a"])
+print(Solution().groupStrings(["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"]))
+print(Solution().groupStrings(["a"]))
 # @lc code=end

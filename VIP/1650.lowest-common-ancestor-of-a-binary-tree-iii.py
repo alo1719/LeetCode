@@ -78,17 +78,15 @@ class Node:
         self.right = None
         self.parent = None
 
+# TC: O(n)  SC: O(1), n is the depth of the tree
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         left = p
         right = q
-        # Classic two pointer problem
+        # two pointer problem
         while left != right:
-            left = left.parent if left.parent else q
-            print('left:', left.val)
+            left = left.parent if left.parent else q # if hit root, go to the other node
             right = right.parent if right.parent else p
-            print('right:', right.val)
-        print('ans:', left.val)
         return left
 
 p = Node(5)

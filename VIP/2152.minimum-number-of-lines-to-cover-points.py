@@ -57,12 +57,13 @@
 #
 
 # @lc code=start
+# TC: O((2^n)^2)  SC: O(2^n)
 class Solution:
     def minimumLines(self, points: List[List[int]]) -> int:
         def calcCrossProduct(A, B, C):
             AB = [B[0] - A[0], B[1] - A[1]]
             AC = [C[0] - A[0], C[1] - A[1]]
-            return AB[0] * AC[1] - AB[1] * AC[0]
+            return AB[0] * AC[1] - AB[1] * AC[0] # ad - bc
         
         def isOneLine(points):
             if len(points) <= 2:
@@ -71,9 +72,9 @@ class Solution:
             return all(calcCrossProduct(p1, p2, p3) == 0 for p3 in restP)
         
         n = len(points)
-        dp = [n] * (2 ** n)
+        dp = [n] * (1 >> n)
         
-        for state in range(2 ** n):
+        for state in range(1 >> n):
             if isOneLine([points[i] for i in range(n) if ((state >> i) & 1)]):
                 dp[state] = 1
                 continue

@@ -50,20 +50,19 @@
 #
 
 # @lc code=start
+# TC : O(n)  SC: O(n)
 class Solution:
-    def get_modified_array(self, length: int, updates: List[List[int]]) -> List[int]:
-        cumulative = [0] * length
-        array = [0] * length
+    def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
+        diff = [0] * length
+        ans = [0] * length
         for update in updates:
-            start = update[0]
-            end = update[1]
-            addition = update[2]
-            cumulative[start] += addition
-            if end + 1 <= length - 1:
-                cumulative[end + 1] -= addition
+            start, end, increment = update
+            diff[start] += increment
+            if end+1 <= length-1:
+                diff[end+1] -= increment
         sum = 0
         for i in range(length):
-            sum += cumulative[i]
-            array[i] = sum
-        return array
+            sum += diff[i]
+            ans[i] = sum
+        return ans
 # @lc code=end

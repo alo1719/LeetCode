@@ -69,22 +69,21 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(k) where k is the number of non-zero elements in the vector
 class SparseVector:
 
     def __init__(self, nums: List[int]):
-        self.nd = {}
+        self.vec = {}
         for i, v in enumerate(nums):
             if v:
-                self.nd[i] = v
-        print(self.nd)
+                self.vec[i] = v
 
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
         ans = 0
-        for i, v in self.nd.items():
-            if i in vec.nd:
-                ans += v * vec.nd[i]
+        for i, v in self.vec.items():
+            if i in vec.vec:
+                ans += v * vec.vec[i]
         return ans
 
 # Your SparseVector object will be instantiated and called as such:
