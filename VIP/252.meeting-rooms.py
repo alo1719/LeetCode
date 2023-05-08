@@ -36,18 +36,19 @@
 #
 
 # @lc code=start
+from typing import List
+
+
+# TC: O(nlogn)  SC: O(1)
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
-        sorted_intervals = sorted(intervals, key=lambda x:x[0])
         if not intervals: return True
-        n, last = len(intervals), sorted_intervals[0][1]
+        intervals.sort(key=lambda x:x[0])
+        n, last = len(intervals), intervals[0][1]
         for i in range(1, n):
-            print(sorted_intervals[i][1])
-            print(last)
-            if sorted_intervals[i][0] < last:
+            if intervals[i][0] < last:
                 return False
-            else:
-                last = sorted_intervals[i][1]
+            last = intervals[i][1]
         return True
 # @lc code=end
 

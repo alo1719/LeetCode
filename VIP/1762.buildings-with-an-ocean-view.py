@@ -62,13 +62,14 @@
 # @lc code=start
 from typing import List
 
+# TC: O(n)  SC: O(n)
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        max = 0
-        result = []
-        for i in range(len(heights) - 1, -1, -1):
-            if heights[i] > max:
-                result.append(i)
-                max = heights[i]
-        return result[::-1]
+        maxx = 0
+        ans = []
+        for i in range(len(heights)-1, -1, -1):
+            if heights[i] > maxx:
+                ans.append(i)
+                maxx = heights[i]
+        return ans[::-1]
 # @lc code=end

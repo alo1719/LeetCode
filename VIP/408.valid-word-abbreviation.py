@@ -74,6 +74,7 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(1)
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
         i = 0

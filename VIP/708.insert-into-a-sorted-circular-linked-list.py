@@ -80,6 +80,7 @@ class Node:
         self.next = next
 
 
+# TC: O(n)  SC: O(1)
 class Solution:
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
         if not head:
@@ -87,18 +88,18 @@ class Solution:
             head.next = head
             return head
         prev, curr = head, head.next
-        toInsert = False
+        need_insert = False
         while True:
             if prev.val <= insertVal <= curr.val:
-                toInsert = True
-            elif prev.val > curr.val:
+                need_insert = True
+            elif prev.val > curr.val: # curr is head of the linked list
                 if insertVal >= prev.val or insertVal <= curr.val:
-                    toInsert = True
-            if toInsert:
+                    need_insert = True
+            if need_insert:
                 prev.next = Node(insertVal, curr)
                 return head
             prev, curr = curr, curr.next
-            if prev == head:
+            if prev == head: # back to the start
                 break
         prev.next = Node(insertVal, curr)
         return head

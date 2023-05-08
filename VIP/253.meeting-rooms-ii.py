@@ -35,22 +35,24 @@
 #
 
 # @lc code=start
+from typing import List
 from queue import PriorityQueue
 
+
+# TC: O(nlogn)  SC: O(n)
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         n = len(intervals)
         intervals.sort(key=lambda x:x[0])
         rooms = PriorityQueue()
-        rooms.put(intervals[0][-1])
+        rooms.put(intervals[0][1])
         for i in range(1, n):
             interval = intervals[i]
-            room = rooms.get()
-            if interval[0] >= room:
-                rooms.put(interval[-1])
+            if interval[0] >= rooms.queue[0]:
+                rooms.get()
+                rooms.put(interval[1])
             else:
-                rooms.put(interval[-1])
-                rooms.put(room)
+                rooms.put(interval[1])
         return rooms.qsize()
 # @lc code=end
 

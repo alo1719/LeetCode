@@ -12,7 +12,7 @@
 # Total Accepted:    6.3K
 # Total Submissions: 9.2K
 # Testcase Example:  '["HitCounter","hit","hit","hit","getHits","hit","getHits","getHits"]\n' +
-  '[[],[1],[2],[3],[4],[300],[300],[301]]'
+# '[[],[1],[2],[3],[4],[300],[300],[301]]'
 #
 # Design a hit counter which counts the number of hits received in the past 5
 # minutes (i.e., the past 300 seconds).
@@ -70,24 +70,24 @@
 #
 
 # @lc code=start
+from collections import deque
+
+# TC: O(1) for hit, O(n) for getHits  SC: O(n)
 class HitCounter:
 
     def __init__(self):
-        self.queue = collections.deque()
+        self.q = deque()
 
     def hit(self, timestamp: int) -> None:
-        self.queue.append(timestamp)
+        self.q.append(timestamp)
 
     def getHits(self, timestamp: int) -> int:
         self.clean(timestamp - 300)
-        return len(self.queue)
+        return len(self.q)
     
-    # deque does not support pop multipe elements, but if we impl our own deque,
-    # we can find the first element that is larger than timestamp - 300 using binary search,
-    # and then pop all elements before that element. Thus O(logn) time complexity.
     def clean(self, time):
-        while self.queue and self.queue[0] <= time:
-            self.queue.popleft()
+        while self.q and self.q[0] <= time:
+            self.q.popleft()
 
 # Your HitCounter object will be instantiated and called as such:
 # obj = HitCounter()

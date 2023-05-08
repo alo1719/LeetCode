@@ -55,18 +55,26 @@
 #
 
 # @lc code=start
+from collections import deque
+
+
+# TC: O(1)  SC: O(n)
 class MovingAverage:
 
     def __init__(self, size: int):
         self.size = size
-        self.q = []
+        self.dq = deque()
+        self.sum = 0
+        self.len = 0
 
     def next(self, val: int) -> float:
-        self.q.append(val)
-        if len(self.q) > self.size:
-            self.q.pop(0)
-        # print(sum(self.q) / len(self.q))
-        return sum(self.q) / len(self.q)
+        self.dq.append(val)
+        self.sum += val
+        self.len += 1
+        if self.len > self.size:
+            self.sum -= self.dq.popleft()
+            self.len -= 1
+        return self.sum / self.len
 
 
 movingAverage = MovingAverage(3);

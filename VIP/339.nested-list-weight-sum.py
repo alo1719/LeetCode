@@ -102,14 +102,14 @@ class NestedInteger:
         :rtype List[NestedInteger]
         """
 
-
+# TC: O(N)  SC: O(N), N is the total number of elements in the input list.
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
-        def helper(nestedList, depth):
-            res = 0
+        def dfs(nestedList, depth):
+            ans = 0
             for item in nestedList:
-                res += item.getInteger() * depth if item.isInteger() else helper(item.getList(), depth + 1)
-            return res
+                ans += item.getInteger() * depth if item.isInteger() else dfs(item.getList(), depth+1)
+            return ans
 
-        return helper(nestedList, 1)
+        return dfs(nestedList, 1)
 # @lc code=end

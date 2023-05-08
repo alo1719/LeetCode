@@ -12,7 +12,7 @@
 # Total Accepted:    4K
 # Total Submissions: 6.3K
 # Testcase Example:  '["Leaderboard","addScore","addScore","addScore","addScore","addScore","top","reset","reset","addScore","top"]\n' +
-  '[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]'
+# '[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]'
 #
 # Design a Leaderboard class, which has 3 functions:
 # 
@@ -68,24 +68,28 @@
 #
 
 # @lc code=start
+from collections import defaultdict
+from sortedcontainers import SortedList
+
+# TC: O(logn) for addScore, O(k) for top, O(logn) for reset  SC: O(n)
 class Leaderboard:
 
     def __init__(self):
-        self.d = {}
+        self.dict = defaultdict(int)
+        self.sl = SortedList()
 
     def addScore(self, playerId: int, score: int) -> None:
-        if playerId in self.d:
-            self.d[playerId] += score
-        else:
-            self.d[playerId] = score
+        if playerId in self.dict:
+            self.sl.remove(self.dict[playerId])
+        self.dict[playerId] += score
+        self.sl.add(self.dict[playerId])
 
     def top(self, K: int) -> int:
-        return sum(sorted(self.d.values(), reverse=True)[:K])
-
+        return sum(self.sl[-K:])
 
     def reset(self, playerId: int) -> None:
-        self.d[playerId] = 0
-
+        self.sl.remove(self.dict[playerId])
+        del self.dict[playerId]
 
 
 # Your Leaderboard object will be instantiated and called as such:
