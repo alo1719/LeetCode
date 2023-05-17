@@ -1,59 +1,53 @@
+# TC: O(number of all possible moves)
+# SC: O(n * longest move)
 def validMoves(start, end):
-    def helper(now, target):
-        nonlocal global_ok
-        ok = True
-        for i in range(len(now)):
-            if now[i] != target[i]:
-                ok = False
-                break
-        if ok:
-            global_ok = True
-            return
-        for i in range(len(now)):
-            if now[i] == '_':
-                continue
+    def dfs(now):
+        nonlocal n
+        if str(now) == str(end):
+            return True
+        for i in range(n):
             if now[i] == 'R':
-                if i+1 < n and now[i+1] == '_' and not global_ok:
-                    now[i+1], now[i] = 'R',"_"
-                    if str(now) not in v:
-                        v.append(str(now))
-                        helper(now, target)
-                    now[i+1], now[i] = '_',"R"
-                    if global_ok: rst.append(now.copy())
-                if i+2 < n and now[i+2] == '_' and now[i+1] == 'B' and not global_ok:
-                    now[i+2], now[i] = 'R',"_"
-                    if str(now) not in v:
-                        v.append(str(now))
-                        helper(now, target)
-                    now[i+2], now[i] = '_',"R"
-                    if global_ok: rst.append(now.copy())
+                if i+1 < n and now[i+1] == '_':
+                    now[i], now[i+1] = '_', 'R'
+                    ans.append(now.copy())
+                    if str(now) not in vis:
+                        vis.add(str(now))
+                        if dfs(now): return True
+                    now[i], now[i+1] = 'R', '_'
+                    ans.pop()
+                if i+2 < n and now[i+2] == '_' and now[i+1] != 'R':
+                    now[i], now[i+2] = '_', 'R'
+                    ans.append(now.copy())
+                    if str(now) not in vis:
+                        vis.add(str(now))
+                        if dfs(now): return True
+                    now[i], now[i+2] = 'R', '_'
+                    ans.pop()
             if now[i] == 'B':
-                if i-1 >= 0 and now[i-1] == '_' and not global_ok:
-                    now[i-1], now[i] = 'B',"_"
-                    if str(now) not in v:
-                        v.append(str(now))
-                        helper(now, target)
-                    now[i-1], now[i] = '_',"B"
-                    if global_ok: rst.append(now.copy())
-                if i-2 >= 0 and now[i-2] == '_' and now[i-1] == 'R' and not global_ok:
-                    now[i-2], now[i] = 'B',"_"
-                    if str(now) not in v:
-                        v.append(str(now))
-                        helper(now, target)
-                    now[i-2], now[i] = '_',"B"
-                    if global_ok: rst.append(now.copy())
-    v = []
-    n = len(start)
-    rst = []
-    global_ok = False
-    helper(start, end)
-    if not rst:
+                if i-1 >= 0 and now[i-1] == '_':
+                    now[i-1], now[i] = 'B', '_'
+                    ans.append(now.copy())
+                    if str(now) not in vis:
+                        vis.add(str(now))
+                        if dfs(now): return True
+                    now[i-1], now[i] = '_', 'B'
+                    ans.pop()
+                if i-2 >= 0 and now[i-2] == '_' and now[i-1] != 'B':
+                    now[i-2], now[i] = 'B', '_'
+                    ans.append(now.copy())
+                    if str(now) not in vis:
+                        vis.add(str(now))
+                        if dfs(now): return True
+                    now[i-2], now[i] = '_', 'B'
+                    ans.pop()
+
+    vis, n = set(), len(start)
+    ans = [start.copy()]
+    if not dfs(start):
         print(None)
     else:
-        rst.reverse()
-        rst.append(end)
-        print(rst)
+        print(ans)
 
-start_1 = ["R", "_", "B", "B"]
-end_1 = ["B", "_", "B", "R"]
-validMoves(start_1, end_1)
+start = ["R", "_", "B", "B"]
+end = ["B", "_", "B", "R"]
+validMoves(start, end)

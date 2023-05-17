@@ -1,19 +1,19 @@
-def validateSudoku(grid1):
-    n = len(grid1[0])
+# TC: O(n^2)
+# SC: O(n)
+def validateSudoku(grid):
+    n = len(grid)
     for i in range(n):
-        temp = []
+        tmp = [False] * n
         for j in range(n):
-            temp.append(grid1[i][j])
-        for k in range(1, n+1):
-            if k not in temp:
+            if grid[i][j] < 1 or grid[i][j] > n or tmp[grid[i][j]-1]:
                 return False
+            tmp[grid[i][j]-1] = True
     for j in range(n):
-        temp = []
+        tmp = [False] * n
         for i in range(n):
-            temp.append(grid1[i][j])
-        for k in range(1, n+1):
-            if k not in temp:
+            if grid[i][j] < 1 or grid[i][j] > n or tmp[grid[i][j]-1]:
                 return False
+            tmp[grid[i][j]-1] = True
     return True
 
 print(validateSudoku([[1,2,3],[2,3,1],[3,1,2]]))

@@ -1,49 +1,39 @@
-# SC: O(max(n,m))
 # TC: O(n*m)
-def validateNonogram(matrix, rows, columns):
-    n = len(rows)
-    m = len(columns)
-    for i in range(n):
-        acc = 0
-        temp = []
-        for j in range(m):
+# SC: O(max(n,m))
+def validateMonogram(matrix, rows, columns):
+    m, n = len(rows), len(columns)
+    for i in range(m):
+        tmp, acc = [], 0
+        for j in range(n):
             if matrix[i][j] == 'W':
-                if acc == 0:
-                    continue
+                if acc == 0: continue
                 else:
-                    temp.append(acc)
+                    tmp.append(acc)
                     acc = 0
-            if matrix[i][j] == 'B':
-                acc += 1
-        if acc != 0: temp.append(acc)
-        if len(rows[i]) != len(temp): return False
-        for k in range(len(temp)):
-            if rows[i][k] != temp[k]: return False
-    for j in range(m):
-        acc = 0
-        temp = []
-        for i in range(n):
+            else: acc += 1
+        if acc != 0: tmp.append(acc)
+        if str(rows[i]) != str(tmp): return False
+    for j in range(n):
+        tmp, acc = [], 0
+        for i in range(m):
             if matrix[i][j] == 'W':
-                if acc == 0:
-                    continue
+                if acc == 0: continue
                 else:
-                    temp.append(acc)
+                    tmp.append(acc)
                     acc = 0
-            if matrix[i][j] == 'B':
-                acc += 1
-        if acc != 0: temp.append(acc)
-        if len(columns[j]) != len(temp): return False
-        for k in range(len(temp)):
-            if columns[j][k] != temp[k]: return False
+            else: acc += 1
+        if acc != 0: tmp.append(acc)
+        if str(columns[j]) != str(tmp): return False
     return True
 
-matrix1 = [
-	['W','W','W','W'],
-	['B','W','W','W'],
-	['B','W','B','B'],
-	['W','W','B','W'],
-	['B','B','W','W']
+# count B in a row or column
+matrix = [
+['W','W','W','W'],
+['B','W','W','W'],
+['B','W','B','B'],
+['W','W','B','W'],
+['B','B','W','W']
 ]
-rows1_1 = [[],[1],[1,2],[1],[2]]
-columns1_1 = [[2,1],[1],[2],[1]]
-print(validateNonogram(matrix1, rows1_1, columns1_1))
+rows = [[],[1],[1,2],[1],[2]]
+columns = [[2,1],[1],[2],[1]]
+print(validateMonogram(matrix, rows, columns))
