@@ -12,9 +12,9 @@ def lcs(s1, s2):
                     max = dp[i+1][j+1]
                     max_pos = i+1
     print("[")
-    print(",\n".join(s1[v] for v in range(max_pos-max,max_pos)))
+    print(",\n".join(s1[v] for v in range(max_pos-max, max_pos)))
     print("]")
 
 s1 = ["3234.html", "xys.html", "7hsaa.html"]
 s2 = ["3234.html", "sdhsfjdsh.html", "xys.html", "7hsaa.html"]
-lcs(s1,s2)
+lcs(s1, s2)

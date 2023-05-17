@@ -1,23 +1,24 @@
 # TC: O(n^3)
 # SC: O(n)
-def domain3(completed_purchase_user_ids,ad_clicks,all_user_ips):
-    d = {}
-    dp = {}
+from collections import defaultdict
+
+
+def domain3(completed_purchase_user_ids, ad_clicks, all_user_ips):
+    dict = defaultdict(int)
+    purchased = defaultdict(int)
     for ad_click in ad_clicks:
         ip, time, text = ad_click.split(",")
-        d[text] = d.get(text, 0) + 1
+        dict[text] += 1
         for all_user_ip in all_user_ips:
-            id, ip_2 = all_user_ip.split(",")
-            if ip == ip_2:
-                if id in completed_purchase_user_ids:
-                    dp[text] = dp.get(text, 0) + 1
-    for k,v in d.items():
-        print(dp.get(k, 0), "of", v, k)
+            user_id, user_ip = all_user_ip.split(",")
+            if ip == user_ip:
+                if user_id in completed_purchase_user_ids:
+                    purchased[text] += 1
+    for k, v in dict.items():
+        print(purchased[k], "of", v, k)
 
 
-
-completed_purchase_user_ids = ["3123122444",
-                               "234111110", "8321125440", "99911063"]
+completed_purchase_user_ids = ["3123122444", "234111110", "8321125440", "99911063"]
 ad_clicks = [
     # "IP_Address,Time,Ad_Text",
     "122.121.0.1,2016-11-03 11:41:19,Buy wool coats for your pets",
@@ -36,4 +37,4 @@ all_user_ips = [
     "8321125440,82.1.106.8",
     "99911063,92.130.6.144"
 ]
-domain3(completed_purchase_user_ids,ad_clicks,all_user_ips)
+domain3(completed_purchase_user_ids, ad_clicks, all_user_ips)
