@@ -1,29 +1,31 @@
-# i represents the index of the current task we are considering.
-# j represents the number of 0-cost-tasks we are allowed to pick at any point.
-# At each point in the function we have two options:
+# The data analysts of Hackerland want to schedule some long-running tasks on remote servers optimally to minimize the cost of running them locally. The analysts have two servers, a paid one and a free one. The free server can be used only if the paid server is occupied.
 
-# place the task represented by i in paid server: in this case we add its cost i.e cost[i]
-# and earn ourselves time[i] more 0-cost-task credits.
-# place it in free server: use-up 1 0-cost-task credit i.e reduce j by 1.
-# In the second case we should have checked whether we even have any 0-cost-task credits
-# to use. Since we didn't do that, we are checking in the end(i==n) whether our j is negative.
-# If it is negative, then it means that the choices we took so far are invalid. Therefore we
-# return infinity for this case to avoid it from picked up in min-cost calculation.
-def solution(cost, time):
+# The ith task is expected to take time[i] units of time to complete and the cost of processing the task on the paid server is cost[i]. The task can be run on the free server only if some task is already running on the paid server. The cost of the free server is 0 and it can process any task in 1 unit of time.
+
+# Find the minimum cost to complete all the tasks if tasks are scheduled optimally.
+
+# dp[i][j]: at i-th task, with j time "credit", the minimum cost to complete all i tasks
+# note that j can be negative, but when i = n-1, j needs to be non-negative to be a valid answer
+# dp[i][j] = min(dp[i-1][j-time[i]]+cost[i], dp[i-1][j+1])
+# since j can be negative, shift j by n to make it all non-negative
+# and it does not make sense to have add j when j is already >= n
+# so j's range is [-n, n+max(time)] => [0, 2n+max(time)]
+
+# TC: O(n^2)  SC: O(n)
+def task_scheduling(cost, time):
     n = len(cost)
-    # Can be done in max(time) * 2 + len(time)
-    # DP size is time
-    v = max(time) * 2 + n
-    dp = [float('inf')] * v
-    dp[0] = 0
+    dp = [float('inf')] * (2*n+max(time)+1)
+    dp[n] = 0
     for i in range(n):
-        for j in range(v - 1, time[i], -1):
-            dp[j] = min(dp[j], dp[j - time[i] - 1] + cost[i])
-    print(dp)
-    # have no idea why it's correct, but it is
+        prev = dp
+        dp = [float('inf')] * (2*n+max(time)+1)
+        for j in range(2*n+max(time)):
+            dp[j] = prev[j+1]
+            if j >= time[i]:
+                dp[j] = min(prev[j-time[i]]+cost[i], dp[j])
     return min(dp[n::])
 
-print(solution([1,2,3,2], [1,2,3,2])==3)
-print(solution([2,3,4,2], [1,1,1,1])==4)
-print(solution([1,1,1,1,1,1], [1,1,1,1,1,1])==3)
-print(solution([4], [2])==4)
+print(task_scheduling([1,2,3,2], [1,2,3,2])==3)
+print(task_scheduling([2,3,4,2], [1,1,1,1])==4)
+print(task_scheduling([1,1,1,1,1,1], [1,1,1,1,1,1])==3)
+print(task_scheduling([4], [2])==4)
