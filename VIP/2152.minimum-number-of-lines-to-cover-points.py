@@ -58,6 +58,9 @@
 
 # @lc code=start
 # TC: O((2^n)^2)  SC: O(2^n)
+from typing import List
+
+
 class Solution:
     def minimumLines(self, points: List[List[int]]) -> int:
         def calcCrossProduct(A, B, C):
@@ -86,6 +89,5 @@ class Solution:
                 group2 = state ^ group1
             
         return dp[-1]
-    
 # @lc code=end
-
+Solution().minimumLines([[0,1],[2,3],[4,5],[4,3]])

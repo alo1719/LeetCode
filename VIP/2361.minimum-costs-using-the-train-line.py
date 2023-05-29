@@ -84,18 +84,34 @@
 #
 
 # @lc code=start
-# TC: O(n)  SC: O(n)
+# TC: O(n)  SC: O(1)
+from typing import List
+
+
 class Solution:
     def minimumCosts(self, regular: List[int], express: List[int], expressCost: int) -> List[int]:
+        # ans = []
+        # n = len(regular)
+        # dp_regular = [0] * (n+1)
+        # dp_express = [0] * (n+1)
+        # dp_express[0] = expressCost
+        # for i in range(1, n+1):
+        #     dp_regular[i] = min(dp_regular[i-1]+regular[i-1], dp_express[i-1]+express[i-1])
+        #     dp_express[i] = min(dp_regular[i-1]+regular[i-1]+expressCost, dp_express[i-1]+express[i-1])
+        #     ans.append(min(dp_regular[i], dp_express[i]))
+        # return ans
+    
         ans = []
         n = len(regular)
-        dp_regular = [0] * (n+1)
-        dp_express = [0] * (n+1)
-        dp_express[0] = expressCost
+        dp_regular = 0
+        dp_express = expressCost
         for i in range(1, n+1):
-            dp_regular[i] = min(dp_regular[i-1]+regular[i-1], dp_express[i-1]+express[i-1])
-            dp_express[i] = min(dp_regular[i-1]+regular[i-1]+expressCost, dp_express[i-1]+express[i-1])
-            ans.append(min(dp_regular[i], dp_express[i]))
+            old_regular = dp_regular
+            dp_regular = min(dp_regular+regular[i-1], dp_express+express[i-1])
+            dp_express = min(old_regular+regular[i-1]+expressCost, dp_express+express[i-1])
+            ans.append(min(dp_regular, dp_express))
         return ans
+  
 # @lc code=end
-
+print(Solution().minimumCosts([1,6,9,5], [5,2,3,10], 8))
+print(Solution().minimumCosts([11,5,13], [7,10,6], 3))

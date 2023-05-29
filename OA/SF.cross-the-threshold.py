@@ -1,24 +1,19 @@
-import bisect
+# TC: O(nlogm)  SC: O(1)  m is the max value of arr
+def calc_threshold(arr, threshold):
 
-
-def calc_threshold(a, th):
-
-    low, high = 0, max(a)
+    low, high, n = 0, max(arr), len(arr)
     while low < high:
         mid = (low + high) // 2 + 1
-        print("mid: ", mid)
         sum = 0
-        for i in range(len(a)):
-            sum += max(0, a[i] - mid)
-        print("sum: ", sum)
-        if sum >= th:
+        for i in range(n):
+            sum += max(0, arr[i] - mid)
+        if sum >= threshold:
             low = mid
         else:
             high = mid - 1
-    print(high)
     return high
 
 initialEnergy = [4,8,7,1,2]
-calc_threshold(initialEnergy, 9)
+print(calc_threshold(initialEnergy, 9))
 initialEnergy = [5,2,13,10,8]
-calc_threshold(initialEnergy, 8)
+print(calc_threshold(initialEnergy, 8))
