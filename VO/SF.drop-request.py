@@ -1,32 +1,28 @@
 # Snowflake VOE
 # Sliding window
+# TC: O(n)  SC: O(n)
 class Solution:
-    def drop_request(self, a):
-        n = len(a)
-        a_allow = []
-        a_drop = []
-        if not a:
-            return a
-        left, right, right_beginning = 0, 0, 0
-        a_allow.append(a[0])
-        while left < len(a_allow):
-            while right+1 < n and a[right+1]-a_allow[left]<=9:
+    def drop_request(self, arr):
+        n, allowed, dropped = len(arr), [], []
+        if not arr: return arr
+        left, right, first = 0, 0, 0
+        allowed.append(arr[0])
+        while left < len(allowed):
+            while right+1 < n and arr[right+1]-allowed[left]<=9:
                 right += 1
-                if a[right] != a[right_beginning]:
-                    right_beginning = right
-                if right - right_beginning > 2:
-                    a_drop.append(a[right]) # rule 1
+                if arr[right] != arr[first]: first = right
+                if right - first > 2:
+                    dropped.append(arr[right]) # rule 1
                 else: # rule 2
-                    right_in_allow = len(a_allow)-1
-                    if right_in_allow - left >= 19:
-                        a_drop.append(a[right])
+                    if len(allowed) - left >= 20:
+                        dropped.append(arr[right])
                     else:
-                        a_allow.append(a[right])
+                        allowed.append(arr[right])
             left += 1
-        print(a_allow)
-        print(a_drop)
-        return a_drop
+        return dropped
 
-Solution().drop_request([1,1,2,3,3,3]) # []
-Solution().drop_request([1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,9,12,12,12]) # [7,9]
-Solution().drop_request([1,1,1,2,2,2,3,3,3,3]) # [3]
+# rule 1: at most 3 requests per second
+# rule 2: at most 20 requests per 10 seconds
+print(Solution().drop_request([1,1,2,3,3,3])) # []
+print(Solution().drop_request([1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,9,12,12,12])) # [7,9]
+print(Solution().drop_request([1,1,1,2,2,2,3,3,3,3])) # [3]
