@@ -86,10 +86,10 @@ class Node:
         self.next = next
         self.random = random
 
+# TC: O(n)  SC: O(n)
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return None
+        if not head: return None
 
         # copy
         cur = head
@@ -112,8 +112,7 @@ class Solution:
         while cur:
             new_cur = cur.next
             cur.next = new_cur.next
-            if new_cur.next:
-                new_cur.next = new_cur.next.next
+            if new_cur.next: new_cur.next = new_cur.next.next
             cur = cur.next
 
         return new_head

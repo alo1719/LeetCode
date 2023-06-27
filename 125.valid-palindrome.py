@@ -59,8 +59,18 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(1)
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s = ''.join([c for c in s if c.isalnum()]).lower()
-        return s == s[::-1]
+        n = len(s)
+        i, j = -1, n
+        while True:
+            i += 1
+            j -= 1
+            while i+1 < n and not s[i].isalnum():
+                i += 1
+            while j-1 >= 0 and not s[j].isalnum():
+                j -= 1
+            if i >= j: return True
+            if s[i].lower() != s[j].lower(): return False
 # @lc code=end

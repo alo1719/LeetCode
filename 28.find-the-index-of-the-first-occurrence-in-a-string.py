@@ -45,12 +45,29 @@
 #
 
 # @lc code=start
+# TC: O(n+m)  SC: O(n)
 class Solution:
-    # KMP
+    # Rabbin-Karp
     def strStr(self, haystack: str, needle: str) -> int:
-        for i in range(len(haystack) - len(needle) + 1):
-            if haystack[i] == needle[0]:
-                if haystack[i:i + len(needle)] == needle:
-                    return i
+        prime = 31
+        mod = 10**9+9
+        haystack_len, needle_len = len(haystack), len(needle)
+        pow = [1]*max(haystack_len, needle_len)
+        for i in range(1, len(pow)):
+            pow[i] = (pow[i-1]*prime)%mod
+        needle_hash = 0
+        haystack_hash = [0]*haystack_len
+        for i in range(needle_len):
+            needle_hash = (needle_hash + (ord(needle[i])-ord('a')+1)*pow[i])%mod
+        for i in range(haystack_len):
+            last_hash_value = 0 if i == 0 else haystack_hash[i-1]
+            haystack_hash[i] = (last_hash_value+(ord(haystack[i])-ord('a')+1)*pow[i])%mod
+        for i in range(haystack_len-needle_len+1):
+            last_hash_value = 0 if i == 0 else haystack_hash[i-1]
+            # hash of [i, j] is (hash[j] - hash[i-1])
+            cur_hash = (haystack_hash[i+needle_len-1]-last_hash_value+mod)%mod
+            # shift pattern hash
+            if (cur_hash == needle_hash*pow[i]%mod):
+                return i
         return -1
 # @lc code=end

@@ -21,11 +21,11 @@ def server_selection(servers):
     
     low, high = 0, len(nums)-1
     while low < high:
-        mid = (low + high + 1) // 2
+        mid = (low+high+1)//2
         if check_possible(nums[mid]):
             low = mid
         else:
-            high = mid - 1
+            high = mid-1
     return nums[low]
 
 
@@ -41,6 +41,6 @@ def server_selection(servers):
 # vulnerability. Find the maximum possible value of net vulnerablllty
 # that can be achieved by choosing exactly m-1 rows from the grid.
 servers = [[1,3,1],[3,1,1],[1,2,2],[1,1,3]]
-print(server_selection(servers)) # 2
+print(server_selection(servers))  # 2
 servers = [[5,3,3],[3,4,6],[2,4,1],[2,1,6]]
-print(server_selection(servers)) # 4
+print(server_selection(servers))  # 4

@@ -49,17 +49,14 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n^2)  SC: O(1)
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        for i in range(len(matrix)):
-            for j in range(i, len(matrix[i])):
+        n = len(matrix)
+        for i in range(n):
+            for j in range(i+1, n):
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-        for i in range(len(matrix)):
+        for i in range(n):
             matrix[i].reverse()
-
 
 # @lc code=end

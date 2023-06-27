@@ -62,14 +62,14 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        d = {}
-        for i, v in enumerate(nums):  # type: int, int
-            r: int = target - v
-            if r in d:  # type: int
-                return [d[r], i]
+        dic = {}
+        for i, num in enumerate(nums):  # type: int, int
+            goal: int = target-num
+            if goal in dic:  # type: int
+                return [dic[goal], i]
             else:
-                d[v] = i
+                dic[num] = i
 # @lc code=end

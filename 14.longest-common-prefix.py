@@ -48,18 +48,18 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(nm)  SC: O(1), m is the length of the string
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        if len(strs) == 1:
-            return strs[0]
-        else:
-            prefix = strs[0]
-            for i in range(1, len(strs)):
-                while strs[i].find(prefix) != 0:
-                    prefix = prefix[:-1]
-                    if prefix == "":
-                        return ""
-            return prefix
+        ans = ''
+        min_len = min([len(s) for s in strs])
+        n = len(strs)
+        for i in range(min_len):
+            cur = strs[0][i]
+            for j in range(n):
+                if strs[j][i] != cur:
+                    return ans
+            ans += cur
+        return ans
 
 # @lc code=end

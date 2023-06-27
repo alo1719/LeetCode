@@ -47,10 +47,10 @@
 #
 
 # @lc code=start
+# TC: O(nlogn)  SC: O(n)
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key = lambda x:x[0])
-
+        intervals.sort(key=lambda x:x[0])
         ans = []
         for interval in intervals:
             if not ans or interval[0] > ans[-1][-1]:

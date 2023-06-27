@@ -59,7 +59,7 @@ class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
         dict = defaultdict(list)
         for string in strings:
-            offsets = str([(ord(ch)-ord(string[0])+26) % 26 for ch in string])
+            offsets = str([(ord(ch)-ord(string[0])+26)%26 for ch in string])
             dict[offsets].append(string)
         return list(dict.values())
 

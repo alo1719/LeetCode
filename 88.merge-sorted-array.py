@@ -75,22 +75,20 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(m+n)  SC: O(1)
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        i: int = 0
-        j: int = 0
-        while i < m and j < n:
-            if nums1[i] > nums2[j]:
-                nums1.insert(i, nums2[j])
-                nums1.pop()
-                j += 1
-                m += 1
-            i += 1
-        if j < n:
-            nums1[m:] = nums2[j:]
+        i, j = m-1, n-1
+        index = m+n-1
+        while i >= 0 or j >= 0:
+            if i >= 0 and (j < 0 or nums1[i] >= nums2[j]):
+                nums1[index] = nums1[i]
+                i -= 1
+                index -= 1
+            else:
+                nums1[index] = nums2[j]
+                j -= 1
+                index -= 1
+        return nums1
 
 # @lc code=end

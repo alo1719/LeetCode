@@ -79,9 +79,9 @@ class Solution:
                 while opt_stk[-1] != "(":
                     self.calc(num_stk, opt_stk)
                 opt_stk.pop()
-            else: # + - * /
+            else:  # + - * /
                 while opt_stk and priority[opt_stk[-1]] >= priority[s[i]]:
-                    self.calc(num_stk, opt_stk) # respect to priority
+                    self.calc(num_stk, opt_stk)  # respect to priority
                 opt_stk.append(s[i])
             i += 1
 
@@ -99,12 +99,12 @@ class Solution:
     
     def calc_num(self, opt, A, B):
         if opt == "+":
-            return A + B
+            return A+B
         if opt == "-":
-            return A - B
+            return A-B
         if opt == "*":
-            return A * B
+            return A*B
         if opt == "/":
-            return int(A / B) # truncate toward zero
+            return int(A/B)  # truncate toward zero
 # @lc code=end
 

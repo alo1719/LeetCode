@@ -21,7 +21,7 @@ def solution(docstring: str):
                                 temp += each_word[l+1].upper()
                                 l += 2
                         words[k] = temp
-                    ans += '`' + ' '.join(words) + '`'
+                    ans += '`'+' '.join(words)+'`'
                     break
         else:
             ans += docstring[i]
@@ -29,4 +29,4 @@ def solution(docstring: str):
 
     return ans
 
-print(solution("123 `func_name C_NAME` 456 `max_x_y_z` `variable` `G`")) # 123 `funcName C_NAME` 456 `maxXYZ` `variable` `G`
+print(solution("123 `func_name C_NAME` 456 `max_x_y_z` `variable` `G`"))  # 123 `funcName C_NAME` 456 `maxXYZ` `variable` `G`

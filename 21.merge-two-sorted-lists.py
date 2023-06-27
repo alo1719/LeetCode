@@ -68,19 +68,21 @@ class ListNode:
         self.val = val
         self.next = next
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        if not list1:
-            return list2
-        if not list2:
-            return list1
-        if list1.val < list2.val:
-            list1.next = self.mergeTwoLists(list1.next, list2)
-            return list1
-        else:
-            list2.next = self.mergeTwoLists(list1, list2.next)
-            return list2
+        ans = ListNode()
+        p1, p2, p3 = list1, list2, ans
+        while p1 or p2:
+            if not p2 or (p1 and p1.val < p2.val):
+                p3.next = p1
+                p3 = p3.next
+                p1 = p1.next
+            else:
+                p3.next = p2
+                p3 = p3.next
+                p2 = p2.next
+        return ans.next
 
 
 a = ListNode(1, ListNode(2, ListNode(4)))

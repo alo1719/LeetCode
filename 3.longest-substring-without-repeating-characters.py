@@ -54,6 +54,7 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(n)
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         # Sliding window
@@ -63,11 +64,24 @@ class Solution:
         n = len(s)
         for left in range(n):
             if left != 0:
-                char_set.remove(s[left - 1])
-            while right + 1 <= n - 1 and s[right + 1] not in char_set:
-                char_set.add(s[right + 1])
+                char_set.remove(s[left-1])
+            while right+1 <= n-1 and s[right+1] not in char_set:
+                char_set.add(s[right+1])
                 right += 1
-                ans = max(ans, right - left + 1)
+                ans = max(ans, right-left+1)
         return ans
+    
+        # DP
+        if not s: return 0
+        n = len(s)
+        d = {}
+        dp = [0]*n
+        for i in range(n):
+            if s[i] in d:
+                dp[i] = min(dp[i-1]+1, i-d[s[i]])
+            else:
+                dp[i] = dp[i-1]+1
+            d[s[i]] = i
+        return max(dp)
 # @lc code=end
 

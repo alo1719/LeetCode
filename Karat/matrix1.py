@@ -9,7 +9,7 @@ def validateSudoku(grid):
                 return False
             tmp[grid[i][j]-1] = True
     for j in range(n):
-        tmp = [False] * n
+        tmp = [False]*n
         for i in range(n):
             if grid[i][j] < 1 or grid[i][j] > n or tmp[grid[i][j]-1]:
                 return False

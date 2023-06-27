@@ -59,16 +59,14 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
-
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        if not nums:
-            return None
-        mid = len(nums) // 2
+        if not nums: return None
+        mid = len(nums)//2
         root = TreeNode(nums[mid])
         root.left = self.sortedArrayToBST(nums[:mid])
-        root.right = self.sortedArrayToBST(nums[mid + 1:])
+        root.right = self.sortedArrayToBST(nums[mid+1:])
         return root
 
 # @lc code=end

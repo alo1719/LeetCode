@@ -83,7 +83,7 @@ class SparseVector:
         ans = 0
         for i, v in self.vec.items():
             if i in vec.vec:
-                ans += v * vec.vec[i]
+                ans += v*vec.vec[i]
         return ans
 
 # Your SparseVector object will be instantiated and called as such:

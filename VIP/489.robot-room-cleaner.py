@@ -147,8 +147,8 @@ class Solution:
             visited.add((x, y))
             robot.clean()
             for i in range(4):
-                new_direction = (direction + i) % 4
-                new_cell = (x + dirs[new_direction][0], y + dirs[new_direction][1])
+                new_direction = (direction+i)%4
+                new_cell = (x+dirs[new_direction][0], y+dirs[new_direction][1])
                 if new_cell not in visited and robot.move():
                     dfs(new_cell[0], new_cell[1], new_direction)
                     # backtrack
@@ -161,6 +161,6 @@ class Solution:
 
         dirs = [(0,1), (1,0), (0,-1), (-1,0)]
         visited = set()
-        dfs(0, 0, 0) # relative pos
+        dfs(0, 0, 0)  # relative pos
 # @lc code=end
 

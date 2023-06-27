@@ -52,12 +52,11 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def climbStairs(self, n: int) -> int:
-        a: List[int] = [1, 1]
-        for i in range(2, n + 1):
-            a.append(a[i - 1] + a[i - 2])
-        return a[n]
-
+        dp = [1, 2, 3]
+        for i in range(2, n):
+            dp[i%3] = dp[(i-1)%3]+dp[(i-2)%3]
+        return dp[(n-1)%3]
 # @lc code=end

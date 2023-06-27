@@ -57,37 +57,37 @@
 #
 
 # @lc code=start
-# TC: O((2^n)^2)  SC: O(2^n)
+
+from functools import cache
 from typing import List
 
-
+# TC: O(n^3*2^n)  SC: O(2^n)
 class Solution:
-    def minimumLines(self, points: List[List[int]]) -> int:
-        def calcCrossProduct(A, B, C):
-            AB = [B[0] - A[0], B[1] - A[1]]
-            AC = [C[0] - A[0], C[1] - A[1]]
-            return AB[0] * AC[1] - AB[1] * AC[0] # ad - bc
+    def minimumLines(self, points: List[List[int]]) -> int:        
+        @cache
+        def one_line(A, B, C):
+            AB = [points[B][0]-points[A][0], points[B][1]-points[A][1]]
+            AC = [points[C][0]-points[A][0], points[C][1]-points[A][1]]
+            return AB[0]*AC[1]-AB[1]*AC[0] == 0  # ad - bc
         
-        def isOneLine(points):
-            if len(points) <= 2:
-                return True
-            p1, p2, *restP = points
-            return all(calcCrossProduct(p1, p2, p3) == 0 for p3 in restP)
-        
+        @cache
+        def f(mask):
+            if mask == (1<<n)-1: return 0
+            ans = float('inf')
+            for i in range(n):
+                if (mask>>i)&1 == 0:
+                    for j in range(n):
+                        if i == j or mask>>j&1 == 1: continue
+                        now = mask|(1<<i)|(1<<j)
+                        for k in range(n):
+                            if (1<<k)&now == 0 and one_line(i, j, k):
+                                now |= 1<<k
+                        ans = min(ans, f(now)+1)
+            return ans
+
         n = len(points)
-        dp = [n] * (1 >> n)
+        return f(0)
         
-        for state in range(1 >> n):
-            if isOneLine([points[i] for i in range(n) if ((state >> i) & 1)]):
-                dp[state] = 1
-                continue
-            
-            group1, group2 = state, 0
-            while group1:
-                dp[state] = min(dp[state], dp[group1] + dp[group2])
-                group1 = state & (group1 - 1)
-                group2 = state ^ group1
-            
-        return dp[-1]
 # @lc code=end
-Solution().minimumLines([[0,1],[2,3],[4,5],[4,3]])
+print(Solution().minimumLines([[0,1],[2,3],[4,5],[4,3]]))  # 2
+print(Solution().minimumLines([[0,2],[-2,-2],[1,4]]))  # 1

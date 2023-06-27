@@ -53,18 +53,20 @@
 #
 
 # @lc code=start
+# TC: O(4^n)  SC: O(n)
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        def helper(s, now):
-            if now == len(digits):
-                if s: res.append(s)
+        # if only need to return the number of combinations, we can use DP
+        def dfs(i, s):
+            if i == len(digits):
+                if s: ans.append(s)
                 return
-            for i in range(len(d[int(digits[now])])):
-                helper(s+d[int(digits[now])][i], now+1)
+            for v in d[int(digits[i])]:
+                dfs(i+1, s+v)
 
-        res = []
+        ans = []
         d = {2:["a","b","c"],3:["d","e","f"],4:["g","h","i"],5:["j","k","l"],6:["m","n","o"],7:["p","q","r","s"],8:["t","u","v"],9:["w","x","y","z"]}
-        helper("", 0)
-        return res
+        dfs(0, "")
+        return ans
 # @lc code=end
 

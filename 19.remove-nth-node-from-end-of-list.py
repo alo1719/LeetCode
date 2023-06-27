@@ -68,17 +68,22 @@ class ListNode:
         self.next = next
 
 
+# TC: O(n)  SC: O(1)
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        a: List[ListNode] = []
-        while head:
-            a.append(head)
-            head = head.next
-        if len(a) == 1:
-            return None
-        if len(a) == n:
-            return a[1]
-        a[-(n + 1)].next = a[-n].next
-        return a[0]
+        slow = head
+        fast = head
+        slow_prev = None
+        for _ in range(n):
+            fast = fast.next
+        while fast:
+            slow_prev = slow
+            slow = slow.next
+            fast = fast.next
+        if slow_prev:
+            slow_prev.next = slow.next
+            return head
+        else:
+            return head.next
 
 # @lc code=end

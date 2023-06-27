@@ -12,7 +12,7 @@ def find_perfect_pairs(nums):
     for left in range(n):
         while right+1 < n and nums[right+1] <= 2*nums[left]:
             right += 1
-        ans += right - left
+        ans += right-left
     return ans
 
 # A pair of integers (x,y) is perfect if both the below conditions are met:

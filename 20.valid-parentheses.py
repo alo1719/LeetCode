@@ -57,26 +57,27 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(n)
 class Solution:
     def isValid(self, s: str) -> bool:
-        a = []
-        for c in s:
-            if c == '(' or c == '[' or c == '{':
-                a.append(c)
-            elif c == ')':
-                if a and a[-1] == '(':
-                    a.pop()
+        stk = []
+        for ch in s:
+            if ch == '(' or ch == '[' or ch == '{':
+                stk.append(ch)
+            elif ch == ')':
+                if stk and stk[-1] == '(':
+                    stk.pop()
                 else:
                     return False
-            elif c == ']':
-                if a and a[-1] == '[':
-                    a.pop()
+            elif ch == ']':
+                if stk and stk[-1] == '[':
+                    stk.pop()
                 else:
                     return False
-            elif c == '}':
-                if a and a[-1] == '{':
-                    a.pop()
+            elif ch == '}':
+                if stk and stk[-1] == '{':
+                    stk.pop()
                 else:
                     return False
-        return not a
+        return not stk
 # @lc code=end

@@ -92,8 +92,8 @@ class Solution:
     def minimumCosts(self, regular: List[int], express: List[int], expressCost: int) -> List[int]:
         # ans = []
         # n = len(regular)
-        # dp_regular = [0] * (n+1)
-        # dp_express = [0] * (n+1)
+        # dp_regular = [0]*(n+1)
+        # dp_express = [0]*(n+1)
         # dp_express[0] = expressCost
         # for i in range(1, n+1):
         #     dp_regular[i] = min(dp_regular[i-1]+regular[i-1], dp_express[i-1]+express[i-1])

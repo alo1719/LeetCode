@@ -59,22 +59,22 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
-
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        # Use a queue to store the nodes of each level
-        if not root:
-            return []
-        queue = [root]
-        result = []
-        while queue:
-            result.append([node.val for node in queue])
-            queue = [
-                child for node in queue for child in (node.left, node.right)
-                if child
-            ]
-        return result
+        if not root: return []
+        ans = []
+        dq = deque([root])
+        while dq:
+            cnt = len(dq)
+            this_level = []
+            for _ in range(cnt):
+                node = dq.popleft()
+                this_level.append(node.val)
+                if node.left: dq.append(node.left)
+                if node.right: dq.append(node.right)
+            ans.append(this_level)
+        return ans
 
 
 a = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))

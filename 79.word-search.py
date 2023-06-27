@@ -64,32 +64,32 @@
 
 # @lc code=start
 # Snowflake VOE
+# TC: O(mn*4^k)  SC: O(mn)
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def dfs(i, j, pos):
-            nonlocal can_achieve, n, m, word
+            nonlocal exist
             visited[i][j] = True
-            if pos >= len(word):
-                can_achieve = True
+            if pos == len(word):
+                exist = True
                 return
             for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
-                newi = i + dx
-                newj = j + dy
-                if 0<=newi<n and 0<=newj<m and board[newi][newj] == word[pos] and not visited[newi][newj]:
+                newi = i+dx
+                newj = j+dy
+                if 0 <= newi < m and 0 <= newj < n and board[newi][newj] == word[pos] and not visited[newi][newj]:
                     dfs(newi, newj, pos+1)
+                    if exist: return
                     # backtrack
                     visited[newi][newj] = False
 
-        starting_char = word[0]
-        n, m = len(board), len(board[0])
-        visited = [[False for _ in range(m)] for _ in range(n)]
-        can_achieve = False
-        for i in range(n):
-            for j in range(m):
-                if starting_char == board[i][j]:
-                    visited = [[False for _ in range(m)] for _ in range(n)]
+        m, n = len(board), len(board[0])
+        exist = False
+        for i in range(m):
+            for j in range(n):
+                if word[0] == board[i][j]:
+                    visited = [[False for _ in range(n)] for _ in range(m)]
                     dfs(i, j, 1)
-                    if can_achieve: return True
-        return can_achieve
+                    if exist: return True
+        return False
 # @lc code=end
 

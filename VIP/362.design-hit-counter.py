@@ -72,7 +72,7 @@
 # @lc code=start
 from collections import deque
 
-# TC: O(1) for hit, O(n) for getHits  SC: O(n)
+# TC: O(1) for hit, O(1) amortized for getHits  SC: O(n)
 class HitCounter:
 
     def __init__(self):
@@ -82,7 +82,7 @@ class HitCounter:
         self.q.append(timestamp)
 
     def getHits(self, timestamp: int) -> int:
-        self.clean(timestamp - 300)
+        self.clean(timestamp-300)
         return len(self.q)
     
     def clean(self, time):

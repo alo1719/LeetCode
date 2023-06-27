@@ -72,24 +72,17 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        def helper(root, now):
-            if not root.left and not root.right:
-                return now * 10 + root.val
-            sum = 0
-            if root.left:
-                sum += helper(root.left, now * 10 + root.val)
-            if root.right:
-                sum += helper(root.right, now * 10 + root.val)
-            return sum
+        def dfs(root, cur):
+            if not root.left and not root.right: return 10*cur+root.val
+            ans = 0
+            if root.left: ans += dfs(root.left, 10*cur+root.val)
+            if root.right: ans += dfs(root.right, 10*cur+root.val)
+            return ans
 
-        if not root:
-            return 0
-        print(helper(root, 0))
-        return helper(root, 0)
-
+        return dfs(root, 0)
 # Solution().sumNumbers(TreeNode(1, TreeNode(2), TreeNode(3)))
 Solution().sumNumbers(TreeNode(4, TreeNode(9, TreeNode(5), TreeNode(1)), TreeNode(0)))
 # @lc code=end

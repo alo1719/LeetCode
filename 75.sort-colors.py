@@ -55,16 +55,13 @@
 # @lc code=start
 from typing import List
 
-
+# WeRide VOE
+# TC: O(n)  SC: O(1)
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
+        # two pointers
         n = len(nums)
-        left, right, index = 0, n - 1, 0
-        # left: start of 1
-        # right: start of 2
+        left, right, index = 0, n-1, 0  # left: start of 1, right: start of 2
         while index <= right:
             while nums[index] == 2 and index <= right:
                 nums[index], nums[right] = nums[right], nums[index]
@@ -73,6 +70,18 @@ class Solution:
                 nums[index], nums[left] = nums[left], nums[index]
                 left += 1
             index += 1
+        
+        # cover
+        cnt = [0, 0, 0]
+        for num in nums:
+            cnt[num] += 1
+        n = len(nums)
+        for i in range(n):
+            for j in range(3):
+                if cnt[j]:
+                    nums[i] = j
+                    cnt[j] -= 1
+                    break
 
 
 Solution().sortColors([2, 0, 2, 1, 1, 0])

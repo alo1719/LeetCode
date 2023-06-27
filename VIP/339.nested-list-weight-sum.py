@@ -108,7 +108,7 @@ class Solution:
         def dfs(nestedList, depth):
             ans = 0
             for item in nestedList:
-                ans += item.getInteger() * depth if item.isInteger() else dfs(item.getList(), depth+1)
+                ans += item.getInteger()*depth if item.isInteger() else dfs(item.getList(), depth+1)
             return ans
 
         return dfs(nestedList, 1)

@@ -5,7 +5,7 @@ from collections import defaultdict, deque
 class Solution:
     def min_topo(self, time, edges):
         n, g, ans = len(time), defaultdict(list), 0
-        in_degree = [0] * n
+        in_degree = [0]*n
         for edge in edges:
             g[edge[0]].append(edge[1])
             in_degree[edge[1]] += 1
@@ -14,7 +14,7 @@ class Solution:
             min_time = min([element[1] for element in dq])
             ans += min_time
             new_nodes = []
-            for node in list(dq): # important to use list(dq)
+            for node in list(dq):  # important to use list(dq)
                 node[1] -= min_time
                 if node[1] == 0:
                     dq.remove(node)
@@ -25,6 +25,6 @@ class Solution:
             dq.extend(new_nodes)
         return ans
     
-print(Solution().min_topo([10,5,6], [(2,1)])) # 11
-print(Solution().min_topo([12,5,6], [(2,1)])) # 12
-print(Solution().min_topo([4,8,4,1,1], [(0,2),(0,3),(1,3),(1,4)])) # 9
+print(Solution().min_topo([10,5,6], [(2,1)]))  # 11
+print(Solution().min_topo([12,5,6], [(2,1)]))  # 12
+print(Solution().min_topo([4,8,4,1,1], [(0,2),(0,3),(1,3),(1,4)]))  # 9
