@@ -82,29 +82,22 @@
 # @lc code=start
 from typing import List
 
-
+# TC: (n^2)  SC: O(n^2)
 class Solution:
-
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        for i in range(len(board)):
-            for j in range(len(board[i])):
+        n = len(board)
+        row = [[False]*n for _ in range(n)]
+        col = [[False]*n for _ in range(n)]
+        box = [[False]*n for _ in range(n)]
+        for i in range(n):
+            for j in range(n):
                 if board[i][j] != ".":
-                    if board[i][j] in board[i][j + 1:]:
-                        print("1 ", i, " ", j, " ", board[i][j])
-                        return False
-                    temp = board[i][j]
-                    board[i][j] = "."
-                    if temp in [board[k][j] for k in range(len(board))]:
-                        print("2 ", i, " ", j, " ", board[i][j])
-                        print([board[k][j] for k in range(len(board))])
-                        return False
-                    if temp in [
-                            board[3 * (i // 3) + k][3 * (j // 3) + l]
-                            for k in range(3) for l in range(3)
-                    ]:
-                        print("3 ", i, " ", j, " ", board[i][j])
-                        return False
-                    board[i][j] = temp
+                    if row[i][int(board[i][j])-1]: return False
+                    if col[j][int(board[i][j])-1]: return False
+                    if box[(i//3)*3+j//3][int(board[i][j])-1]: return False
+                    row[i][int(board[i][j])-1] = True
+                    col[j][int(board[i][j])-1] = True
+                    box[(i//3)*3+j//3][int(board[i][j])-1] = True
         return True
 
 

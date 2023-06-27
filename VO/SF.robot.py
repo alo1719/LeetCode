@@ -19,5 +19,5 @@ def loop_calc(arr):
         pos_dict[(pos[0], pos[1])] = i
     return ans
 
-print(loop_calc(["R","R","R","U","L","D","D"])) # 4
-print(loop_calc(["R","R","R","L","U","L","D","D"])) # 2
+print(loop_calc(["R","R","R","U","L","D","D"]))  # 4
+print(loop_calc(["R","R","R","L","U","L","D","D"]))  # 2

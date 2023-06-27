@@ -32,5 +32,5 @@ def getTheGroups(n, queryType, students1, students2):
             if student_1_root == student_2_root:
                 ans.append(ufs.cnt[student_1_root])
             else:
-                ans.append(ufs.cnt[student_1_root] + ufs.cnt[student_2_root])
+                ans.append(ufs.cnt[student_1_root]+ufs.cnt[student_2_root])
     return ans

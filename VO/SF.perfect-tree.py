@@ -49,11 +49,11 @@ def fill2PerfectTree(root):
         lenn = len(dq)
         current_num += lenn
         current_level += 1
-        perfect_fill_num += num_per_level - lenn
-        perfect_del_num = existing_num - current_num
+        perfect_fill_num += num_per_level-lenn
+        perfect_del_num = existing_num-current_num
         optimal_level += 1
-        if perfect_del_num + perfect_fill_num < min_num:
-            min_num = perfect_del_num + perfect_fill_num
+        if perfect_del_num+perfect_fill_num < min_num:
+            min_num = perfect_del_num+perfect_fill_num
             optimal_level = current_level
         for _ in range(lenn):
             node = dq.popleft()
@@ -80,14 +80,14 @@ def fill2PerfectTree(root):
 
 
 root = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3, TreeNode(6), TreeNode(7)))
-print(isPerfectTree(root)) # True
-print(fill2PerfectTree(root)) # 0
-print(isPerfectTree(root)) # True
+print(isPerfectTree(root))  # True
+print(fill2PerfectTree(root))  # 0
+print(isPerfectTree(root))  # True
 root = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3, TreeNode(6)))
-print(isPerfectTree(root)) # Flase
-print(fill2PerfectTree(root)) # 1
-print(isPerfectTree(root)) # True
+print(isPerfectTree(root))  # Flase
+print(fill2PerfectTree(root))  # 1
+print(isPerfectTree(root))  # True
 root = TreeNode(1, TreeNode(2, TreeNode(4)))
-print(isPerfectTree(root)) # Flase
-print(fill2PerfectTree(root)) # 2
-print(isPerfectTree(root)) # True
+print(isPerfectTree(root))  # Flase
+print(fill2PerfectTree(root))  # 2
+print(isPerfectTree(root))  # True

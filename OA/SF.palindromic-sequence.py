@@ -4,7 +4,7 @@
 # TC: O(n^2)  SC: O(n^2) (can be optimized to O(n))
 def maxScore(s):
     ans, n = 0, len(s)
-    dp = [[0] * n for _ in range(n)] # dp[i][j] means s[i] to s[j] palindrome subsequence max length
+    dp = [[0]*n for _ in range(n)]  # dp[i][j] means s[i] to s[j] palindrome subsequence max length
     max_left = [1] * n
     max_right = [1] * n
     for i in range(n-1, -1, -1):
@@ -19,8 +19,8 @@ def maxScore(s):
             max_left[j] = max(max_left[j], dp[i][j])
             max_right[i] = max(max_right[i], dp[i][j])
     for i in range(n-1):
-        ans = max(ans, max_left[i] * max_right[i+1])
+        ans = max(ans, max_left[i]*max_right[i+1])
     return ans
 
-print(maxScore("attract")) # atta c
-print(maxScore("acdapmpomp")) # ada pmpmp
+print(maxScore("attract"))  # atta c
+print(maxScore("acdapmpomp"))  # ada pmpmp

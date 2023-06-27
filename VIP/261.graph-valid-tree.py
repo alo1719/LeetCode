@@ -65,7 +65,7 @@ class Solution:
             e_table[fst].append(sec)
             e_table[sec].append(fst)
         dq = deque([0])
-        visited = [False] * n
+        visited = [False]*n
         visited[0] = True
         while dq:
             node = dq.popleft()

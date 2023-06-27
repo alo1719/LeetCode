@@ -75,20 +75,19 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(n)
 class Solution:
     def simplifyPath(self, path: str) -> str:
         path = path.split('/')
-        stack = []
+        stk = []
         for p in path:
             if p == '' or p == '.':
                 continue
             elif p == '..':
-                if stack:
-                    stack.pop()
+                if stk: stk.pop()
             else:
-                stack.append(p)
-        print('/' + '/'.join(stack))
-        return '/' + '/'.join(stack)
+                stk.append(p)
+        return '/'+'/'.join(stk)
 
 
 Solution().simplifyPath("/home/")

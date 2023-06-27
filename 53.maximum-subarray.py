@@ -58,13 +58,13 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        n, ans = len(nums), -float("inf")
+        n, ans = len(nums), -inf
         dp = 0
         for i in range(n):
-            dp = max(nums[i], nums[i] + dp)
+            dp = max(nums[i], nums[i]+dp)
             ans = max(ans, dp)
         return ans
 

@@ -38,19 +38,15 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n^2)  SC: O(n^2)
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        triangle = [[None for _ in range(numRows)] for _ in range(numRows)]
-        for i in range(numRows):
-            for j in range(i + 1):
-                if j == 0 or j == i:
-                    triangle[i][j] = 1
-                else:
-                    triangle[i][j] = triangle[i - 1][j - 1] + \
-                        triangle[i - 1][j]
-        return [row[:i + 1] for i, row in enumerate(triangle)]
-
+        ans = [[0]*(numRows+1) for _ in range(numRows)]
+        ans[0][1] = 1
+        for i in range(1, numRows):
+            for j in range(1, i+2):
+                ans[i][j] = ans[i-1][j-1]+ans[i-1][j]
+        return [row[1:i+2] for i, row in enumerate(ans)]
 
 a = Solution().generate(5)
 print(a)

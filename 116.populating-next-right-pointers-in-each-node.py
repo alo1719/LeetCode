@@ -83,28 +83,29 @@ class Node:
 # Snowflake VOE, good question!
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        # 1. BFS
-        # queue = [root]
-        # while queue:
-        #     new_queue = []
-        #     for element in queue:
-        #         if element and element.left:
-        #             new_queue.append(element.left)
-        #             new_queue.append(element.right)
-        #         for i in range(len(new_queue)-1):
-        #             new_queue[i].next = new_queue[i+1]
-        #         queue = new_queue
+        # 1. BFS, TC: O(n)  SC: O(n)
+        # if not root: return root
+        # dq = deque([root])
+        # while dq:
+        #     cnt = len(dq)
+        #     for _ in range(cnt):
+        #         node = dq.popleft()
+        #         if node.left:
+        #             dq.append(node.left)
+        #             dq.append(node.right)
+        #     for i in range(len(dq)-1):
+        #         dq[i].next = dq[i+1]
         # return root
-        # 2. O(1) space
+        # 2. O(1) space, note that the previous level is already connected
         if not root: return root
         leftmost = root
         while leftmost.left:
-            current = leftmost
-            while current:
-                current.left.next = current.right
-                if current.next:
-                    current.right.next = current.next.left
-                current = current.next
+            cur = leftmost
+            while cur:
+                cur.left.next = cur.right
+                if cur.next:
+                    cur.right.next = cur.next.left
+                cur = cur.next
             leftmost = leftmost.left
         return root
     
@@ -112,25 +113,22 @@ class Solution:
         if not root: return root
         leftmost = root
         while leftmost:
-            current = leftmost
+            cur = leftmost
             leftmost = None
-            while current:
-                if current.left and current.right:
-                    current.left.next = current.right
-                right_has_child = current.next
+            while cur:
+                if cur.left and cur.right: cur.left.next = cur.right
+                right_has_child = cur.next
                 while right_has_child and not right_has_child.left and not right_has_child.right:
                     right_has_child = right_has_child.next
                 if right_has_child:
-                    if current.right:
-                        current.right.next = right_has_child.left if right_has_child.left else right_has_child.right
-                    elif current.left:
-                        current.right.next = right_has_child.left if right_has_child.left else right_has_child.right
+                    if cur.right:
+                        cur.right.next = right_has_child.left if right_has_child.left else right_has_child.right
+                    elif cur.left:
+                        cur.left.next = right_has_child.left if right_has_child.left else right_has_child.right
                 if not leftmost:
-                    if current.left:
-                        leftmost = current.left
-                    elif current.right:
-                        leftmost = current.right
-                current = current.next
+                    if cur.left: leftmost = cur.left
+                    elif cur.right: leftmost = cur.right
+                cur = cur.next
         return root
 # @lc code=end
 

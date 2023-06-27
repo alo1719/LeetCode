@@ -45,11 +45,8 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        rst = nums[0]
-        for i in range(1, len(nums)):
-            rst ^= nums[i]
-        return rst
+        return reduce(xor, nums)
 # @lc code=end

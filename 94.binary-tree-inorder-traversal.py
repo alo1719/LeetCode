@@ -57,16 +57,29 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# TC: O(n)  SC: O(n)
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        # 1. recursive
         def dfs(root):
-            if not root:
-                return
+            if not root: return
             dfs(root.left)
             ans.append(root.val)
             dfs(root.right)
         ans = []
         dfs(root)
         return ans
+        # 2. iterative
+        ans, cur, stk = [], root, []
+        while cur or stk:
+            while cur:
+                stk.append(cur)
+                cur = cur.left
+            # now current is None, meaning cannot go left more
+            cur = stk.pop()
+            ans.append(cur.val)
+            cur = cur.right
+        return ans
+        
 # @lc code=end
 

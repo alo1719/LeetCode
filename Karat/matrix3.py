@@ -2,7 +2,6 @@
 # SC: O(n * longest move)
 def validMoves(start, end):
     def dfs(now):
-        nonlocal n
         if str(now) == str(end):
             return True
         for i in range(n):

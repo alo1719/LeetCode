@@ -92,14 +92,14 @@ class Solution:
         while True:
             if prev.val <= insertVal <= curr.val:
                 need_insert = True
-            elif prev.val > curr.val: # curr is head of the linked list
+            elif prev.val > curr.val:  # curr is head of the linked list
                 if insertVal >= prev.val or insertVal <= curr.val:
                     need_insert = True
             if need_insert:
                 prev.next = Node(insertVal, curr)
                 return head
             prev, curr = curr, curr.next
-            if prev == head: # back to the start
+            if prev == head:  # back to the start
                 break
         prev.next = Node(insertVal, curr)
         return head

@@ -54,7 +54,7 @@
 
 # @lc code=start
 from typing import Optional
-
+from math import *
 
 class TreeNode:
 
@@ -63,19 +63,13 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
-
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def dfs(node, lower=-inf, upper=inf):
+            if node is None: return True
+            if node.val <= lower or node.val >= upper: return False
+            return dfs(node.right, node.val, upper) and dfs(node.left, lower, node.val)
 
-        def helper(node, lower=float('-inf'), upper=float('inf')):
-            if node is None:
-                return True
-            val = node.val
-            if val <= lower or val >= upper:
-                return False
-            return helper(node.right, val, upper) and helper(
-                node.left, lower, val)
-
-        return helper(root)
+        return dfs(root)
 # @lc code=end

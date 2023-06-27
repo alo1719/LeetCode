@@ -53,8 +53,8 @@
 # TC : O(n)  SC: O(n)
 class Solution:
     def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
-        diff = [0] * length
-        ans = [0] * length
+        diff = [0]*length
+        ans = [0]*length
         for update in updates:
             start, end, increment = update
             diff[start] += increment

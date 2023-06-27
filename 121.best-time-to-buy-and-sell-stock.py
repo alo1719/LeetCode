@@ -56,14 +56,13 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         ans, n = 0, len(prices)
-        buy_in = 0
-        for sell_out in range(n):
-            if prices[sell_out] < prices[buy_in]:
-                buy_in = sell_out
-            ans = max(ans, prices[sell_out] - prices[buy_in])
+        buy = prices[0]
+        for i, p in enumerate(prices):
+            buy = min(buy, p)
+            ans = max(ans, p-buy)
         return ans
 # @lc code=end

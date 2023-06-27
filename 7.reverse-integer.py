@@ -52,10 +52,19 @@
 #
 
 # @lc code=start
+# TC: O(logn)  SC: O(1)
 class Solution:
     def reverse(self, x: int) -> int:
-        ans: int = -int(str(abs(x))[::-1]) if x < 0 else int(str(abs(x))[::-1])
-        return 0 if ans < -2 ** 31 or ans > 2 ** 31 - 1 else ans
+        if not x: return 0
+        neg = x < 0
+        while x%10 == 0: x //= 10
+        x = str(abs(x))[::-1]
+        if neg:
+            if '0'*(len(str(2**31))-len(x))+x > str(2**31): return 0
+            return -int(x)
+        else:
+            if '0'*(len(str(2**31-1))-len(x))+x > str(2**31-1): return 0
+            return int(x)
 
 
 print(Solution.reverse(None, -321))

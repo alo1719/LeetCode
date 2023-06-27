@@ -85,7 +85,7 @@ class Solution:
         right = q
         # two pointer problem
         while left != right:
-            left = left.parent if left.parent else q # if hit root, go to the other node
+            left = left.parent if left.parent else q  # if hit root, go to the other node
             right = right.parent if right.parent else p
         return left
 

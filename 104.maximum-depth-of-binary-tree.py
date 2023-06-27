@@ -54,11 +54,9 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
-
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if root is None:
-            return 0
-        return max(self.maxDepth(root.left) + 1, self.maxDepth(root.right) + 1)
+        if not root: return 0
+        return max(self.maxDepth(root.left)+1, self.maxDepth(root.right)+1)
 # @lc code=end

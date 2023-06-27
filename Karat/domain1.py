@@ -15,7 +15,7 @@ def countDomain(domains):
             count[now] += n
     print("[")
     for k, v in count.items():
-        print(v, k + ',')
+        print(v, k+',')
     print("]")
 
 domains = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]

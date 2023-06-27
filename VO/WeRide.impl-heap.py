@@ -22,8 +22,8 @@ class Heap:
         self.sift_up(len(self.heap)-1)
     
     def pop(self):
-        self.swap(0, len(self.heap)-1) # swap the root and the last element
-        value = self.heap.pop() # remove the last element
+        self.swap(0, len(self.heap)-1)  # swap the root and the last element
+        value = self.heap.pop()  # remove the last element
         self.sift_down(0)
         return value
     
@@ -50,10 +50,10 @@ heap = Heap()
 heap.insert(1)
 heap.insert(3)
 heap.insert(2)
-print(heap.pop()) # 1
+print(heap.pop())  # 1
 heap.insert(-1)
 heap.insert(4)
-print(heap.pop()) # -1
-print(heap.pop()) # 2
-print(heap.pop()) # 3
-print(heap.pop()) # 4
+print(heap.pop())  # -1
+print(heap.pop())  # 2
+print(heap.pop())  # 3
+print(heap.pop())  # 4

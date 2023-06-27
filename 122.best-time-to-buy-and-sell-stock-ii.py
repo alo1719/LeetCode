@@ -67,15 +67,11 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        a: List[int] = prices
-        if len(a) == 1:
-            return 0
-        ans: int = 0
-        for i in range(1, len(a)):  # type: int
-            if a[i] > a[i - 1]:
-                ans += a[i] - a[i - 1]
+        ans = 0
+        for x, y in pairwise(prices):
+            ans += max(0, y-x)
         return ans
 # @lc code=end

@@ -54,22 +54,15 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
 
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        @cache
+        def dfs(i, j):
+            if not i and not j: return True
+            if not i or not j: return False
+            return i.val == j.val and dfs(i.left, j.right) and dfs(i.right, j.left)
 
-        def helper(root1, root2):
-            if root1 is None and root2 is None:
-                return True
-            if root1 is None or root2 is None:
-                return False
-            if root1.val != root2.val:
-                return False
-            return helper(root1.left, root2.right) and helper(
-                root1.right, root2.left)
-
-        if root is None:
-            return True
-        return helper(root.left, root.right)
+        return dfs(root, root)
 # @lc code=end

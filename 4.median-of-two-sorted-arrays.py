@@ -50,35 +50,37 @@
 #
 
 # @lc code=start
+# TC: O(logn)  SC: O(1)
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # keep cutting half of the array
         def get_kth_element(k):
             i1, i2 = 0, 0
 
             while True:
                 if i1 == m:
-                    return nums2[i2 + k - 1]
+                    return nums2[i2+k-1]
                 if i2 == n:
-                    return nums1[i1 + k - 1]
+                    return nums1[i1+k-1]
                 if k == 1:
-                    return min(nums2[i2], nums1[i1])
+                    return min(nums1[i1], nums2[i2])
                 
-                new_i1 = min(i1 + k // 2 - 1, m - 1)
-                new_i2 = min(i2 + k // 2 - 1, n - 1)
+                # cut [i1, new_i1]
+                new_i1 = min(i1+k//2-1, m-1)
+                new_i2 = min(i2+k//2-1, n-1)
                 pivot1, pivot2 = nums1[new_i1], nums2[new_i2]
-                if pivot1 > pivot2:
-                    k -= new_i2 - i2 + 1
-                    i2 = new_i2 + 1
-                else:
-                    k -= new_i1 - i1 + 1
-                    i1 = new_i1 + 1
-
+                if pivot1 > pivot2:  # cut nums2
+                    k -= new_i2-i2+1
+                    i2 = new_i2+1
+                else:  # cut nums1
+                    k -= new_i1-i1+1
+                    i1 = new_i1+1
 
         m, n = len(nums1), len(nums2)
-        total = m + n
-        if total % 2 == 1:
-            return get_kth_element(total // 2 + 1)
+        total = m+n
+        if total%2 == 1:
+            return get_kth_element(total//2+1)
         else:
-            return (get_kth_element(total // 2) + get_kth_element(total // 2 + 1)) / 2
+            return (get_kth_element(total//2)+get_kth_element(total//2+1))/2
 # @lc code=end
 

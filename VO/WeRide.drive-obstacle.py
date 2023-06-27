@@ -5,7 +5,7 @@ from collections import deque
 def drive(m, n, obstacles, goal, move, change, start):
     start_pos = (0, start)
     dq = deque()
-    cost = [[-1] * n for _ in range(m)]
+    cost = [[-1]*n for _ in range(m)]
     cost[0][start] = 0
     dq.append(start_pos)
     while dq:
@@ -22,6 +22,6 @@ def drive(m, n, obstacles, goal, move, change, start):
             cost[x][y+1] = cost[x][y]+change
             dq.append((x, y+1))
 
-print(drive(5, 5, [(1,1),(3,1),(2,3),(4,4)], 3, 1, 2, 2)) # 6
-print(drive(5, 5, [(1,1),(3,1),(2,3),(4,4)], 3, 2, 1, 2)) # 9
-print(drive(5, 5, [(1,1),(3,1),(3,0),(3,2),(2,3),(4,4)], 1, 1, 2, 2)) # 14
+print(drive(5, 5, [(1,1),(3,1),(2,3),(4,4)], 3, 1, 2, 2))  # 6
+print(drive(5, 5, [(1,1),(3,1),(2,3),(4,4)], 3, 2, 1, 2))  # 9
+print(drive(5, 5, [(1,1),(3,1),(3,0),(3,2),(2,3),(4,4)], 1, 1, 2, 2))  # 14
