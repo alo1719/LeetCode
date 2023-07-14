@@ -75,25 +75,30 @@ from collections import defaultdict, deque
 from typing import List
 
 # Karat OA, Snowflake VOE
+# TC: O(v+e)  SC: O(v+e)
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-
-        edges = defaultdict(list)
-        node_in_num = [0] * numCourses
+        # 1. BFS, Khan's algorithm
+        # BFS does not need to handle loop, because nodes in loops will never have in_degree=0
+        n, ps = numCourses, prerequisites
+        in_degree = [0]*n
+        g = defaultdict(list)
+        for i, p in enumerate(ps):
+            in_degree[p[0]] += 1
+            g[p[1]].append(p[0])
+        dq = deque([i for i in range(n) if in_degree[i] == 0])
         ans = []
-        for pre in prerequisites:
-            edges[pre[1]].append(pre[0])
-            node_in_num[pre[0]] += 1
-        dq = deque([i for i in range(numCourses) if node_in_num[i] == 0])
         while dq:
-            node_popped = dq.popleft()
-            ans.append(node_popped)
-            for to_node in edges[node_popped]:
-                node_in_num[to_node] -= 1
-                if node_in_num[to_node] == 0:
-                    dq.append(to_node)
-        return ans if len(ans) == numCourses else []
-
+            lenn = len(dq)
+            for _ in range(lenn):
+                node = dq.popleft()
+                ans.append(node)
+                for to_node in g[node]:
+                    in_degree[to_node] -= 1
+                    if in_degree[to_node] == 0:
+                        dq.append(to_node)
+        return ans if len(ans) == n else []
+        # 2. Can also use DFS, same TC and SC
 
 
 # @lc code=end

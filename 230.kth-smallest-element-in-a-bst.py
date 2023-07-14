@@ -54,21 +54,19 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# TC: O(n)  SC: O(n)
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def help(root):
-            nonlocal k
-            nonlocal ans
-            # go to the left most
-            if root.left:
-                help(root.left)
-            k-=1
-            if k==0:
-                ans=root.val
-            if root.right:
-                help(root.right)
-            
-        ans=-1
-        help(root)
+        def dfs(root):
+            nonlocal k, ans
+            if root.left: dfs(root.left)
+            if ans: return
+            if k == 1:
+                ans = root.val
+                return
+            k -= 1
+            if root.right: dfs(root.right)
+        ans = None
+        dfs(root)
         return ans
 # @lc code=end

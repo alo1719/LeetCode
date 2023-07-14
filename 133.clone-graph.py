@@ -103,7 +103,7 @@ class Solution:
         def dfs(node):
             if node not in d:
                 d[node] = new_node = Node(node.val, None)
-                new_node.neighbors = list(map(dfs, node.neighbors))
+                new_node.neighbors = [dfs(x) for x in node.neighbors]
             return d[node]
         d = {}
         return dfs(node) if node else None

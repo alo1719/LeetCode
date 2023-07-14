@@ -75,12 +75,13 @@
 # key, value and freq
 # key dict: (key, mem address of the node)
 class Node:
-    def __init__(self, k = 0, v = 0):
+    def __init__(self, k=0, v=0):
         self.key = k
         self.value = v
         self.prev = None
         self.next = None
 
+# TC: O(1)  SC: O(capacity)
 class LRUCache:
 
     def __init__(self, capacity: int):
@@ -88,7 +89,7 @@ class LRUCache:
         self.tail = Node()
         self.head.next = self.tail
         self.tail.prev = self.head
-        self.cache = {} # value : Node
+        self.cache = {}  # value : Node mem address
         self.capacity = capacity
         self.size = 0
 
@@ -97,17 +98,17 @@ class LRUCache:
             return -1
         else:
             node = self.cache[key]
-            self.move2Head(node) # 2B impl
+            self.move2Head(node)  # 2B impl
             return node.value
 
     def put(self, key: int, value: int) -> None:
         if key not in self.cache:
             node = Node(key, value)
-            self.add2Head(node) # 2B impl
+            self.add2Head(node)  # 2B impl
             self.size += 1
             self.cache[key] = node
             if self.size > self.capacity:
-                node = self.removeTail() # 2B impl
+                node = self.removeTail()  # 2B impl
                 self.cache.pop(node.key)
                 self.size -= 1
         else:
@@ -115,9 +116,8 @@ class LRUCache:
             node.value = value
             self.move2Head(node)
     
-    
     def move2Head(self, node):
-        self.removeNode(node) # 2B impl
+        self.removeNode(node)  # 2B impl
         self.add2Head(node)
     
     # head <-> nodeXXX

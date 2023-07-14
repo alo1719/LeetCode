@@ -58,23 +58,21 @@
 #
 
 # @lc code=start
+# TC: O(nm)  SC: O(max(m, n))
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         def dfs(i, j):
-            nonlocal n, m
-            if  i >= n or i < 0 or j >= m or j < 0 or grid[i][j] == "0":
-                return
-            else:
-                grid[i][j] = "0"
-                dfs(i+1, j)
-                dfs(i-1, j)
-                dfs(i, j+1)
-                dfs(i, j-1)
+            grid[i][j] = "0"
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                x = i+dx
+                y = j+dy
+                if 0 <= x < m and 0 <= y < n and grid[x][y] == "1":
+                    dfs(x, y)
 
-        n, m = len(grid), len(grid[0])
+        m, n = len(grid), len(grid[0])
         ans = 0
-        for i in range(n):
-            for j in range(m):
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j] == "1":
                     dfs(i, j)
                     ans += 1

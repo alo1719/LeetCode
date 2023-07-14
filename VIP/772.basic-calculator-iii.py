@@ -62,49 +62,45 @@
 # TC: O(n)  SC: O(n)
 class Solution:
     def calculate(self, s: str) -> int:
-        num_stk = []
-        opt_stk = []
-        n = len(s)
-        i = 0
-        priority = {"(":0, "+":1, "-":1, "*":2, "/":2}
+        nums, ops = [], []
+        n, i = len(s), 0
+        priority = {"(":0, "+":1, "-":1, "*":2, "/":2}  # only calc when ops[-1] is higher than current op
         while i < n:
-            if "0" <= s[i] <= "9":
+            if s[i].isdigit():
                 j = i
-                while i+1 < n and "0" <= s[i+1] <= "9":
-                    i += 1
-                num_stk.append(int(s[j:i+1]))
+                while i+1 < n and s[i+1].isdigit(): i += 1
+                nums.append(int(s[j:i+1]))
             elif s[i] == "(":
-                opt_stk.append("(")
+                ops.append("(")
             elif s[i] == ")":
-                while opt_stk[-1] != "(":
-                    self.calc(num_stk, opt_stk)
-                opt_stk.pop()
+                while ops[-1] != "(":
+                    self.calc(nums, ops)
+                ops.pop()
             else:  # + - * /
-                while opt_stk and priority[opt_stk[-1]] >= priority[s[i]]:
-                    self.calc(num_stk, opt_stk)  # respect to priority
-                opt_stk.append(s[i])
+                while ops and priority[ops[-1]] >= priority[s[i]]:
+                    self.calc(nums, ops)
+                ops.append(s[i])
             i += 1
 
-        while opt_stk:
-            self.calc(num_stk, opt_stk)
-        
-        return num_stk[-1]
+        while ops:
+            self.calc(nums, ops)
+        return nums[-1]
 
+
+    def calc(self, nums, ops):
+        B = nums.pop()
+        A = nums.pop()
+        op = ops.pop()
+        nums.append(self.calc_num(op, A, B))
     
-    def calc(self, num_stk, opt_stk):
-        B = num_stk.pop()
-        A = num_stk.pop()
-        opt = opt_stk.pop()
-        num_stk.append(self.calc_num(opt, A, B))
-    
-    def calc_num(self, opt, A, B):
-        if opt == "+":
+    def calc_num(self, op, A, B):
+        if op == "+":
             return A+B
-        if opt == "-":
+        if op == "-":
             return A-B
-        if opt == "*":
+        if op == "*":
             return A*B
-        if opt == "/":
+        if op == "/":
             return int(A/B)  # truncate toward zero
 # @lc code=end
 

@@ -49,17 +49,16 @@ from collections import defaultdict
 # TC: O(n)  SC: O(k)
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
-        right, ans, n = -1, 0, len(s)
+        left, ans, n = 0, 0, len(s)
         contain_dict = defaultdict(int)
-        for left in range(n):
-            if left >= 1:
-                contain_dict[s[left-1]] -= 1
-                if contain_dict[s[left-1]] <= 0:
-                    del contain_dict[s[left-1]]
-            while right+1 < n and (len(contain_dict) < k or s[right+1] in contain_dict):
-                right += 1
-                contain_dict[s[right]] += 1
-                ans = max(ans, right-left+1)
+        for right in range(n):
+            contain_dict[s[right]] += 1
+            while len(contain_dict) > k:
+                contain_dict[s[left]] -= 1
+                if contain_dict[s[left]] <= 0:
+                    del contain_dict[s[left]]
+                left += 1
+            ans = max(ans, right-left+1)
         return ans
 # @lc code=end
 

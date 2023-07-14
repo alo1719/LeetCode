@@ -88,26 +88,25 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC:  O(1) amortized  SC: O(h)
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.stack = []
+        self.stk = []
         self.cur = root
 
+    # inorder traversal
     def next(self) -> int:
         while self.cur:
-            self.stack.append(self.cur)
+            self.stk.append(self.cur)
             self.cur = self.cur.left
-        self.cur = self.stack.pop()
+        self.cur = self.stk.pop()
         val = self.cur.val
         self.cur = self.cur.right
         return val
 
     def hasNext(self) -> bool:
-        if self.cur or self.stack:
-            return True
-        return False
+        return self.cur or self.stk
 
 
 root = TreeNode(7, TreeNode(3), TreeNode(15, TreeNode(9), TreeNode(20)))

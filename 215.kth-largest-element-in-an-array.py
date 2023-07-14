@@ -42,29 +42,22 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        def partition(nums, left, right, k):
-            pivot = nums[left]
-            l, r = left, right
-            while l < r:
-                while l < r and nums[r] <= pivot:
-                    r -= 1
-                nums[l] = nums[r]
-                while l < r and nums[l] >= pivot:
-                    l += 1
-                nums[r] = nums[l]
-            nums[l] = pivot
-            if l == k:
-                print(nums[l])
-                return nums[l]
-            elif l < k:
-                return partition(nums, l + 1, right, k)
-            else:
-                return partition(nums, left, l - 1, k)
-
-        return partition(nums, 0, len(nums) - 1, k-1)
+        def partition(begin, end):
+            pivot = (begin+end)//2
+            nums[begin], nums[pivot] = nums[pivot], nums[begin]
+            pivot = begin
+            for i in range(begin+1, end+1):
+                if nums[i] > nums[begin]:
+                    pivot += 1
+                    nums[i], nums[pivot] = nums[pivot], nums[i]
+            nums[begin], nums[pivot] = nums[pivot], nums[begin]
+            if pivot == k-1: return nums[pivot]
+            elif pivot < k-1: return partition(pivot+1, end)
+            else: return partition(begin, pivot-1)
+        return partition(0, len(nums)-1)
 
 
 Solution().findKthLargest([3, 2, 1, 5, 6, 4], 2)

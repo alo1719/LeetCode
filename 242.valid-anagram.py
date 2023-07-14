@@ -45,12 +45,9 @@
 # @lc code=start
 import collections
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        # 1. Sort the strings
-        # return sorted(s) == sorted(t)
-        # 2. Count the characters
         return collections.Counter(s) == collections.Counter(t)
 
 # @lc code=end

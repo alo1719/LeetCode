@@ -1,4 +1,5 @@
 from collections import defaultdict
+from math import *
 
 # TC: O(n)  SC: O(26*n)
 # really hard
@@ -36,12 +37,12 @@ def doordash(s1, s2):
 
     # sliding window
     ans = n
-    right = n # delete [left, right)
-    for left in range(n-1, 0, -1):
-        lval = f[left-1]
-        if lval == -1: continue
-        while right-1 >= left and rf[right-1] != -1 and rf[right-1] > lval:
-            right -= 1
+    left = 0
+    for right in range(n+1):  # delete [left, right)
+        rval = rf[right] if right != n else inf
+        if rval == -1: continue
+        while left+1 <= right and f[left] != -1 and f[left] < rval:
+            left += 1
         ans = min(ans, right-left)
     return ans
 
@@ -50,3 +51,8 @@ print(doordash("HACKERRANK", "HACKERMAN"))  # 1
 print(doordash("ABACABA", "ABA"))  # 0
 print(doordash("ABA", "ABACCA"))  # 3
 print(doordash("ABA", "ABAD"))  # 1
+print(doordash("ABA", "ABA"))  # 0
+print(doordash("CCABA", "ABA"))  # 0
+print(doordash("ABACC", "ABA"))  # 0
+print(doordash("ABA", "CCABA"))  # 2
+print(doordash("ABA", "ABACC"))  # 2

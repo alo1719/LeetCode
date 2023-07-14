@@ -51,15 +51,16 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(nloglogn) (hard to prove)  SC: O(n)
 class Solution:
     def countPrimes(self, n: int) -> int:
-        a: List[bool] = [True] * max(2, n)
-        a[0] = a[1] = False
+        prime = [True]*(n)
         for i in range(2, n):
-            if a[i]:
-                for j in range(i * i, n, i):
-                    a[j] = False
-        return sum(a)
+            if prime[i]:
+                j = i*i
+                while j < n:
+                    prime[j] = False
+                    j += i
+        return prime[2:].count(True)
 
 # @lc code=end

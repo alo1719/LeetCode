@@ -70,5 +70,13 @@
 # @lc code=start
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        return bin(n).count('1')
+        # 1. Bit Manipulation
+        # TC: O(number of 1)  SC: O(1)
+        ans = 0
+        while n:
+            n &= n-1
+            ans += 1
+        return ans
+        # 2. built-in function
+        return n.bit_count()
 # @lc code=end

@@ -51,7 +51,6 @@
 
 # @lc code=start
 # Definition for a binary tree node.
-from curses.ascii import SO
 from typing import List, Optional
 
 
@@ -61,18 +60,19 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return []
-        q = [root]
+        if not root: return []
+        dq = deque([root])
         ans = []
-        while q:
-            print(q[-1].val)
-            ans.append(q[-1].val)
-            q = [child for node in q for child in (
-                node.left, node.right) if child]
+        while dq:
+            lenn = len(dq)
+            ans.append(dq[-1].val)
+            for _ in range(lenn):
+                node = dq.popleft()
+                if node.left: dq.append(node.left)
+                if node.right: dq.append(node.right)
         return ans
 
 

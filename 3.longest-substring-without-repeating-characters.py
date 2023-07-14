@@ -54,23 +54,21 @@
 #
 
 # @lc code=start
-# TC: O(n)  SC: O(n)
+# TC: O(n)  SC: O(len(set(s))
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         # Sliding window
-        char_set = set()
-        # right = -1 means take nothing, result is [left, right]
-        right, ans = -1, 0
+        c = Counter()
         n = len(s)
-        for left in range(n):
-            if left != 0:
-                char_set.remove(s[left-1])
-            while right+1 <= n-1 and s[right+1] not in char_set:
-                char_set.add(s[right+1])
-                right += 1
-                ans = max(ans, right-left+1)
+        ans = left = 0
+        for right in range(n):  # [left, right]
+            c[s[right]] += 1
+            while c[s[right]] > 1:
+                c[s[left]] -= 1
+                left += 1
+            ans = max(ans, right-left+1)
         return ans
-    
+
         # DP
         if not s: return 0
         n = len(s)

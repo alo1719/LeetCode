@@ -59,17 +59,30 @@ class ListNode:
         self.val = val
         self.next = next
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
-
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        # if need O(1) SC
-        # 1. fast and slow node to find center
-        # 2. reverse the latter half
-        # 3. compare
-        a = []
-        while head:
-            a.append(head.val)
+        def reverse(head):
+            pre = None
+            cur = head
+            while cur:
+                nxt = cur.next
+                cur.next = pre
+                pre = cur
+                cur = nxt
+            return pre
+        if not head: return True
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        slow = slow.next
+        slow = reverse(slow)
+        while slow:
+            if slow.val != head.val:
+                return False
+            slow = slow.next
             head = head.next
-        return a == a[::-1]
+        return True
 # @lc code=end
