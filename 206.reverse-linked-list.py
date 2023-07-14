@@ -68,23 +68,32 @@ class ListNode:
         self.next = next
 
 
+# WeRide VOE
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head is None:
-            return None
-        if head.next is None:
-            return head
+        # 1. Iterative
         #  1 -> 2 -> 3 -> 4 -> 5
         #  p1  p2  p3
         #                p1   p2
-        p1 = head
-        p2 = head.next
-        p1.next = None
-        while p2 is not None:
-            p3 = p2.next
-            p2.next = p1
-            p1 = p2
-            p2 = p3
-        return p1
+        # TC: O(n)  SC: O(1)
+        pre = None
+        cur = head
+        while cur:
+            nxt = cur.next
+            cur.next = pre
+            pre = cur
+            cur = nxt
+        return pre
+    
+        # 2. Recursive
+        # 1 -> 2 -> 3 -> 4 -> 5
+        # 1 -> 2 -> 3 -> 4 <- 5
+        #          head
+        # TC: O(n)  SC: O(n)
+        if not head or not head.next: return head
+        new_head = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None  # make sure first node's next is None
+        return new_head
 
 # @lc code=end

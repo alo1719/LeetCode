@@ -61,22 +61,27 @@
 #
 
 # @lc code=start
-# TC: O(n^2)  SC: O(n^2)
-# can sort then two pointers to deal with duplicates, but does not make sense
+# TC: O(n^2)  SC: O(1)
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
         n = len(nums)
-        d = defaultdict(list)
-        for i in range(n): d[nums[i]].append(i)
         ans = []
-        ans_set = set()
-        for i in range(n):
-            for j in range(i+1, n):
-                goal = -nums[i]-nums[j]
-                if goal in d and d[goal][-1] > j:
-                    tmp = sorted([nums[i], nums[j], goal])
-                    if str(tmp) not in ans_set:
-                        ans.append(tmp)
-                        ans_set.add(str(tmp))
+        for i in range(n-2):
+            x = nums[i]
+            if i > 0 and x == nums[i-1]: continue
+            j, k = i+1, n-1
+            while j < k:
+                y, z = nums[j], nums[k]
+                if x+y+z == 0:
+                    ans.append([x, y, z])
+                    while j < k and nums[j] == y:
+                        j += 1
+                    while j < k and nums[k] == z:
+                        k -= 1
+                elif x+y+z < 0:
+                    j += 1
+                else:
+                    k -= 1
         return ans
 # @lc code=end

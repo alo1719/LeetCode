@@ -61,19 +61,21 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        # 1. Reverse the whole list, like this:
-        k %= len(nums)
-        nums[:] = nums[-k:] + nums[:-k]
-        # 2. Use queue
-        # 3. pop and insert k times
+        def flip(b, e):
+            while b < e:
+                nums[b], nums[e] = nums[e], nums[b]
+                b += 1
+                e -= 1
+        n = len(nums)
+        k %= n
+        flip(0, n-1)
+        flip(0, k-1)
+        flip(k, n-1)
 
 
-Solution().rotate([1, 2, 3, 4, 5, 6, 7], 3)
+Solution().rotate([1,2,3,4,5,6,7], 3)
 
 # @lc code=end

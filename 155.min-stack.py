@@ -65,30 +65,26 @@
 
 # @lc code=start
 
-
+# TC: O(1)  SC: O(n)
 class MinStack:
 
-    stack = []
-    min = []
-
     def __init__(self):
-        self.stack = []
-        self.min = []
+        self.stk = []
+        self.min_stk = []
 
     def push(self, val: int) -> None:
-        self.stack.append(val)
-        self.min.append(min(self.min[-1] if len(self.min) > 0 else val, val))
+        self.stk.append(val)
+        self.min_stk.append(min(self.min_stk[-1] if self.min_stk else inf, val))
 
     def pop(self) -> None:
-        self.stack.pop()
-        self.min.pop()
+        self.stk.pop()
+        self.min_stk.pop()
 
     def top(self) -> int:
-        return self.stack[-1]
+        return self.stk[-1]
 
     def getMin(self) -> int:
-        return self.min[-1]
-
+        return self.min_stk[-1]
 
 # Your MinStack object will be instantiated and called as such:
 obj = MinStack()

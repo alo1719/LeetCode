@@ -10,7 +10,7 @@ def f(i, mask, limited, valid):
         ans = f(i+1, mask, False, False)
     upper_bound = int(s[i]) if limited else 9
     for digit in range(1-int(valid), upper_bound+1):
-        if mask >> digit & 1 == 0:
+        if mask>>digit&1 == 0:
             ans += f(i+1, mask|(1<<digit), limited and digit==upper_bound, True)
     return ans
 

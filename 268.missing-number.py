@@ -66,8 +66,8 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        return sum(range(len(nums) + 1)) - sum(nums)
+        return sum(range(len(nums)+1))-sum(nums)
 # @lc code=end

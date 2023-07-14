@@ -56,6 +56,7 @@
 #
 
 # @lc code=start
+# TC: O(1)  SC: O(1)
 class Solution:
     def isPowerOfThree(self, n: int) -> bool:
         # pow = 1

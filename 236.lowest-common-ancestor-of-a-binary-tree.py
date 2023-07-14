@@ -67,29 +67,24 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if not root or root == p or root == q:
-            print('get: ', root.val if root else None)
-            return root
-        # try to find p **or** q in left subtree
-        print('try left: ', root.left.val if root.left else None)
-        left = self.lowestCommonAncestor(root.left, p, q)
-        # try to find p **or** q in right subtree
-        print('try right: ', root.right.val if root.right else None)
-        right = self.lowestCommonAncestor(root.right, p, q)
-        # if both left and right are not None, then root is the LCA (because it's depth first search)
-        # if only one of left and right is not None, then the LCA is in that subtree
-        if left and right:
-            print('left and right: ', root.val)
-            return root
-        elif left:
-            print('left: ', left.val)
-            return left
-        elif right:
-            print('right: ', right.val)
-            return right
+        # classic classify question with postorder
+        # cur is None -> return None
+        # cur is p -> return p
+        # cur is q -> return q
+        # found in both left and right subtree -> return root
+        # found in left subtree -> return left (because it's postorder, return to root)
+        # found in right subtree -> return right
+        # both left and right subtree not found -> return None
+        if not root: return None
+        if root == p or root == q: return root
+        left = self.lowestCommonAncestor(root.left, p, q)  # if found in left subtree, return left
+        right = self.lowestCommonAncestor(root.right, p, q)  # if found in right subtree, return right
+        if left and right: return root
+        elif left: return left
+        else: return right
 
 TreeNode1 = TreeNode(3)
 TreeNode2 = TreeNode(5)

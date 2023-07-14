@@ -61,7 +61,23 @@
 #
 
 # @lc code=start
+# TC: O(1)  SC: O(1)
 class Solution:
     def reverseBits(self, n: int) -> int:
-        return int(bin(n)[2:].zfill(32)[::-1], 2)
+        mask1 = 0b01010101010101010101010101010101
+        mask2 = 0b00110011001100110011001100110011
+        mask4 = 0b00001111000011110000111100001111
+        mask8 = 0b00000000111111110000000011111111
+        mask16 = 0b00000000000000001111111111111111
+        # flip 2 bits
+        n = n>>1&mask1|(n&mask1)<<1
+        # flip 4 bits
+        n = n>>2&mask2|(n&mask2)<<2
+        # flip 8 bits
+        n = n>>4&mask4|(n&mask4)<<4
+        # flip 16 bits
+        n = n>>8&mask8|(n&mask8)<<8
+        # flip 32 bits
+        n = n>>16&mask16|(n&mask16)<<16
+        return n
 # @lc code=end

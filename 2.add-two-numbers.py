@@ -72,15 +72,13 @@ class Solution:
         dummy = index = ListNode()
         carry_out = 0
         while l1 or l2 or carry_out:
-            v1 = l1.val if l1 else 0
-            v2 = l2.val if l2 else 0
-            value = (v1+v2+carry_out)%10
-            carry_out = (v1+v2+carry_out)//10
-            tmp = ListNode(value, None)
-            index.next = tmp
+            if l1: carry_out += l1.val
+            if l2: carry_out += l2.val
+            index.next = ListNode(carry_out%10)
+            carry_out //= 10
             index = index.next
-            l1 = l1.next if l1 else l1
-            l2 = l2.next if l2 else l2
+            if l1: l1 = l1.next
+            if l2: l2 = l2.next
         return dummy.next
 # @lc code=end
 

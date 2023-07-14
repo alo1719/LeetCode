@@ -70,6 +70,5 @@ class Solution:
             goal: int = target-num
             if goal in dic:  # type: int
                 return [dic[goal], i]
-            else:
-                dic[num] = i
+            dic[num] = i
 # @lc code=end

@@ -57,18 +57,21 @@
 #
 
 # @lc code=start
+# TC: O(logn)  SC: O(1)
 class Solution:
     def isHappy(self, n: int) -> bool:
-        visited = set()
-        visited.add(n)
-        while True:
-            n_str = str(n)
-            new_number = 0
-            for ch in n_str:
-                new_number += int(ch) ** 2
-            if new_number == 1: return True
-            if new_number in visited: return False
-            visited.add(new_number)
-            n = new_number
+        def calc_next(n):
+            ans = 0
+            while n > 0:
+                ans += (n%10)**2
+                n //= 10
+            return ans
+        
+        slow = n
+        fast = calc_next(n)
+        while fast != 1 and slow != fast:
+            slow = calc_next(slow)
+            fast = calc_next(calc_next(fast))
+        return fast == 1
 # @lc code=end
 

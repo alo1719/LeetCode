@@ -58,15 +58,13 @@
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
 
+# TC: O(logn)  SC: O(1)
 class Solution:
     def firstBadVersion(self, n: int) -> int:
-        l: int = 1
-        r: int = n
-        while l < r:
-            m: int = (l + r) // 2
-            if isBadVersion(m):
-                r = m
-            else:
-                l = m + 1
-        return r
+        left, right = 1, n
+        while left < right:
+            mid = (left+right)//2
+            if isBadVersion(mid): right = mid
+            else: left = mid+1
+        return left
 # @lc code=end

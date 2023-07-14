@@ -51,53 +51,43 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(n)
 class Solution:
     def calculate(self, s: str) -> int:
-        numbers = []
-        ops = []
-        i = 0
-        while i < len(s):
-            if s[i] in '+-*/':
+        nums, ops = [], []
+        n, i = len(s), 0
+        priority = {"(":0, "+":1, "-":1, "*":2, "/":2}  # only calc when ops[-1] is higher than current op
+        while i < n:
+            if s[i].isdigit():
+                j = i
+                while i+1 < n and s[i+1].isdigit(): i += 1
+                nums.append(int(s[j:i+1]))
+            elif s[i] in '+-*/':  # + - * /
+                while ops and priority[ops[-1]] >= priority[s[i]]:
+                    self.calc(nums, ops)
                 ops.append(s[i])
-                i += 1
-            elif s[i] == ' ':
-                i += 1
-            else:
-                num = 0
-                while i < len(s) and s[i].isdigit():
-                    num = num * 10 + int(s[i])
-                    i += 1
-                numbers.append(num)
-        print(numbers, ops)
-        i = 0
-        while i < len(ops):
-            if ops[i] == '*':
-                numbers[i] *= numbers[i+1]
-                numbers.pop(i+1)
-                ops.pop(i)
-                print(numbers, ops)
-            elif ops[i] == '/':
-                numbers[i] //= numbers[i+1]
-                numbers.pop(i+1)
-                ops.pop(i)
-            else:
-                i += 1
-        print(numbers, ops)
-        i = 0
-        while i < len(ops):
-            if ops[i] == '+':
-                numbers[i] += numbers[i+1]
-                numbers.pop(i+1)
-                ops.pop(i)
-            elif ops[i] == '-':
-                numbers[i] -= numbers[i+1]
-                numbers.pop(i+1)
-                ops.pop(i)
-            else:
-                i += 1
-        print(numbers, ops)
-        print(numbers[0])
-        return numbers[0]
+            i += 1
+
+        while ops:
+            self.calc(nums, ops)
+        return nums[-1]
+
+
+    def calc(self, nums, ops):
+        B = nums.pop()
+        A = nums.pop()
+        op = ops.pop()
+        nums.append(self.calc_num(op, A, B))
+    
+    def calc_num(self, op, A, B):
+        if op == "+":
+            return A+B
+        if op == "-":
+            return A-B
+        if op == "*":
+            return A*B
+        if op == "/":
+            return int(A/B)  # truncate toward zero
 
 Solution().calculate("3+2*2")
 Solution().calculate(" 3/2 ")

@@ -60,18 +60,15 @@
 from typing import List
 
 
+# TC: O(amount*n)  SC: O(amount)
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [float('inf')] * (amount + 1)
-        dp[0] = 0
-        # record = [[]] * (amount + 1)
-        
-        for coin in coins:
-            for x in range(coin, amount + 1):
-                if dp[x - coin] + 1 < dp[x]:
-                    dp[x] = dp[x - coin] + 1
-                    # record[x] = record[x - coin] + [coin]
-        # return record[amount]
-        return dp[amount] if dp[amount] != float('inf') else -1
+        # f[cur] = min(f[cur+coin]+1) for coin in coins
+        @cache
+        def f(cur):
+            if cur == amount: return 0
+            if cur > amount: return inf
+            return min(f(cur+coin)+1 for coin in coins)
+        return ans if (ans := f(0)) != inf else -1
 # @lc code=end
 

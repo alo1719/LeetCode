@@ -56,6 +56,9 @@
 
 # @lc code=start
 # Snowflake VOE, Trie, Good question!
+# WeRide VOE
+# TC: O(mn×3^l), l is the max length of patterns
+# SC: O(26l)
 from collections import defaultdict
 
 class Trie:
@@ -64,37 +67,52 @@ class Trie:
         self.is_end = False
     
     def insert(self, word):
-        current_node = self
+        cur = self
         for ch in word:
-            current_node = current_node.children[ch]
-        current_node.is_end = True
+            cur = cur.children[ch]
+        cur.is_end = True
+    
+    # followup, remove word in trie
+    def remove(self, word):
+        def _remove(node, word, depth):
+            if depth == len(word):
+                node.is_end = False
+                return len(node.children) == 0  # this node has no children
+            ch = word[depth]
+            if ch not in node.children: return False  # word not in trie
+            if _remove(node.children[ch], word, depth+1):
+                del node.children[ch]
+                return len(node.children) == 0
+            return False  #  this node has children, cannot be removed
+
+        _remove(self, word, 0)
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        def dfs(i, j, now_node, now_str):
-            nonlocal n, m
+        def dfs(i, j, cur_node, cur_str):
             visited[i][j] = True
-            if now_node.is_end and now_str not in ans: # can use a set to optimize
-                ans.append(now_str)
+            if cur_node.is_end and cur_str not in ans:
+                ans.add(cur_str)
+                # followup, remove word in trie
+                trie.remove(cur_str)
             for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
-                newi = i + dx
-                newj = j + dy
-                if 0<=newi<n and 0<=newj<m and board[newi][newj] in now_node.children and not visited[newi][newj]:
-                    dfs(newi, newj, now_node.children[board[newi][newj]], now_str+board[newi][newj])
+                ni = i+dx
+                nj = j+dy
+                if 0 <= ni < m and 0 <= nj < n and board[ni][nj] in cur_node.children and not visited[ni][nj]:
+                    dfs(ni, nj, cur_node.children[board[ni][nj]], cur_str+board[ni][nj])
                     # backtrack
-                    visited[newi][newj] = False
+                    visited[ni][nj] = False
 
         trie = Trie()
         for word in words:
             trie.insert(word)
-        n, m = len(board), len(board[0])
-        visited = [[False for _ in range(m)] for _ in range(n)]
-        ans = []
-        for i in range(n):
-            for j in range(m):
+        m, n = len(board), len(board[0])
+        ans = set()
+        for i in range(m):
+            for j in range(n):
                 if board[i][j] in trie.children:
-                    visited = [[False for _ in range(m)] for _ in range(n)]
+                    visited = [[False]*n for _ in range(m)]
                     dfs(i, j, trie.children[board[i][j]], board[i][j])
-        return ans
+        return list(ans)
 # @lc code=end
 

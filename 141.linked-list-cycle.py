@@ -81,16 +81,14 @@ class ListNode:
         self.val = x
         self.next = None
 
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        if not head:
-            return False
+        if not head: return False
         slow = head
         fast = head.next
         while fast and fast.next:
-            if slow == fast:
-                return True
+            if slow == fast: return True
             slow = slow.next
             fast = fast.next.next
         return False
