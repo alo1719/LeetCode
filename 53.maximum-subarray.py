@@ -63,6 +63,7 @@ class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         n, ans = len(nums), -inf
         dp = 0
+        # dp[i] = max(nums[i], nums[i]+dp[i-1])
         for i in range(n):
             dp = max(nums[i], nums[i]+dp)
             ans = max(ans, dp)

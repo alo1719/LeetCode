@@ -59,13 +59,14 @@ from typing import List
 # TC: O(n)  SC: O(1)
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        # f[i] = max(f[i-1], f[i-2]+nums[i])
         n = len(nums)
-        dp = [nums[0], 0, 0]
+        f = [nums[0], 0, 0]
         for i in range(1, len(nums)):
             if i == 1:
-                dp[1] = max(nums[1], nums[0])
+                f[1] = max(nums[1], nums[0])
             else:
-                dp[i%3] = max(dp[(i-1)%3], dp[(i-2)%3]+nums[i])
-        return dp[(n-1)%3]
+                f[i%3] = max(f[(i-1)%3], f[(i-2)%3]+nums[i])
+        return f[(n-1)%3]
 
 # @lc code=end

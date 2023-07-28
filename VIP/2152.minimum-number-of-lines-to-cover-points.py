@@ -70,6 +70,7 @@ class Solution:
             AC = [points[C][0]-points[A][0], points[C][1]-points[A][1]]
             return AB[0]*AC[1]-AB[1]*AC[0] == 0  # ad - bc
         
+        # f[mask] = min(f[mask after choosing 2 points and all the other points on the same line])+1
         @cache
         def f(mask):
             if mask == (1<<n)-1: return 0

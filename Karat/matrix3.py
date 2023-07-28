@@ -49,4 +49,5 @@ def validMoves(start, end):
 
 start = ["R", "_", "B", "B"]
 end = ["B", "_", "B", "R"]
+# [['R', '_', 'B', 'B'], ['_', 'R', 'B', 'B'], ['B', 'R', '_', 'B'], ['B', 'R', 'B', '_'], ['B', '_', 'B', 'R']]
 validMoves(start, end)

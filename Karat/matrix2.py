@@ -36,4 +36,4 @@ matrix = [
 ]
 rows = [[],[1],[1,2],[1],[2]]
 columns = [[2,1],[1],[2],[1]]
-print(validateMonogram(matrix, rows, columns))
+print(validateMonogram(matrix, rows, columns))  # True

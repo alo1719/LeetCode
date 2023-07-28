@@ -49,13 +49,14 @@ class Solution:
         # Can also use center expansion, TC O(n^2), SC O(1)
         # Can use Rabin-Karp and binary search to optimize center expansion, TC O(nlogn), SC O(n)
         # The ultimate answer is Manacher, TC O(n), SC O(n)
+        # f[i][j] = (j == i+1 and s[i] == s[j]) or (f[i+1][j-1] and s[i] == s[j])
         ans, max, n = s[0], 1, len(s)
-        dp = [[False for _ in range(n)] for _ in range(n)]  # means s[i] to s[j] whether is palindrome
+        f = [[False for _ in range(n)] for _ in range(n)]  # means s[i] to s[j] whether is palindrome
         for i in range(n-1, -1, -1):
-            dp[i][i] = True
+            f[i][i] = True
             for j in range(i+1, n):
-                if (j == i+1 and s[i] == s[j]) or (dp[i+1][j-1] and s[i] == s[j]):
-                    dp[i][j] = True
+                if (j == i+1 and s[i] == s[j]) or (f[i+1][j-1] and s[i] == s[j]):
+                    f[i][j] = True
                     if j-i+1 > max:
                         max = j-i+1
                         ans = s[i:j+1]

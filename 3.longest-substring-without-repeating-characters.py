@@ -70,16 +70,17 @@ class Solution:
         return ans
 
         # DP
+        # f[i] = min(f[i-1]+1, i-d[s[i]] if s[i] in d else inf), while updating d[s[i]] = i
         if not s: return 0
         n = len(s)
         d = {}
-        dp = [0]*n
+        f = [0]*n
         for i in range(n):
             if s[i] in d:
-                dp[i] = min(dp[i-1]+1, i-d[s[i]])
+                f[i] = min(f[i-1]+1, i-d[s[i]])
             else:
-                dp[i] = dp[i-1]+1
+                f[i] = f[i-1]+1
             d[s[i]] = i
-        return max(dp)
+        return max(f)
 # @lc code=end
 

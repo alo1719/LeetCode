@@ -51,7 +51,8 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         # 1. two pointers
         # TC: O(n)  SC: O(1)
-        n, left, right, pre_max, suf_max, ans = len(height), 0, n-1, 0, 0, 0
+        n = len(height)
+        left, right, pre_max, suf_max, ans = 0, n-1, 0, 0, 0
         while left < right:
             pre_max = max(pre_max, height[left])
             suf_max = max(suf_max, height[right])

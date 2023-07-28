@@ -57,13 +57,14 @@
 class Solution:
     def minCut(self, s: str) -> int:
         n = len(s)
+        # same as LC5
         dp = [[False]*n for _ in range(n)]  # means s[i] to s[j] whether is palindrome
         for i in range(n-1, -1, -1):
             dp[i][i] = True
             for j in range(i+1, n):
                 if (j == i+1 and s[i] == s[j]) or (dp[i+1][j-1] and s[i] == s[j]):
                     dp[i][j] = True
-        f = [0]*n  # f(i) means [0, i] min cut num
+        f = [0]*n  # f[i] means [0, i] min cut num, f[i] = min(f[j-1]+1 if dp[j][i])
         for i in range(n):
             if dp[0][i]: f[i] = 0
             else:

@@ -18,5 +18,14 @@ def countDomain(domains):
         print(v, k+',')
     print("]")
 
+# [
+# 900 google.mail.com,
+# 901 mail.com,
+# 951 com,
+# 50 yahoo.com,
+# 1 intel.mail.com,
+# 5 wiki.org,
+# 5 org,
+# ]
 domains = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
 countDomain(domains)
