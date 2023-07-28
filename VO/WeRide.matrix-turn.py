@@ -8,6 +8,7 @@ def matrix_turn(matrix):
     dq.append((0, 0))
     dp = [[-1]*n for _ in range(m)]
     dp[0][0] = 0
+    # can use dp because shortest path will only go through each cell once
     while dq:
         x, y = dq.popleft()
         if x == m-1 and y == n-1:

@@ -67,6 +67,10 @@
 # TC: O(n)  SC: O(n)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        # f[i][t][bought] = max(buy, hold, sell)
+        # buy = f[i+1][t+1][True]-prices[i] if not bought
+        # hold = f[i+1][t][bought]
+        # sell = f[i+1][t][False]+prices[i] if bought
         @cache
         def f(i, t, bought):
             if i == n or (t == 2 and not bought): return 0

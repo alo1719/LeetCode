@@ -2,7 +2,6 @@ from collections import defaultdict
 from math import *
 
 # TC: O(n)  SC: O(26*n)
-# really hard
 def doordash(s1, s2):
     m, n = len(s1), len(s2)
     str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -13,6 +12,7 @@ def doordash(s1, s2):
                 jump[i][ch] = i+1
             else:
                 jump[i][ch] = jump[i+1][ch]
+    # f[i] = jump[f[i-1]][s2[i]]
     f = [-1 for _ in range(n)]
     for i in range(n):
         if i == 0:

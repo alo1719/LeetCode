@@ -13,6 +13,7 @@ def count_digit_sum_naive(fromm, to):
 
 # TC: O(len(n)*9*len(n)*10) = O(lognlogn)  SC: O(lognlognlogn)
 def count_digit_sum_f(fromm, to):
+    # f[i][sum][limited] = dict_sum(f[i+1][sum+digit][limited and digit == upper_bound] for digit in range(upper_bound+1))
     @cache
     def f(i, sum, limited, s):
         ans = defaultdict(int)

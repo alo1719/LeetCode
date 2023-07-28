@@ -90,6 +90,8 @@ from typing import List
 
 class Solution:
     def minimumCosts(self, regular: List[int], express: List[int], expressCost: int) -> List[int]:
+        # dp_regular[i] = min(dp_regular[i-1]+regular[i-1], dp_express[i-1]+express[i-1])
+        # dp_express[i] = min(dp_regular[i-1]+regular[i-1]+expressCost, dp_express[i-1]+express[i-1])
         # ans = []
         # n = len(regular)
         # dp_regular = [0]*(n+1)

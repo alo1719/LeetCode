@@ -29,6 +29,8 @@ public class RootedDistances {
         return ans;
     }
 
+    // sum[node] = sum(sum[child])+a[node-1]
+    // dp[node] = sum(dp[child])+sum[child]
     private static void dfs(int node, int parent, int[] a) {
         sum[node] = a[node-1];
         for (int child : g.get(node)) {
@@ -39,6 +41,8 @@ public class RootedDistances {
         }
     }
 
+    // dp[child] += dp[node]-dp[child]-sum[child]
+    // dp[child] += sum[1]-sum[child]
     private static void reroot(int node, int parent) {
         ans = Math.max(ans, dp[node]);
         for (int child : g.get(node)) {

@@ -16,4 +16,4 @@ def validateSudoku(grid):
             tmp[grid[i][j]-1] = True
     return True
 
-print(validateSudoku([[1,2,3],[2,3,1],[3,1,2]]))
+print(validateSudoku([[1,2,3],[2,3,1],[3,1,2]]))  # True

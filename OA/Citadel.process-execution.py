@@ -4,6 +4,7 @@ from functools import *
 
 # TC: O(nlogn)  SC: O(n)
 def process_execution(nums):
+    # f[i] = max(f[i+1], d[dk[i]]+(f[i+1] if dk[i+1] != dk[i]+1 else f[i+2]))
     @cache
     def f(i):
         if i == n-1: return d[dk[i]]

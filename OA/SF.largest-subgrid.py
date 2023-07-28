@@ -6,18 +6,19 @@ def largest_subgrid(grid, max_sum) -> int:
         total = 0
         for i in range(n-k+1):
             for j in range(n-k+1):
-                net_sum = dp[i+k][j+k]-dp[i][j+k]-dp[i+k][j]+dp[i][j]
+                net_sum = f[i+k][j+k]-(f[i][j+k]+f[i+k][j]-f[i][j])
                 total = max(total, net_sum)
         return total
     
     if not grid or not grid[0]: return 0
 
     # create culmulative sum 2d array. O(n^2) pre computation
+    # f[i][j] = f[i-1][j]+f[i][j-1]-f[i-1][j-1]+grid[i-1][j-1] (f is 1-indexed)
     n = len(grid)
-    dp = [[0]*(n+1) for _ in range(n+1)]
+    f = [[0]*(n+1) for _ in range(n+1)]
     for i in range(1, n+1):
         for j in range(1, n+1):
-            dp[i][j] = grid[i-1][j-1]+dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1]
+            f[i][j] = f[i-1][j]+f[i][j-1]-f[i-1][j-1]+grid[i-1][j-1]
 
     # binary search, O(log n) where n is grid size
     left, right = 0, n

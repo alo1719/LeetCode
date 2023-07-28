@@ -7,7 +7,7 @@ def domain3(completed_purchase_user_ids, ad_clicks, all_user_ips):
     dict = defaultdict(int)
     purchased = defaultdict(int)
     for ad_click in ad_clicks:
-        ip, time, text = ad_click.split(",")
+        ip, _, text = ad_click.split(",")
         dict[text] += 1
         for all_user_ip in all_user_ips:
             user_id, user_ip = all_user_ip.split(",")
@@ -37,4 +37,7 @@ all_user_ips = [
     "8321125440,82.1.106.8",
     "99911063,92.130.6.144"
 ]
+# 3 of 3 Buy wool coats for your pets
+# 1 of 2 2017 Pet Mittens
+# 0 of 1 The Best Hollywood Coats
 domain3(completed_purchase_user_ids, ad_clicks, all_user_ips)

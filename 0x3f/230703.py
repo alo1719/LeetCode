@@ -2,7 +2,8 @@ from functools import *
 
 
 def solution(nums):
-    # f[i] relies on f[i-1] (or f[i+1] relies on f[i]), so reverse
+    # f[i][+] = f[i-1][-] (nums[i] < 0), f[i-1][+] (nums[i] >= 0)
+    # f[i][-] = f[i-1][+] (nums[i] <= 0), f[i-1][-] (nums[i] > 0)
     @cache
     def f(i, sign):
         if i == -1: return 0

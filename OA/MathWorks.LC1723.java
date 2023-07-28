@@ -10,6 +10,7 @@ public class LC1723 {
             acc[i] = acc[y]+jobs[x];
         }
 
+        // dp[i][mask] = min(max(dp[i-1][mask^subset], acc[subset]))
         int[][] dp = new int[k][1<<n];
         for (int i = 0; i < (1<<n); i++) {
             dp[0][i] = acc[i];

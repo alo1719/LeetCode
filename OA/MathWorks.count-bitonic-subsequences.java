@@ -17,6 +17,9 @@ public class BitonicSubsequences {
         int[] f = new int[n];
         int[] rf = new int[n];
         
+        // f[i] = sum(bucket[j]+times[j]) for j in [0, i-1]
+        // bucket[j] = sum(f[k] for arr[k] == j)
+        // times[j] = sum(1 for arr[k] == j), bucket and times are updated dynamically
         for (int i = 0; i < n; i++) {
             if (bucket[arr[i]] == -1) {
                 bucket[arr[i]] = 0;
