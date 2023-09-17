@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+// TC: O(n^2)  SC: O(n)
 public class StringManipulation {
     public static int stringManipulation(String s) {
         StringBuilder sb = new StringBuilder(s).reverse();

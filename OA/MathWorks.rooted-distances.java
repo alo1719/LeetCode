@@ -1,5 +1,6 @@
 import java.util.*;
 
+// TC: O(n)  SC: O(n)
 public class RootedDistances {
     private static List<List<Integer>> g;
     private static int[] sum;

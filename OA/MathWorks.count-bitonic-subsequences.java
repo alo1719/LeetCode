@@ -1,5 +1,6 @@
 import java.util.*;
 
+// TC: O(n max(arr))  SC: O(n)
 public class BitonicSubsequences {
     public static int countBitonicSubsequences(int[] arr) {
         int MOD = 1000000007;

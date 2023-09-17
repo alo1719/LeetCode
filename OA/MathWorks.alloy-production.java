@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+// TC: O(nlog(max(stock)+budget))  SC: O(1)
 public class AlloyProduction {
     public static int alloyProduction(int[] composition, int[] stock, int[] cost, int budget) {
         int left = 0;
