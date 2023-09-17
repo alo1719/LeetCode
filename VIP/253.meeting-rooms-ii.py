@@ -37,22 +37,36 @@
 # @lc code=start
 from typing import List
 from queue import PriorityQueue
+from collections import defaultdict
 
 
-# TC: O(nlogn)  SC: O(n)
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        n = len(intervals)
-        intervals.sort(key=lambda x:x[0])
-        rooms = PriorityQueue()
-        rooms.put(intervals[0][1])
-        for i in range(1, n):
-            interval = intervals[i]
-            if interval[0] >= rooms.queue[0]:
-                rooms.get()
-                rooms.put(interval[1])
-            else:
-                rooms.put(interval[1])
-        return rooms.qsize()
+        # TC: O(nlogn)  SC: O(n)
+        # n = len(intervals)
+        # intervals.sort(key=lambda x:x[0])
+        # rooms = PriorityQueue()
+        # rooms.put(intervals[0][1])
+        # for i in range(1, n):
+        #     interval = intervals[i]
+        #     if interval[0] >= rooms.queue[0]:
+        #         rooms.get()
+        #         rooms.put(interval[1])
+        #     else:
+        #         rooms.put(interval[1])
+        # return rooms.qsize()
+        # TC: O(nlogn)  SC: O(n)
+        d = defaultdict(int)
+        for start, end in intervals:
+            d[start] += 1
+            d[end] -= 1
+        cur = 0
+        ans = 0
+        for k in sorted(d):
+            cur += d[k]
+            ans = max(ans, cur)
+        return ans
+
+print(Solution().minMeetingRooms([[0,30],[5,10],[15,20]]))
 # @lc code=end
 

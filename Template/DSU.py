@@ -16,7 +16,7 @@ class DSU:
     def find(self, x):
         if self.root[x] == x: return x
         old_root = self.root[x]  # optional, for weighted DSU
-        self.root[x] = self.find(self.root[x])
+        self.root[x] = self.find(self.root[x])  # path compression, O(alpha(n)) average, O(logn) worst
         self.weight[x] *= self.weight[old_root]  # optional
         return self.root[x]
     

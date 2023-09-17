@@ -23,3 +23,6 @@ print(grouping_options(7, 3))  # 4
 print(grouping_options(24, 5))  # 164
 print(grouping_options(24, 5))  # 164
 print(grouping_options(4, 5))  # 0
+print(grouping_options(20, 2))  # 10
+print(grouping_options(30, 2))  # 15
+print(grouping_options(60, 2))  # 30
