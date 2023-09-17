@@ -65,11 +65,12 @@ class TreeNode:
 
 # TC: O(n)  SC: O(n)
 class Solution:
+    pre = -inf
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node, lower=-inf, upper=inf):
-            if node is None: return True
-            if node.val <= lower or node.val >= upper: return False
-            return dfs(node.right, node.val, upper) and dfs(node.left, lower, node.val)
-
-        return dfs(root)
+        if not root: return True
+        left = self.isValidBST(root.left)
+        if not left: return False
+        if root.val <= self.pre: return False
+        self.pre = root.val
+        return self.isValidBST(root.right)
 # @lc code=end

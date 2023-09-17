@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+
+// TC: O(nlogn)  SC: O(1)
 public class FindPerfectPairs {
     public static int findPerfectPairs(int[] nums) {
         int n = nums.length;

@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+
+// TC: O(n*3^n)  SC: O(n*2^n)
 public class LC1723 {
     public static int lc1723(int[] jobs, int k) {
         int n = jobs.length;

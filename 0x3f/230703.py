@@ -1,6 +1,6 @@
 from functools import *
 
-
+# TC: O(n)  SC: O(n)
 def solution(nums):
     # f[i][+] = f[i-1][-] (nums[i] < 0), f[i-1][+] (nums[i] >= 0)
     # f[i][-] = f[i-1][+] (nums[i] <= 0), f[i-1][-] (nums[i] > 0)

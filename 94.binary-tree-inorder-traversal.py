@@ -81,5 +81,19 @@ class Solution:
             cur = cur.right
         return ans
         
+        # follow up: find predecessor
+        def dfs(node, goal):
+            nonlocal ans, pre
+            if not node: return
+            dfs(node.left, goal)
+            if ans: return
+            if node == goal:
+                ans = pre
+                return
+            pre = node
+            dfs(node.right, goal)
+        ans = None
+        dfs(root, goal)
+        
 # @lc code=end
 

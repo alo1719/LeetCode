@@ -1,6 +1,6 @@
 from collections import *
 
-
+# TC: O(n)  SC: O(n)
 def maximum_distinct(a, b, k):
     m = len(a)
     ca = Counter(a)

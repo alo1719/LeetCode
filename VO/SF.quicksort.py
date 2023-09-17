@@ -7,11 +7,11 @@ def quick_sort_not_in_place(a):
     return quick_sort_not_in_place([x for x in a if x < p])+[x for x in a if x == p]+quick_sort_not_in_place([x for x in a if x > p])
 
 # TC: O(nlogn)  SC: O(logn)
-def quick_sort_in_place(a, begin, end):
+def quick_sort(a, begin, end):
     if begin >= end: return
     pivot = partition(a, begin, end)
-    quick_sort_in_place(a, begin, pivot-1)
-    quick_sort_in_place(a, pivot+1, end)
+    quick_sort(a, begin, pivot-1)
+    quick_sort(a, pivot+1, end)
 
 # TC: O(n)  SC: O(1)
 def partition(a, begin, end):
@@ -47,7 +47,7 @@ arr2 = [54, 26, 93, 17, 77, 31, 44, 55, 20, 31, 44]
 print(quick_sort_not_in_place(arr))
 print(find_median(arr))
 print(find_median(arr2))
-quick_sort_in_place(arr, 0, len(arr)-1)
-quick_sort_in_place(arr2, 0, len(arr2)-1)
+quick_sort(arr, 0, len(arr)-1)
+quick_sort(arr2, 0, len(arr2)-1)
 print(arr)
 print(arr2)

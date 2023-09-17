@@ -1,3 +1,4 @@
+// TC: O(n^2)  SC: O(n^2)
 public class BeautyOfArray {
     public static int beautyOfArray(int[] nums) {
         // f[i][j] = max(f[i-1][j-1], f[i-1][j]+(1 if nums[i-1] == i-j))
