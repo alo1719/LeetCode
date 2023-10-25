@@ -58,16 +58,16 @@ class Solution:
         ans = []
         while left > 0 or right < n - 1:
             if left <= 0:
-                ans.append(nums[right + 1] ** 2)
+                ans.append(nums[right+1]**2)
                 right += 1
             elif right >= n - 1:
                 ans.append(nums[left - 1] ** 2)
                 left -= 1
-            elif abs(nums[left - 1]) > nums[right + 1]:
-                ans.append(nums[right + 1] ** 2)
+            elif abs(nums[left-1]) > nums[right+1]:
+                ans.append(nums[right+1]**2)
                 right += 1
             else:
-                ans.append(nums[left - 1] ** 2)
+                ans.append(nums[left-1]**2)
                 left -= 1
         return ans
 # @lc code=end

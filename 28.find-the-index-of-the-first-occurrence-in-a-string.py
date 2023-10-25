@@ -58,7 +58,7 @@ class Solution:
         needle_hash = 0
         haystack_hash = [0]*haystack_len
         for i in range(needle_len):
-            needle_hash = (needle_hash + (ord(needle[i])-ord('a')+1)*pow[i])%mod
+            needle_hash = (needle_hash+(ord(needle[i])-ord('a')+1)*pow[i])%mod
         for i in range(haystack_len):
             last_hash_value = 0 if i == 0 else haystack_hash[i-1]
             haystack_hash[i] = (last_hash_value+(ord(haystack[i])-ord('a')+1)*pow[i])%mod

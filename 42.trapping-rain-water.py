@@ -65,7 +65,7 @@ class Solution:
         return ans
         # 2. monotonic stack
         # TC: O(n)  SC: O(n)
-        n, stk, ans = len(height), [], 0 # stack stores position accroding to its value monotonically
+        n, stk, ans = len(height), [], 0  # stack stores position accroding to its value monotonically
         for i in range(n):
             now_height = height[i]
             while stk and now_height >= height[stk[-1]]: # increasing, pop and calculate

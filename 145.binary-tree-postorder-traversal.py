@@ -75,16 +75,16 @@ class Solution:
         while cur or stk:
             while cur:
                 stk.append(cur)
-                cur = cur.left # left
+                cur = cur.left  # left
             # now current is None, meaning cannot left anymore
             cur = stk[-1]
             if cur.right and cur.right != pre:
-                cur = cur.right # right
+                cur = cur.right  # right
             else:
                 stk.pop()
                 ans.append(cur.val) # root
                 pre = cur
-                cur = None # important, do not traverse it again
+                cur = None  # important, do not traverse it again
         return ans
 # @lc code=end
 

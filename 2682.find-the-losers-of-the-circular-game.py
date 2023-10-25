@@ -82,12 +82,12 @@
 # @lc code=start
 class Solution:
     def circularGameLosers(self, n: int, k: int) -> List[int]:
-        arr = [0] * n
+        arr = [0]*n
         arr[0] = 1
         i = 0
         step = 1
         while True:
-            i = (i + k * step) % n
+            i = (i+k*step)%n
             if arr[i]: break
             arr[i] = 1
             step += 1

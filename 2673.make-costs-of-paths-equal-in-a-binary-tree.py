@@ -78,7 +78,7 @@ class Solution:
                 return (0, cost[i-1])
             left = dfs(2*i)
             right = dfs(2*i+1)
-            tmp = left[0] + right[0] + abs(left[1]-right[1])
+            tmp = left[0]+right[0]+abs(left[1]-right[1])
             return (tmp, max(left[1], right[1])+cost[i-1])
         ans = dfs(1)[0]
         return ans

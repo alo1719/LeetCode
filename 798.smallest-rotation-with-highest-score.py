@@ -67,8 +67,8 @@ class Solution:
         n = len(nums)
         diff = [0] * n
         for i, num in enumerate(nums):
-            low = (i + 1) % n # Remember
-            high = (i - num + n + 1) % n # Remember
+            low = (i+1)%n  # Remember
+            high = (i-num+n+1)%n  # Remember
             diff[low] += 1
             diff[high] -= 1
             if low >= high:
@@ -77,7 +77,7 @@ class Solution:
         for i in range(n):
             now_score += diff[i]
             if now_score > max_score:
-                max_score = now_score  
+                max_score = now_score
                 ans = i
         return ans
 # @lc code=end

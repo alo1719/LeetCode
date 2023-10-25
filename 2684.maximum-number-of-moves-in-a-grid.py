@@ -73,7 +73,7 @@ class Solution:
                         dfs(newx, newy)
                     ans[i][j] = max(ans[i][j], ans[newx][newy]+1)
         m, n = len(grid), len(grid[0])
-        ans = [[0] * n for _ in range(m)]
+        ans = [[0]*n for _ in range(m)]
         for i in range(m):
             dfs(i, 0)
         return max(max(ans))

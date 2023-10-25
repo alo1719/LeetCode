@@ -75,9 +75,9 @@
 # @lc code=start
 class Solution:
     def colorTheArray(self, n: int, queries: List[List[int]]) -> List[int]:
-        arr = [0] * n
+        arr = [0]*n
         ans = []
-        dp = [0] * n
+        dp = [0]*n
         tmp = 0
         for q in queries:
             index, color = q

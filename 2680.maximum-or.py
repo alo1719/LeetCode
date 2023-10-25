@@ -55,7 +55,7 @@
 class Solution:
     def maximumOr(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        pre, post = [0] * n, [0] * n
+        pre, post = [0]*n, [0]*n
         tmp = 0
         for i in range(1, n):
             tmp |= nums[i-1]

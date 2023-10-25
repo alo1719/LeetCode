@@ -99,9 +99,9 @@ class Solution:
         t = random.random()*self.w[-1]
         l, r = 0, len(self.w)-1
         while l < r:
-            mid = (l + r) // 2
+            mid = (l+r)//2
             if self.w[mid] < t:
-                l = mid + 1
+                l = mid+1
             else:
                 r = mid
         return l

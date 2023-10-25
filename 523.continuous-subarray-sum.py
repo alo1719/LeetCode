@@ -70,7 +70,7 @@ class Solution:
         f, d = [], {0: -1}
         f.append(nums[0])
         for i in range(1, len(nums)):
-            f.append((f[i - 1] + nums[i]) % k)
+            f.append((f[i-1]+nums[i])%k)
             if i > 1:
                 d.setdefault(f[i-2], i-2)
             if f[i] in d:

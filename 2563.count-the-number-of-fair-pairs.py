@@ -58,7 +58,7 @@ class Solution:
     def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
         # Sliding window (enhanced version)
         nums, n = sorted(nums), len(nums)
-        left, right_start, right_end, ans = 0, n, n, 0 # [right_start, right_end)
+        left, right_start, right_end, ans = 0, n, n, 0  # [right_start, right_end)
         for left in range(n-1):
             while right_start-1 >= 0 and nums[left]+nums[right_start-1] >= lower:
                 right_start -= 1

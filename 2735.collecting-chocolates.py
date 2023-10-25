@@ -80,7 +80,7 @@ class Solution:
         # print(dp)
         ans = float('inf')
         for k in range(n):
-            tmp = k * x
+            tmp = k*x
             for i in range(n):
                 if i+k >= n:
                     tmp += min(dp[i][n-1], dp[0][i+k-n])

@@ -99,6 +99,6 @@ class Solution:
                     ans[i] += player[j]
         if ans[0] == ans[1]:
             return 0
-        return int(ans[1] > ans[0]) + 1
+        return int(ans[1] > ans[0])+1
 # @lc code=end
 
