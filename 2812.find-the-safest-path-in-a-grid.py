@@ -119,7 +119,7 @@ class Solution:
                 i, j = dq.popleft()
                 for x, y in (i-1, j), (i+1, j), (i, j-1), (i, j+1):
                     if 0 <= x < n and 0 <= y < n and dis[x][y] == -1:
-                        dis[x][y] = dis[i][j] + 1
+                        dis[x][y] = dis[i][j]+1
                         dq.append((x, y))
             if dq: groups.append(list(dq))
         dsu = DSU(n*n)

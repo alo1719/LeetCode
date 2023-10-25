@@ -51,13 +51,13 @@ class Solution:
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
         # 1. DP, equivalent to longest common substr
         # m, n = len(nums1), len(nums2)
-        # dp = [[0] * (n + 1) for _ in range(m + 1)]
+        # dp = [[0]*(n+1) for _ in range(m+1)]
         # ans = 0
         # for i in range(m):
         #     for j in range(n):
         #         if nums1[i] == nums2[j]:
-        #             dp[i + 1][j + 1] = dp[i][j] + 1
-        #             ans = max(ans, dp[i + 1][j + 1])
+        #             dp[i+1][j+1] = dp[i][j]+1
+        #             ans = max(ans, dp[i+1][j+1])
         # return ans
         # 2. Sliding Window
         # str1 = "".join([chr(ch) for ch in nums1])
@@ -77,12 +77,12 @@ class Solution:
             str1_hash_set = set()
             for i in range(len(str1)-length+1):
                 last_hash_value = 0 if i == 0 else str1_hash[i-1]
-                cur_hash = (str1_hash[i+length-1] - last_hash_value + m) % m
+                cur_hash = (str1_hash[i+length-1]-last_hash_value+m) % m
                 final_hash = (cur_hash * p_pow[max_length-length-i]) % m
                 str1_hash_set.add(final_hash)
             for i in range(len(str2)-length+1):
                 last_hash_value = 0 if i == 0 else str2_hash[i-1]
-                cur_hash = (str2_hash[i+length-1] - last_hash_value + m) % m
+                cur_hash = (str2_hash[i+length-1]-last_hash_value+m) % m
                 final_hash = (cur_hash * p_pow[max_length-length-i]) % m
                 if final_hash in str1_hash_set: return True
             return False

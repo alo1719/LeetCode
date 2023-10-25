@@ -142,7 +142,7 @@ class Solution:
                 p = heappop(waitL)
                 cur += time[-p[0]][0]
                 p[1] = p[0]
-                p[0] = cur + time[-p[0]][1]
+                p[0] = cur+time[-p[0]][1]
                 heappush(workR, p)
                 n -= 1  # send 1 worker to L to R
             elif len(workL) == 0: cur = workR[0][0]  # update cur to make sure some worker is wating

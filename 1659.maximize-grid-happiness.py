@@ -126,13 +126,9 @@ class Solution:
             y = pos % n
             put0, put1, put2 = dfs(pos+1, truncate[borderline][0], nx, wx), 0, 0
             if nx > 0:
-                put1 = 120 + calc(1, mask_span[borderline][0]) \
-                                   + (0 if y == 0 else calc(1, mask_span[borderline][-1])) \
-                                   + dfs(pos+1, truncate[borderline][1], nx-1, wx)
+                put1 = 120+calc(1, mask_span[borderline][0])+(0 if y == 0 else calc(1, mask_span[borderline][-1]))+dfs(pos+1, truncate[borderline][1], nx-1, wx)
             if wx > 0:
-                put2 = 40 + calc(2, mask_span[borderline][0]) \
-                                    + (0 if y == 0 else calc(2, mask_span[borderline][-1])) \
-                                    + dfs(pos+1, truncate[borderline][2], nx, wx-1)
+                put2 = 40+calc(2, mask_span[borderline][0])+(0 if y == 0 else calc(2, mask_span[borderline][-1]))+dfs(pos+1, truncate[borderline][2], nx, wx-1)
             return max(put0, put1, put2)
 
         return dfs(0, 0, nx, wx)

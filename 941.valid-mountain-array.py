@@ -54,7 +54,7 @@
 class Solution:
     def validMountainArray(self, arr) -> bool:
         n = len(arr)
-        if n < 3: return False # so n >= 3
+        if n < 3: return False  # so n >= 3
         index = 0
         while index+1 <= n-1 and arr[index+1] > arr[index]:
             index += 1

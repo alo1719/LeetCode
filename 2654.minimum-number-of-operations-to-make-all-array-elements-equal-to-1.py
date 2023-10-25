@@ -80,7 +80,7 @@ class Solution:
                 tmp[i] = gcd(tmp[i], tmp[i+1])
                 if tmp[i] == 1:
                     return ans
-            ans += 1 # length of [i,j] interval (that make 1 happen) + 1
+            ans += 1  # length of [i,j] interval (that make 1 happen) + 1
             tmp.pop()
         return -1
 # @lc code=end

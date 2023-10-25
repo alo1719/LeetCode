@@ -76,7 +76,7 @@ class Solution:
             for to_node in g[i]:
                 if not v[to_node]:
                     dfs(to_node)
-        v = [False] * n
+        v = [False]*n
         ans = 0
         g = defaultdict(list)
         for edge in edges:

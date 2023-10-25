@@ -17,7 +17,7 @@ class UFS:
 # TC: O(n)  SC: O(n)
 def getTheGroups(n, queryType, students1, students2):
     # Write your code here
-    ufs = UFS(n + 1)
+    ufs = UFS(n+1)
     ans = []
     n = len(queryType)
     for i in range(n):

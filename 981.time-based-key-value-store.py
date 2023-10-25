@@ -86,7 +86,7 @@ class TimeMap:
             return ""
         left, right = 0, len(self.dict[key])-1
         while left < right:
-            mid = (left + right + 1) // 2
+            mid = (left+right+1)//2
             if self.dict[key][mid][0] <= timestamp:
                 left = mid
             else:
@@ -108,7 +108,7 @@ class TimeMapSF:
             return "null"
         left, right = 0, len(self.dict[key])-1
         while left < right:
-            mid = (left + right + 1) // 2
+            mid = (left+right+1)//2
             if self.dict[key][mid][0] <= timestamp:
                 left = mid
             else:

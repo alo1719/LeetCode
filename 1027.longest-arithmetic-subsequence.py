@@ -67,7 +67,6 @@ class Solution:
         # can be optimized to O(n^2), but hard to think about
         @cache
         def f(i, prev):
-            nonlocal n
             ans = 1
             if prev == None:
                 for j in range(i+1, n):

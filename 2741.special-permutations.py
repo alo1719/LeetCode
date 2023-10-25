@@ -58,7 +58,6 @@ class Solution:
         MOD = 10**9+7
         @cache
         def f(index, mask, last):
-            nonlocal n, MOD
             if index == n: return 1
             ans = 0
             for i in range(n):

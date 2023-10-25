@@ -103,8 +103,8 @@ class Solution:
                 node = queue.get()
                 for to_node in g[node[1]].keys():
                     edge_weight = g[node[1]][to_node][0]
-                    if dis[to_node] > node[0] + edge_weight:
-                        dis[to_node] = node[0] + edge_weight
+                    if dis[to_node] > node[0]+edge_weight:
+                        dis[to_node] = node[0]+edge_weight
                         fromm[to_node] = node[1]
                         queue.put((dis[to_node], to_node))
             return dis, fromm

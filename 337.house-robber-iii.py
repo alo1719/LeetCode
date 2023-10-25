@@ -67,7 +67,7 @@ class Solution:
             if not node: return 0, 0
             l_choose, l_not = f(node.left)
             r_choose, r_not = f(node.right)
-            choose = node.val + l_not + r_not
+            choose = node.val+l_not+r_not
             not_choose = max(l_choose, l_not)+max(r_choose, r_not)
             return choose, not_choose
         return max(f(root))

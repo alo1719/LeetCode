@@ -66,7 +66,6 @@ class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
         @cache
         def f(i, bought):
-            nonlocal n
             if i == n: return 0
             buy = f(i+1, True)-prices[i] if not bought else 0
             hold = f(i+1, bought)
