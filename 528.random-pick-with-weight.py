@@ -97,7 +97,7 @@ class Solution:
 
     def pickIndex(self) -> int:
         t = random.random()*self.w[-1]
-        l, r = 0, len(self.w) - 1
+        l, r = 0, len(self.w)-1
         while l < r:
             mid = (l + r) // 2
             if self.w[mid] < t:

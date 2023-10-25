@@ -45,24 +45,13 @@
 # @lc code=start
 class Solution:
     def findNthDigit(self, n: int) -> int:
-        def calcD(num):
-            if num == 0:
-                return 0
-            ans = 0
-            n = len(str(num))
-            t = int("1" + (n - 1) * "0")
-            ans += (num - t + 1) * n + calcD(t - 1)
-            return ans
-
-        l = 1
-        r = n
-        while l < r:
-            m = l + (r - l) // 2
-            if (calcD(m) >= n):
-                r = m
-            else:
-                l = m + 1
-
-        left = n - calcD(l - 1)
-        return int(str(l)[left - 1])
+        # TC: O(logn)  SC: O(1)
+        lenn = 1
+        while lenn*9*10**(lenn-1) < n:  # all numbers with lenn digits in total have lenn*9*10**(lenn-1) digits
+            n -= lenn*9*10**(lenn-1)
+            lenn += 1
+        # now n has lenn digits
+        start = 10**(lenn-1)
+        end = start+(n-1)//lenn
+        return int(str(end)[(n-1)%lenn])
 # @lc code=end

@@ -95,11 +95,10 @@ class MyQueue:
         if not self.output:
             while self.input:
                 self.output.append(self.input.pop())
-        return self.output[0]
+        return self.output[-1]
 
     def empty(self) -> bool:
         return not self.input and not self.output
-
 
 
 # Your MyQueue object will be instantiated and called as such:

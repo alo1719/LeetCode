@@ -67,25 +67,23 @@ from typing import List
 
 
 class Solution:
-    original: List[int]
-    now: List[int] = []
 
+    # TC: O(n)  SC: O(n)
     def __init__(self, nums: List[int]):
-        self.original = nums
-        self.now = []
-        for i in range(len(nums)):
-            self.now.append(nums[i])
+        self.nums = nums
+        self.original = nums[:]
 
+    # TC: O(n)
     def reset(self) -> List[int]:
-        for i in range(len(self.original)):
-            self.now[i] = self.original[i]
-        return self.original
+        self.nums = self.original[:]
+        return self.nums
 
+    # TC: O(n)
     def shuffle(self) -> List[int]:
-        for i in range(len(self.now)):
-            j = random.randint(0, len(self.now) - 1)
-            self.now[i], self.now[j] = self.now[j], self.now[i]
-        return self.now
+        for i in range(len(self.nums)):
+            j = random.randint(i, len(self.nums)-1)
+            self.nums[i], self.nums[j] = self.nums[j], self.nums[i]
+        return self.nums
 
 
 # Your Solution object will be instantiated and called as such:

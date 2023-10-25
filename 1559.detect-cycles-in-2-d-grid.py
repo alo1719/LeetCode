@@ -80,7 +80,7 @@ class Solution:
     def containsCycle(self, grid: List[List[str]]) -> bool:
         # Do not need to backtrack!
         def dfs(lasti, lastj, i, j):
-            nonlocal m, n, ok
+            nonlocal ok
             if ok:
                 return
             if visited[i][j]:

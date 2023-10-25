@@ -12,8 +12,8 @@
 # Total Accepted:    69.9K
 # Total Submissions: 117.6K
 # Testcase Example:  '[["a","b"],["b","c"]]\n' +
-  '[2.0,3.0]\n' +
-  '[["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]'
+# '[2.0,3.0]\n' +
+# '[["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]'
 #
 # You are given an array of variable pairs equations and an array of real
 # numbers values, where equations[i] = [Ai, Bi] and values[i] represent the
@@ -77,95 +77,94 @@
 
 # @lc code=start
 # Snowflake VOE
+# No contradiction, meaning all paths from a -> b have the same value, only need to consider one path
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        # 1. queries much, floyd
-        # graph = defaultdict(lambda: defaultdict(lambda: 0))
-        # for i, e in enumerate(equations):
-        #     fst, sec = e[0], e[1]
-        #     graph[fst][sec] = values[i]
-        #     graph[sec][fst] = 1/values[i]
-        # # floyd
-        # nodes = graph.keys()
-        # print(nodes)
-        # for k in nodes:
-        #     for i in nodes:
-        #         for j in nodes:
-        #             graph[i][j] = max(graph[i][j], graph[i][k]*graph[k][j])
-        # print(graph)
-        # ans = []
-        # for q in queries:
-        #     fst, sec = q[0], q[1]
-        #     ans.append(graph[fst][sec] if graph[fst][sec] != 0 else -1)
-        # return ans
-        # 2. queris less, bfs/dijkstra (bfs is easier to impl)
-        # graph = defaultdict(lambda: defaultdict(lambda: 0))
-        # for i, e in enumerate(equations):
-        #     fst, sec = e[0], e[1]
-        #     graph[fst][sec] = values[i]
-        #     graph[sec][fst] = 1/values[i]
-        # ans = []
-        # for q in queries:
-        #     fr, to = q[0], q[1]
-        #     dq = deque()
-        #     if fr in graph.keys():
-        #         dq.append((fr, 1))
-        #     visited = set()
-        #     ans_one_time = -1
-        #     while dq:
-        #         element = dq.popleft()
-        #         if element[0] == to: ans_one_time = max(ans_one_time, element[1])
-        #         visited.add(element[0])
-        #         for node_to in graph[element[0]]:
-        #             if not node_to in visited:
-        #                 dq.append((node_to, element[1]*graph[element[0]][node_to]))
-        #     ans.append(ans_one_time)
-        # return ans
-        # 3. weighted union find set, optimal but tricky to impl
-        wufs = WUFS()
-        for (a, b), v in zip(equations, values):
-            wufs.add(a)
-            wufs.add(b)
-            wufs.merge(a, b, v)
+        # 1. floyd considering have multiple queries
+        # TC: O(v^3)  SC: O(e)
+        g = defaultdict(lambda: defaultdict(float))
+        for i, e in enumerate(equations):
+            fst, sec = e[0], e[1]
+            g[fst][sec] = values[i]
+            g[sec][fst] = 1/values[i]
+        nodes = g.keys()
+        for k in nodes:
+            for i in nodes:
+                for j in nodes:
+                    g[i][j] = max(g[i][j], g[i][k]*g[k][j])
         ans = []
-        print(wufs.root)
-        print(wufs.weight)
+        for q in queries:
+            fst, sec = q[0], q[1]
+            ans.append(g[fst][sec] if g[fst][sec] != 0 else -1)
+        return ans
+        # 2. bfs, suitable for only one query
+        # TC: O(q(v+e))  SC: O(e)
+        g = defaultdict(lambda: defaultdict(float))
+        for i, e in enumerate(equations):
+            fst, sec = e[0], e[1]
+            g[fst][sec] = values[i]
+            g[sec][fst] = 1/values[i]
+        ans = []
+        for q in queries:
+            fr, to = q[0], q[1]
+            dq = deque()
+            if fr in g: dq.append((fr, 1))
+            visited = set()
+            while dq:
+                node = dq.popleft()
+                if node[0] == to:
+                    ans.append(node[1])
+                    break
+                visited.add(node[0])
+                for to_node in g[node[0]]:
+                    if not to_node in visited:
+                        dq.append((to_node, node[1]*g[node[0]][to_node]))
+            else: ans.append(-1)
+        return ans
+        # 3. Disjoint Set Union with Weight, overkill
+        # TC: O(e)  SC: O(v)
+        dsuw = DSUW()
+        for (a, b), v in zip(equations, values):
+            dsuw.add(a)
+            dsuw.add(b)
+            dsuw.merge(a, b, v)
+        ans = []
         for (a, b) in queries:
-            if a in wufs.root and b in wufs.root and wufs.find(a) == wufs.find(b):
-                ans.append(wufs.weight[a] / wufs.weight[b])
+            if a in dsuw.root and b in dsuw.root and dsuw.find(a) == dsuw.find(b):
+                ans.append(dsuw.weight[a]/dsuw.weight[b])
             else:
                 ans.append(-1)
         return ans
 
-class WUFS:
+class DSUW:
     def __init__(self):
         self.root = defaultdict(int)
-        self.weight = defaultdict(int)
+        self.weight = defaultdict(float)
     
     def find(self, x):
         if self.root[x] == x: return x
         original_root = self.root[x]
-        self.root[x] = self.find(self.root[x]) # path compression
+        self.root[x] = self.find(self.root[x])  # path compression
         self.weight[x] *= self.weight[original_root]
         return self.root[x]
     
     def merge(self, a, b, v):
         root_a, root_b = self.find(a), self.find(b)
         self.root[root_a] = root_b
-        self.weight[root_a] = v / self.weight[a] * self.weight[b]
+        self.weight[root_a] = v/self.weight[a]*self.weight[b]
 
     def add(self, x):
         if x not in self.root:
             self.root[x] = x
             self.weight[x] = 1
 
-class UFS:
+class DSU:
     def __init__(self, n):
         self.root = [i for i in range(n)]
     
     def find(self, x):
         if self.root[x] == x: return x
-        self.root[x] = self.find(self.root[x]) # path compression
+        self.root[x] = self.find(self.root[x])  # path compression
         return self.root[x]
     
     def merge(self, a, b):

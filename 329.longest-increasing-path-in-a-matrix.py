@@ -63,14 +63,14 @@
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         def dfs(i, j):
-            if lens[i][j] != 1: return lens[i][j]
+            if dp[i][j] != 1: return dp[i][j]  # only traverse cell once
             for di, dj in [(0,1),(0,-1),(1,0),(-1,0)]:
-                if 0 <= i+di <= m-1 and 0 <= j+dj <= n-1 and matrix[i+di][j+dj] > matrix[i][j]:
-                    lens[i][j] = max(lens[i][j], dfs(i+di, j+dj)+1)
-            return lens[i][j]
+                if 0 <= i+di < m and 0 <= j+dj < n and matrix[i+di][j+dj] > matrix[i][j]:
+                    dp[i][j] = max(dp[i][j], dfs(i+di, j+dj)+1)
+            return dp[i][j]
         
         m, n = len(matrix), len(matrix[0])
-        lens = [[1]*n for _ in range(m)]
+        dp = [[1]*n for _ in range(m)]
         ans = 0
         for i in range(m):
             for j in range(n):
@@ -79,34 +79,32 @@ class Solution:
 
     # followup: print path
     def longestIncreasingPathFollowup(self, matrix: List[List[int]]) -> int:
-        def dfs(i, j):
-            if lens[i][j] != 1: return lens[i][j]
+        def dfs(i, j):  # the same
+            if dp[i][j] != 1: return dp[i][j]  # only traverse cell once
             for di, dj in [(0,1),(0,-1),(1,0),(-1,0)]:
-                if 0 <= i+di <= m-1 and 0 <= j+dj <= n-1 and matrix[i+di][j+dj] > matrix[i][j]:
-                    lens[i][j] = max(lens[i][j], dfs(i+di, j+dj)+1)
-            return lens[i][j]
+                if 0 <= i+di < m and 0 <= j+dj < n and matrix[i+di][j+dj] > matrix[i][j]:
+                    dp[i][j] = max(dp[i][j], dfs(i+di, j+dj)+1)
+            return dp[i][j]
         
-        def get_path(max_len):
-            nonlocal maxi, maxj
-            path = [(maxi, maxj)]
-            while max_len > 1:
-                for di, dj in [(0,1),(0,-1),(1,0),(-1,0)]:
-                    if 0 <= maxi+di <= m-1 and 0 <= maxj+dj <= n-1 and lens[maxi+di][maxj+dj] == max_len-1:
-                        max_len -= 1
-                        maxi += di
-                        maxj += dj
-                        path.append((maxi, maxj))
-            return path
+        def get_path(i, j):
+            path.append([i, j, matrix[i][j]])
+            for di, dj in [(0,1),(0,-1),(1,0),(-1,0)]:
+                if 0 <= i+di < m and 0 <= j+dj < n and dp[i+di][j+dj] == dp[i][j]-1:
+                    get_path(i+di, j+dj)
+                    break
         
         m, n = len(matrix), len(matrix[0])
-        lens = [[1]*n for _ in range(m)]
-        ans, maxi, maxj = 0, 0, 0
+        dp = [[1]*n for _ in range(m)]
+        path = []
+        ans = 0
         for i in range(m):
             for j in range(n):
-                if tmp := dfs(i, j) > ans:
-                    ans = tmp
-                    maxi, maxj = i, j
-        print(get_path(ans))
-        return ans
+                ans = max(ans, dfs(i, j))
+        for i in range(m):
+            for j in range(n):
+                if dp[i][j] == ans:
+                    get_path(i, j)
+                    print(path)
+                    return ans
 # @lc code=end
 
