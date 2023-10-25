@@ -65,7 +65,7 @@ class Solution:
             while right_end-1 >= 0 and nums[left]+nums[right_end-1] > upper:
                 right_end -= 1
             if right_end > left+1:
-                ans += right_end - max(right_start, left+1)
+                ans += right_end-max(right_start, left+1)
         return ans
 # @lc code=end
 

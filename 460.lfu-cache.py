@@ -150,7 +150,7 @@ class LFUCache:
         self.freq_dict[node.freq][1].prev.insert(node)
         if node.freq == 1:
             self.min_freq = 1
-        elif self.min_freq == node.freq - 1:
+        elif self.min_freq == node.freq-1:
             if not self.freq_dict[self.min_freq][0].next.next: # no nodes
                 self.min_freq = node.freq
     

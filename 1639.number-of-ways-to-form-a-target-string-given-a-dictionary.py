@@ -89,12 +89,12 @@ class Solution:
             word_chars.append(collections.Counter(word[i] for word in words))
         
         # dp[i][j] = # of ways to form target[:i] using words[:j]
-        dp = [[0] * (n+1) for _ in range(m+1)]
+        dp = [[0]*(n+1) for _ in range(m+1)]
         for i in range(n+1): dp[0][i] = 1
         for i in range(m):
             for j in range(n):
-                dp[i+1][j+1] = word_chars[j][target[i]] * dp[i][j] + dp[i+1][j]
+                dp[i+1][j+1] = word_chars[j][target[i]]*dp[i][j]+dp[i+1][j]
 
-        return dp[-1][-1] % (10 ** 9 + 7)
+        return dp[-1][-1]%(10**9+7)
 # @lc code=end
 Solution().numWays(["acca","bbbb","caca"], "aba")

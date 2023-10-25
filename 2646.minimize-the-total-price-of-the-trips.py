@@ -113,7 +113,7 @@ class Solution:
                     cost_0 += min(cost_sub_0, cost_sub_1)
             return cost_1, cost_0
         
-        freq = [0] * n
+        freq = [0]*n
         for trip in trips:
             start, end = trip[0], trip[1]
             freq[start] += 1

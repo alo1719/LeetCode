@@ -71,7 +71,7 @@
 class Solution:
     def minCost(self, nums: List[int], x: int) -> int:
         n = len(nums)
-        dp = [[0] * n for _ in range(n)]
+        dp = [[0]*n for _ in range(n)]
         for i in range(n): dp[i][i] = nums[i]
         for k in range(1, n):
             for i in range(n):

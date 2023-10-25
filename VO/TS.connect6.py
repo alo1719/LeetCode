@@ -5,7 +5,7 @@ class Connect6:
         self.black = set()
     
     def getTurn(self):
-        if 1 <= self.cnt % 4 <= 2:
+        if 1 <= self.cnt%4 <= 2:
             return 'W'
         return 'B'
     

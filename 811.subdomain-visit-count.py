@@ -84,7 +84,7 @@ class Solution:
             domains = domain.split('.')
             for i in range(len(domains)):
                 subdomain = '.'.join(domains[i:])
-                count[subdomain] = count.get(subdomain, 0) + n
+                count[subdomain] = count.get(subdomain, 0)+n
         return [f'{v} {k}' for k, v in count.items()]
         
 

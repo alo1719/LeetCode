@@ -52,7 +52,7 @@ class Solution:
                 y = int(num2[j])
                 ans[i+j+1] += x*y
         for i in range(m+n-1, 0, -1):
-            ans[i-1] += ans[i] // 10
+            ans[i-1] += ans[i]//10
             ans[i] %= 10
         if ans[0] == 0:
             return ''.join(str(x) for x in ans[1:])

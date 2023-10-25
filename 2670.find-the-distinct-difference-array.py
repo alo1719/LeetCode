@@ -76,7 +76,7 @@ class Solution:
     def distinctDifferenceArray(self, nums: List[int]) -> List[int]:
         s = set()
         n = len(nums)
-        distinct = [0] * n
+        distinct = [0]*n
         tmp = 0
         ans = []
         for i in range(n-1, 0, -1):

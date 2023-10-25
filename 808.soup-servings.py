@@ -73,7 +73,7 @@ def f(i, j):
     if i <= 0 and j <= 0: return 0.5
     if i <= 0: return 1
     if j <= 0: return 0
-    return (1/4)*(f(i-4,j)+f(i-3,j-1)+f(i-2,j-2)+f(i-1,j-3))
+    return (1/4)*(f(i-4, j)+f(i-3, j-1)+f(i-2, j-2)+f(i-1, j-3))
 
 # TC: O(C^2)  SC: O(C^2)  C is the constant to output 1 directly
 class Solution:

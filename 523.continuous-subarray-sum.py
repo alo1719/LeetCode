@@ -65,7 +65,7 @@ from typing import List
 
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        nums = list(map(lambda x: x % k, nums))
+        nums = list(map(lambda x: x%k, nums))
         print(nums)
         f, d = [], {0: -1}
         f.append(nums[0])

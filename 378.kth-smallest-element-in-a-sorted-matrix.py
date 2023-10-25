@@ -68,7 +68,7 @@ class Solution:
         n = len(matrix)
 
         def check(mid):
-            i, j = n - 1, 0
+            i, j = n-1, 0
             num = 0
             while i >= 0 and j < n:
                 if matrix[i][j] <= mid:

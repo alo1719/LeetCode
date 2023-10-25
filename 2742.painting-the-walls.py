@@ -65,11 +65,11 @@
 class Solution:
     def paintWalls(self, cost: List[int], time: List[int]) -> int:
         n = len(cost)
-        dp = [float('inf')] * (2*n+max(time)+1)
+        dp = [float('inf')]*(2*n+max(time)+1)
         dp[n] = 0
         for i in range(n):
             prev = dp
-            dp = [float('inf')] * (2*n+max(time)+1)
+            dp = [float('inf')]*(2*n+max(time)+1)
             for j in range(2*n+max(time)):
                 dp[j] = prev[j+1]
                 if j >= time[i]:

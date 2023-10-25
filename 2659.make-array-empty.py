@@ -168,10 +168,10 @@ class SegmentTree():
         al = self.unitX
         ar = self.unitX
         while l < r:
-            if l & 1:
+            if l&1:
                 al = self.f(al, self.X[l])
                 l += 1
-            if r & 1:
+            if r&1:
                 r -= 1
                 ar = self.f(self.X[r], ar)
             l >>= 1
@@ -182,7 +182,7 @@ class SegmentTree():
 class Solution:
     def countOperationsToEmptyArray(self, nums: List[int]) -> int:
         ans = n = len(nums)
-        st = SegmentTree(n, 0, lambda x,y:x+y)
+        st = SegmentTree(n, 0, lambda x, y:x+y)
         pre = 0
         ids = sorted(range(n), key=lambda x:nums[x])
         for i in ids:

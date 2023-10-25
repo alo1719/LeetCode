@@ -61,19 +61,19 @@ class Solution:
         def gcd(x, y):
             if y == 0:
                 return x
-            return gcd(y, x % y)
+            return gcd(y, x%y)
 
         def lcm(x, y):
-            return x * y // gcd(x, y)
+            return x*y//gcd(x, y)
 
         def count(x):
-            return x // a + x // b + x // c - x // lcm(a, b) - x // lcm(b, c) - x // lcm(a, c) + x // lcm(a, lcm(b, c))
+            return x//a+x//b+x//c-x//lcm(a, b)-x//lcm(b, c)-x//lcm(a, c)+x//lcm(a, lcm(b, c))
 
-        l, r = 1, 2 * 10 ** 9
+        l, r = 1, 2*10**9
         while l < r:
-            mid = (l + r) // 2
+            mid = (l+r)//2
             if count(mid) < n:
-                l = mid + 1
+                l = mid+1
             else:
                 r = mid
         return l

@@ -62,17 +62,17 @@ class Solution:
     def longestString(self, x: int, y: int, z: int) -> int:
         @cache
         def f(x, y, z, last):
-            if x<0 or y<0 or z<0: return 0
+            if x < 0 or y < 0 or z < 0: return 0
             if last == 'AA' and y == 0: return 0
             if last == 'BB' and x == 0 and z == 0: return 0
             if last == 'AB' and x == 0 and z == 0: return 0
             if last == 'AA':
-                return 2+f(x,y-1,z,'BB')
+                return 2+f(x, y-1, z, 'BB')
             if last == 'BB':
-                return max(f(x-1,y,z,'AA'),f(x,y,z-1,'AB'))+2
+                return max(f(x-1, y, z, 'AA'), f(x, y, z-1, 'AB'))+2
             if last == 'AB':
-                return max(f(x-1,y,z,'AA'),f(x,y,z-1,'AB'))+2
+                return max(f(x-1, y, z, 'AA'), f(x, y, z-1, 'AB'))+2
             
-        return max(f(x-1,y,z,'AA'),f(x,y-1,z,'BB'),f(x,y,z-1,'AB'))+2
+        return max(f(x-1, y, z, 'AA'), f(x, y-1, z,'BB'), f(x, y, z-1, 'AB'))+2
 # @lc code=end
 

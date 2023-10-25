@@ -64,7 +64,7 @@ class Solution:
         #     pow *= 3
         # print(pow)
         # 3486784401 / 3 = 1162261467
-        return n > 0 and 1162261467 % n == 0
+        return n > 0 and 1162261467%n == 0
 
 
 print(Solution().isPowerOfThree(1))

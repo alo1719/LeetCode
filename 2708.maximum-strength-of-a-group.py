@@ -67,6 +67,6 @@ class Solution:
             maxx = max(maxx, nums[i])
         if selected_num <= 1:
             return maxx
-        return ans // max_neg if ans < 0 else ans
+        return ans//max_neg if ans < 0 else ans
 # @lc code=end
 

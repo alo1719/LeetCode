@@ -92,11 +92,11 @@ class Solution:
     def canTraverseAllPairs(self, nums: List[int]) -> bool:
         def prime_factors(n):
             factors = set()
-            while n % 2 == 0:
+            while n%2 == 0:
                 factors.add(2)
                 n //= 2
             for i in range(3, int(n**0.5)+1, 2):
-                while n % i == 0:
+                while n%i == 0:
                     factors.add(i)
                     n //= i
             if n > 2:
