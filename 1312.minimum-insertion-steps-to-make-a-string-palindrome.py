@@ -62,7 +62,7 @@ class Solution:
     def minInsertions(self, s: str) -> int:
         n = len(s)
         dp = [[0 for _ in range(n)] for _ in range(n)] # means s[i] to s[j] whether is palindrome
-        for i in range(n - 1, -1, -1):
+        for i in range(n-1, -1, -1):
             dp[i][i] = 1
             for j in range(i+1, n):
                 if j == i+1 and s[i] == s[j]:

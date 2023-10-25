@@ -71,19 +71,19 @@ class Solution:
                 num_count.append(i)
             else:
                 char_count.append(i)
-        if abs(len(num_count) - len(char_count)) > 1: return ""
+        if abs(len(num_count)-len(char_count)) > 1: return ""
         ans = ""
         if len(num_count) > len(char_count):
             for i in range(min(len(num_count), len(char_count))):
-                ans += s[num_count[i]] + s[char_count[i]]
+                ans += s[num_count[i]]+s[char_count[i]]
             ans += s[num_count[-1]]
         elif len(num_count) < len(char_count):
             for i in range(min(len(num_count), len(char_count))):
-                ans += s[char_count[i]] + s[num_count[i]]
+                ans += s[char_count[i]]+s[num_count[i]]
             ans += s[char_count[-1]]
         else:
             for i in range(min(len(num_count), len(char_count))):
-                ans += s[char_count[i]] + s[num_count[i]]
+                ans += s[char_count[i]]+s[num_count[i]]
         return ans
 # @lc code=end
 

@@ -3,7 +3,7 @@ from functools import cache
 
 # TC: O(nlen(n)) = O(nlogn)  SC: O(9*len(n)) = O(logn)
 def count_digit_sum_naive(fromm, to):
-    buckets = [0] * 200
+    buckets = [0]*200
     for i in range(fromm, to+1):
         acc = 0
         for ch in str(i):

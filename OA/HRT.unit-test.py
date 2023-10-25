@@ -131,13 +131,13 @@ class Sub:
         return Mul(self, other)
 
     def toString(self):
-        return f"({self.left.toString()} - {self.right.toString()})"
+        return f"({self.left.toString()}-{self.right.toString()})"
 
     def simplify(self):
         left = self.left.simplify()
         right = self.right.simplify()
         if isinstance(left, Lit) and isinstance(right, Lit):
-            return Lit(left.value - right.value)
+            return Lit(left.value-right.value)
         return Sub(left, right)
 
 class Mul:
@@ -155,11 +155,11 @@ class Mul:
         return Mul(self, other)
 
     def toString(self):
-        return f"({self.left.toString()} * {self.right.toString()})"
+        return f"({self.left.toString()}*{self.right.toString()})"
 
     def simplify(self):
         left = self.left.simplify()
         right = self.right.simplify()
         if isinstance(left, Lit) and isinstance(right, Lit):
-            return Lit(left.value * right.value)
+            return Lit(left.value*right.value)
         return Mul(left, right)

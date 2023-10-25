@@ -73,6 +73,6 @@ class Solution:
                    (x2-xCenter)**2+(y2-yCenter)**2,\
                    (x3-xCenter)**2+(y3-yCenter)**2,\
                    (x4-xCenter)**2+(y4-yCenter)**2\
-                  ) <= radius ** 2
+                  ) <= radius**2
 # @lc code=end
 

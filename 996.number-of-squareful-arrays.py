@@ -52,7 +52,7 @@
 class Solution:
     def numSquarefulPerms(self, nums: List[int]) -> int:
         ans=0
-        def dfs(nums,now):
+        def dfs(nums, now):
             nonlocal ans
             if not nums:
                 ans += 1

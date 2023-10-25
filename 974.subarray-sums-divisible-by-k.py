@@ -52,11 +52,11 @@
 class Solution:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        mod_array = [0] * n
+        mod_array = [0]*n
         sum = 0
         for i in range(n):
             sum += nums[i]
-            mod_array[i] = sum % k
+            mod_array[i] = sum%k
         mod_map = {0: 1}
         ans = 0
         for i in range(n):

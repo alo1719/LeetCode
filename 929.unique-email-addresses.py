@@ -88,7 +88,7 @@ class Solution:
             local = email.split('@')[0]
             local = local.split('+')[0]
             local = local.replace('.', '')
-            ans.add(local + '@' + email.split('@')[1])
+            ans.add(local+'@'+email.split('@')[1])
         return len(ans)
 # @lc code=end
 

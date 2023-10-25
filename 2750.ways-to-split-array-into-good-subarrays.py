@@ -60,9 +60,9 @@ class Solution:
         @cache
         def f(i, ok):
             if i == n: return int(ok)
-            if ok and nums[i] == 0: return f(i+1, False)+f(i+1, True) % MOD
-            if ok and nums[i] == 1: return f(i+1, True) % MOD
-            if not ok: return f(i+1, nums[i] == 1) % MOD
+            if ok and nums[i] == 0: return f(i+1, False)+f(i+1, True)%MOD
+            if ok and nums[i] == 1: return f(i+1, True)%MOD
+            if not ok: return f(i+1, nums[i] == 1)%MOD
             
         n = len(nums)
         MOD = 10**9+7

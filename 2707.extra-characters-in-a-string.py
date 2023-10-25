@@ -62,7 +62,7 @@ class Solution:
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
         n = len(s)
         sett = set(dictionary)
-        dp = [n] * (n+1)
+        dp = [n]*(n+1)
         dp[0] = 0
         for i in range(n):
             for j in range(i+1):

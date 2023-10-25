@@ -61,9 +61,9 @@ class Solution:
             if index == n: return 1
             ans = 0
             for i in range(n):
-                if mask >> i & 1 == 0 and (last == None or nums[i] % last == 0 or last % nums[i] == 0):
+                if mask>>i&1 == 0 and (last == None or nums[i]%last == 0 or last%nums[i] == 0):
                     ans += f(index+1, mask|(1<<i), nums[i])
-            return ans % MOD
+            return ans%MOD
         n = len(nums)
         return f(0, 0, None)
 # @lc code=end

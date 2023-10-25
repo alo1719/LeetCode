@@ -52,16 +52,16 @@ class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         # 2 pointers
         n, i = len(nums), 0
-        while nums[i] < 0 and i < n - 1:
+        while nums[i] < 0 and i < n-1:
             i += 1
-        left, right = i, i - 1
+        left, right = i, i-1
         ans = []
-        while left > 0 or right < n - 1:
+        while left > 0 or right < n-1:
             if left <= 0:
                 ans.append(nums[right+1]**2)
                 right += 1
-            elif right >= n - 1:
-                ans.append(nums[left - 1] ** 2)
+            elif right >= n-1:
+                ans.append(nums[left-1]**2)
                 left -= 1
             elif abs(nums[left-1]) > nums[right+1]:
                 ans.append(nums[right+1]**2)

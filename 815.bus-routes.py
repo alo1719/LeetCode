@@ -72,7 +72,7 @@ class Solution:
             for stop in routes[i]:
                 stop2route[stop].append(i)
         dq = deque()
-        vis = [False] * n  # i-th route is visited
+        vis = [False]*n  # i-th route is visited
         for i, route in enumerate(routes):
             if source in route:
                 dq.append((i, 1))

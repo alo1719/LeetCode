@@ -110,7 +110,7 @@ class Solution:
             mask_tmp = mask
             bits = list()
             for i in range(n):
-                bits.append(mask_tmp % 3)
+                bits.append(mask_tmp%3)
                 mask_tmp //= 3
             mask_span[mask] = bits[::-1]
             truncate[mask] = [
@@ -123,7 +123,7 @@ class Solution:
         def dfs(pos: int, borderline: int, nx: int, wx: int):
             if pos == m*n or nx+wx == 0: return 0
             
-            y = pos % n
+            y = pos%n
             put0, put1, put2 = dfs(pos+1, truncate[borderline][0], nx, wx), 0, 0
             if nx > 0:
                 put1 = 120+calc(1, mask_span[borderline][0])+(0 if y == 0 else calc(1, mask_span[borderline][-1]))+dfs(pos+1, truncate[borderline][1], nx-1, wx)

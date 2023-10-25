@@ -84,13 +84,13 @@ class Solution:
             ttl = 0
             i, j = row, col
             while i < rows and True not in a[i, col:]: i += 1
-            while i < rows - 1:
+            while i < rows-1:
                 i += 1
-                ttl = (ttl + dfs(i, col, remain-1)) % mod
+                ttl = (ttl+dfs(i, col, remain-1))%mod
             while j < cols and True not in a[row:, j]: j += 1
             while j < cols-1:
                 j += 1
-                ttl = (ttl + dfs(row, j, remain-1)) % mod
+                ttl = (ttl+dfs(row, j, remain-1))%mod
             memo[(row, col, remain)] = ttl
             return ttl
 

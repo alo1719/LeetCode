@@ -91,9 +91,9 @@ class Solution:
         ans = [0, 0]
         for i, player in enumerate([player1, player2]):
             for j in range(n):
-                if j-2>=0 and player[j-2] == 10:
+                if j-2 >= 0 and player[j-2] == 10:
                     ans[i] += 2*player[j]
-                elif j-1>=0 and player[j-1] == 10:
+                elif j-1 >= 0 and player[j-1] == 10:
                     ans[i] += 2*player[j]
                 else:
                     ans[i] += player[j]

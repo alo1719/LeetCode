@@ -82,6 +82,6 @@ class Solution:
         n = len(nums)
         i = nums.index(1)
         j = nums.index(n)
-        return i+n-1-j-(i>j)
+        return i+n-1-j-(i > j)
 # @lc code=end
 

@@ -102,7 +102,7 @@ class Solution:
             right = costs[-candidates:]
             heapify(right)
             i, j = candidates, n-candidates-1
-            while k and i<=j:
+            while k and i <= j:
                 if left[0] <= right[0]:
                     ans += heapreplace(left, costs[i])
                     i += 1

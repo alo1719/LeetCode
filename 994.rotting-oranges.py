@@ -88,8 +88,8 @@ class Solution:
             nq = []
             for x, y in q:
                 for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
-                    nx = x + dx
-                    ny = y + dy
+                    nx = x+dx
+                    ny = y+dy
                     if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == 1:
                         grid[nx][ny] = 2
                         fresh -= 1

@@ -73,11 +73,11 @@ class Solution:
         m = (n+1)//2
         left = 0
         for i in range(1, m):
-            if s[i]!=s[i-1]:
+            if s[i] != s[i-1]:
                 left += i
         right = 0
         for i in range(n-2, m-1, -1):
-            if s[i]!=s[i+1]:
+            if s[i] != s[i+1]:
                 right += n-i-1
         if m < n and s[m-1] != s[m]:
             right += n-m

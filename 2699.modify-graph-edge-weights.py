@@ -96,9 +96,9 @@ class Solution:
         def dijkstra():
             queue = PriorityQueue()
             queue.put((0, source))
-            dis = [float('inf')] * n
+            dis = [float('inf')]*n
             dis[source] = 0
-            fromm = [None] * n
+            fromm = [None]*n
             while not queue.empty():
                 node = queue.get()
                 for to_node in g[node[1]].keys():
@@ -145,8 +145,8 @@ class Solution:
             old_cur = cur
             cur = fromm[cur]
             if g[old_cur][cur][1]:
-                g[old_cur][cur][0] += target - dis[destination]
-                g[cur][old_cur][0] += target - dis[destination]
+                g[old_cur][cur][0] += target-dis[destination]
+                g[cur][old_cur][0] += target-dis[destination]
                 dis, _ = dijkstra()
                 if dis[destination] == target: break
         ans = []

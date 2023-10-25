@@ -72,7 +72,7 @@ class Solution:
         grid[0][0] = 1
         q = [(0, 0, 1)]
         for i, j, d in q:
-            if i == len(grid) - 1 and j == len(grid) - 1: return d
+            if i == len(grid)-1 and j == len(grid)-1: return d
             for x, y in ((i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), (i, j+1), (i+1, j-1), (i+1, j), (i+1, j+1)):
                 if 0 <= x < len(grid) and 0 <= y < len(grid) and grid[x][y] == 0:
                     # remove visited node

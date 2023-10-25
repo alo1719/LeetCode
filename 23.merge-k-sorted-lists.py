@@ -69,7 +69,7 @@
 #         self.val = val
 #         self.next = next
 
-ListNode.__lt__ = lambda x,y:x.val < y.val
+ListNode.__lt__ = lambda x, y:x.val < y.val
 
 # TC: O(nlogk)  SC: O(k)
 class Solution:

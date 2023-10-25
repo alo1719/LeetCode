@@ -71,10 +71,10 @@ class MyHashMap:
 
     def __init__(self):
         self.bucket_num = 10009
-        self.map = [None] * self.bucket_num
+        self.map = [None]*self.bucket_num
 
     def put(self, key: int, value: int) -> None:
-        hash = key % self.bucket_num
+        hash = key%self.bucket_num
         if not self.map[hash]:
             self.map[hash] = deque()
         for item in self.map[hash]:
@@ -84,7 +84,7 @@ class MyHashMap:
         self.map[hash].append([key, value])
 
     def get(self, key: int) -> int:
-        hash = key % self.bucket_num
+        hash = key%self.bucket_num
         if not self.map[hash]: return -1
         for item in self.map[hash]:
             if item[0] == key:
@@ -92,7 +92,7 @@ class MyHashMap:
         return -1
 
     def remove(self, key: int) -> None:
-        hash = key % self.bucket_num
+        hash = key%self.bucket_num
         if not self.map[hash]: return
         for item in self.map[hash]:
             if item[0] == key:

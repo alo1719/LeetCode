@@ -71,8 +71,8 @@ class Solution:
                 ss = s[i:j+1]
                 cnt = 0
                 for k in range(1, len(ss)):
-                    if ss[k]==ss[k-1]: cnt += 1
-                if cnt<=1:
+                    if ss[k] == ss[k-1]: cnt += 1
+                if cnt <= 1:
                     print(i, j)
                     ans = max(ans, j-i+1)
         return ans

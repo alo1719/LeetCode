@@ -65,7 +65,7 @@
 class Solution:
     def bestRotation(self, nums: List[int]) -> int:
         n = len(nums)
-        diff = [0] * n
+        diff = [0]*n
         for i, num in enumerate(nums):
             low = (i+1)%n  # Remember
             high = (i-num+n+1)%n  # Remember

@@ -66,5 +66,5 @@ class Solution:
         if not root:
             return 0
         else:
-            return (root.val if high >= root.val >= low else 0) + self.rangeSumBST(root.left, low, high) + self.rangeSumBST(root.right, low, high)
+            return (root.val if high >= root.val >= low else 0)+self.rangeSumBST(root.left, low, high)+self.rangeSumBST(root.right, low, high)
 # @lc code=end

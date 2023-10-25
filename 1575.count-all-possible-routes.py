@@ -86,9 +86,9 @@ class Solution:
             ans = 0
             if i == finish: ans += 1
             for j in range(n):
-                if i!=j and abs(locations[j]-locations[i]) <= fuel:
+                if i != j and abs(locations[j]-locations[i]) <= fuel:
                     ans += f(j, fuel-abs(locations[j]-locations[i]))
-            return ans % MOD
+            return ans%MOD
         MOD = 10**9+7
         n = len(locations)
         return f(start, fuel)

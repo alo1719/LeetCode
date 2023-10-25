@@ -88,7 +88,7 @@ class Solution:
                 return
             visited[i][j] = 1
             for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
-                if (i + dx, j + dy) != (lasti, lastj):
+                if (i+dx, j+dy) != (lasti, lastj):
                     newi = i+dx
                     newj = j+dy
                     if 0 <= newi < m and 0 <= newj < n and grid[newi][newj] == grid[i][j]:

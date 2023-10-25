@@ -65,7 +65,7 @@ class Solution:
             if x == max_k: max_i = i
             if not min_k <= x <= max_k: i0 = i  # 子数组不能包含 nums[i0]
             j = min_i if min_i < max_i else max_i
-            if j > i0: ans += j - i0
+            if j > i0: ans += j-i0
         return ans
 # @lc code=end
 

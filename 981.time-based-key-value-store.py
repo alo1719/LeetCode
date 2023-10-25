@@ -90,7 +90,7 @@ class TimeMap:
             if self.dict[key][mid][0] <= timestamp:
                 left = mid
             else:
-                right = mid - 1
+                right = mid-1
 
         return self.dict[key][left][1]
       
@@ -112,7 +112,7 @@ class TimeMapSF:
             if self.dict[key][mid][0] <= timestamp:
                 left = mid
             else:
-                right = mid - 1
+                right = mid-1
         return self.dict[key][left][1]
 
     def commit(self, key: str, timestamp: str) -> None:

@@ -89,8 +89,8 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 d[mat[i][j]].append((i, j))
-        dp_row = [0] * m
-        dp_col = [0] * n
+        dp_row = [0]*m
+        dp_col = [0]*n
         for num in sorted(d.keys(), reverse=True):
             tmp = []
             for x, y in d[num]:

@@ -83,13 +83,13 @@ from typing import List
 
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        d = [[float('inf')] * (k+2) for _ in range(n)]
+        d = [[float('inf')]*(k+2) for _ in range(n)]
         for i in range(k+2):
             d[src][i] = 0
         for i in range(1, k+2):
             for j in range(len(flights)):
                 f, t, p = flights[j]
-                d[t][i] = min(d[t][i], d[f][i-1] + p)
+                d[t][i] = min(d[t][i], d[f][i-1]+p)
         return int(d[dst][k+1] if d[dst][k+1] != float('inf') else -1)
 # @lc code=end
 

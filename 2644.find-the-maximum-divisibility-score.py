@@ -85,7 +85,7 @@ class Solution:
         for i in range(n):
             score = 0
             for j in range(m):
-                if nums[j] % divisors[i] == 0:
+                if nums[j]%divisors[i] == 0:
                     score += 1
             if score >= max_score:
                 if score > max_score or divisors[i] < ans:

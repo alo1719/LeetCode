@@ -74,7 +74,7 @@ class MovingAverage:
         if self.len > self.size:
             self.sum -= self.dq.popleft()
             self.len -= 1
-        return self.sum / self.len
+        return self.sum/self.len
 
 
 movingAverage = MovingAverage(3);

@@ -62,6 +62,6 @@
 class Solution:
     def pivotInteger(self, n: int) -> int:
         x = sqrt((n*n+n)/2)
-        return round(x) if abs(x-round(x))<1e-6 else -1
+        return round(x) if abs(x-round(x)) < 1e-6 else -1
 # @lc code=end
 

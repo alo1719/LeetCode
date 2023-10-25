@@ -80,7 +80,7 @@ class Solution:
             not1 = mid//divisor1
             not2 = mid//divisor2
             notboth = mid//lcm(divisor1, divisor2)
-            return mid-not1 >= uniqueCnt1 and mid-not2 >= uniqueCnt2 and mid-notboth>=uniqueCnt1+uniqueCnt2
+            return mid-not1 >= uniqueCnt1 and mid-not2 >= uniqueCnt2 and mid-notboth >= uniqueCnt1+uniqueCnt2
 
         left, right = 1, 2*(uniqueCnt1+uniqueCnt2)
         while left < right:

@@ -93,7 +93,7 @@ class Solution:
             f = factorize(i)
             tmp = set()
             for k in f:
-                if f[k] % 2 == 1:
+                if f[k]%2 == 1:
                     tmp.add(k)
             # print(i, tmp)
             fs = frozenset(tmp)

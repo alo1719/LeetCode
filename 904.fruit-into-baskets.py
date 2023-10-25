@@ -81,13 +81,13 @@ class Solution:
         basket_dict = defaultdict(int)
         for left in range(n): # [left, right]
             if left >= 1:
-                basket_dict[fruits[left - 1]] -= 1
-                if basket_dict[fruits[left - 1]] == 0:
-                    del basket_dict[fruits[left - 1]]
-            while right + 1 < n and (len(basket_dict) < 2 or fruits[right + 1] in basket_dict):
+                basket_dict[fruits[left-1]] -= 1
+                if basket_dict[fruits[left-1]] == 0:
+                    del basket_dict[fruits[left-1]]
+            while right+1 < n and (len(basket_dict) < 2 or fruits[right+1] in basket_dict):
                 right += 1
                 basket_dict[fruits[right]] += 1
-                if right - left + 1 > ans: ans = right - left + 1
+                if right-left+1 > ans: ans = right-left+1
         return ans
 # @lc code=end
 
