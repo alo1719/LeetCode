@@ -3,7 +3,7 @@ def solution(docstring: str):
     i = 0
     j = 0
     ans = ''
-    while (i < len(docstring)):
+    while i < len(docstring):
         if docstring[i] == '`':
             for j in range(i+1, len(docstring)):
                 if docstring[j] == '`':
@@ -26,7 +26,6 @@ def solution(docstring: str):
         else:
             ans += docstring[i]
         i = max(j+1, i+1)
-
     return ans
 
 print(solution("123 `func_name C_NAME` 456 `max_x_y_z` `variable` `G`"))  # 123 `funcName C_NAME` 456 `maxXYZ` `variable` `G`
