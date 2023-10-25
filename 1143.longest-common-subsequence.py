@@ -65,6 +65,13 @@
 # @lc code=start
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        # choose and not choose
+        # 1. x and y
+        # 2. not x and y
+        # 3. x and not y
+        # 4. not x and not y (1 and 4 can be merged)
+        # f[i][j]: longest common subsequence of text1[:i] and text2[:j]
+        # f[i][j] = max(f[i-1][j], f[i][j-1], f[i-1][j-1]+(s[i]==t[j]))
         m, n = len(text1), len(text2)
         dp = [[0] * (n + 1) for _ in range(m + 1)]
         for i in range(m):

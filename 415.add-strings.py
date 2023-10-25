@@ -55,55 +55,47 @@
 
 # @lc code=start
 # Snowflake VOE
+# TC: O(max(m,n))  SC: O(max(m,n))
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
-        n, m, carry_out = len(num1), len(num2), 0
-        if n < m: # make sure num1 is larger
+        m, n, carry_out, ans = len(num1), len(num2), 0, []
+        if m < n:  # make sure num1 is larger
             num1, num2 = num2, num1
-            n, m = m, n
-        ans = ""
-        for i in range(1, n+1):
+            m, n = n, m
+        for i in range(1, m+1):
             digit_1 = num1[-i]
-            if i <= m:
-                digit_2 = num2[-i]
-            else:
-                digit_2 = 0
-            ans = str((int(digit_1) + int(digit_2) + carry_out) % 10) + ans
-            carry_out = (int(digit_1) + int(digit_2) + carry_out) // 10
-        if carry_out != 0:
-            ans = str(carry_out) + ans
-        return ans
+            digit_2 = num2[-i] if i <= n else 0
+            carry_out += int(digit_1)+int(digit_2)
+            ans.append(str(carry_out%10))
+            carry_out //= 10
+        if carry_out: ans.append(str(carry_out))
+        return ''.join(ans)[::-1]
     
     def subtractStrings(self, num1: str, num2: str) -> str:
-        n, m, borrow_in,swapped = len(num1), len(num2), 0, False
-        if n < m: # make sure num1 is larger
+        m, n, borrow_in, swapped, ans = len(num1), len(num2), 0, False, []
+        if m < n: # make sure num1 is larger
             num1, num2 = num2, num1
-            n, m = m, n
+            m, n = n, m
             swapped = True
-        if n == m:
-            for i in range(n):
+        if m == n:
+            for i in range(m):
                 if num1[i] < num2[i]:
                     num1, num2 = num2, num1
                     swapped = True
                     break
                 elif num1[i] > num2[i]:
                     break
-        ans = ""
-        for i in range(1, n+1):
+        for i in range(1, m+1):
             digit_1 = num1[-i]
-            if i <= m:
-                digit_2 = num2[-i]
-            else:
-                digit_2 = 0
-            tmp_res = int(digit_1) - int(digit_2) - borrow_in
+            digit_2 = num2[-i] if i <= n else 0
+            tmp = int(digit_1)-int(digit_2)-borrow_in
             borrow_in = 0
-            if tmp_res < 0:
-                tmp_res += 10
+            if tmp < 0:
+                tmp += 10
                 borrow_in = 1
-            ans = str(tmp_res) + ans
-        if ans[0] == '0':
-            ans = ans[1:]
-        return ans if not swapped else '-' + ans
+            ans.append(str(tmp))
+        if ans[-1] == '0': ans.pop()
+        return ''.join(ans)[::-1] if not swapped else '-'+''.join(ans)[::-1]
 # @lc code=end
 
 print(Solution().subtractStrings("11", "123"))

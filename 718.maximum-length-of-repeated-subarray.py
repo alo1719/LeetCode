@@ -106,7 +106,6 @@ class Solution:
         ans = 0
         while left <= right:
             mid = (left + right) // 2
-            if mid <=2: print(mid,":")
             if check_valid(mid):
                 ans = mid
                 left = mid + 1

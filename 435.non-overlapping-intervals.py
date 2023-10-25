@@ -57,15 +57,16 @@
 #
 
 # @lc code=start
+# TC: O(nlogn)  SC: O(1)
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        sorted_intervals = sorted(intervals, key=lambda x:x[1])
-        ans, n, last = 0, len(intervals), sorted_intervals[0][1]
+        intervals.sort(key=lambda x:x[1])
+        ans, n, last = 0, len(intervals), intervals[0][1]
         for i in range(1, n):
-            if sorted_intervals[i][0] < last:
+            if intervals[i][0] < last:  # need to remove
                 ans += 1
             else:
-                last = sorted_intervals[i][1]
+                last = intervals[i][1]
         return ans
 # @lc code=end
 

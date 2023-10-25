@@ -67,13 +67,14 @@
 #
 
 # @lc code=start
+# WeRide VOE
+# TC: O(mn)  SC: O(mn)
 from typing import List
 
 
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        m,n=len(grid),len(grid[0])
-        # 1. 统计新鲜橘子的数量，和腐烂橘子的坐标
+        m, n = len(grid), len(grid[0])
         fresh = 0
         q = []
         for i in range(m):
@@ -82,23 +83,20 @@ class Solution:
                     fresh += 1
                 elif grid[i][j] == 2:
                     q.append((i, j))
-        # 2. 从腐烂的橘子开始，进行 BFS
         minutes = 0
         while fresh > 0:
             nq = []
             for x, y in q:
-                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
                     nx = x + dx
                     ny = y + dy
                     if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == 1:
                         grid[nx][ny] = 2
                         fresh -= 1
                         nq.append((nx, ny))
-            if not nq:
-                return -1
+            if not nq: return -1
             q = nq
             minutes += 1
-
         return minutes
 # @lc code=end
 

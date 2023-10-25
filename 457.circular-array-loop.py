@@ -89,27 +89,28 @@
 #
 
 # @lc code=start
+# TC: O(n)  SC: O(1)
 class Solution:
     def circularArrayLoop(self, nums: List[int]) -> bool:
         def next(i):
-            return (i+nums[i]+n) % n
+            return (i+nums[i]+n)%n
         n = len(nums)
         for i in range(n):
+            if not nums[i]: continue
             slow = fast = i
             while True:
                 slow = next(slow)
                 fast = next(fast)
-                if nums[i] * nums[fast] < 0:
-                    break
-                fast = next(fast)
+                if nums[i]*nums[slow] < 0 or nums[i]*nums[fast] < 0 or nums[i]*nums[fast := next(fast)] < 0: break
                 if slow == fast:
-                    tmp = next(slow)
-                    if tmp != slow:
-                        return True
-                    else:
-                        break
-                if nums[i] * nums[slow] < 0 or nums[i] * nums[fast] < 0:
-                    break
+                    if slow != next(slow): return True  # k > 1
+                    else: break
+            zero = i
+            while True:
+                tmp = zero
+                nums[zero] = 0
+                zero = next(tmp)
+                if nums[zero]*nums[i] <= 0: break
         return False
 # @lc code=end
 

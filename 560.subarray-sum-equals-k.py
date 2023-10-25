@@ -40,20 +40,17 @@
 # @lc code=start
 from typing import List
 
-
+# TC: O(n)  SC: O(n)
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefix = {}
-        sum = 0
+        d = defaultdict(int)
+        S = 0
         ans = 0
-        for i in range(len(nums)):
-            sum += nums[i]
-            ans += prefix.get(sum - k, 0)
-            prefix[sum] = prefix.get(sum, 0) + 1
-            ans += 1 if sum == k else 0
-        print(ans)
+        for x in nums:
+            d[S] += 1
+            S += x
+            ans += d[S-k]
         return ans
-
 
 Solution().subarraySum([1, 1, 1], 2)
 Solution().subarraySum([1, 2, 3], 3)

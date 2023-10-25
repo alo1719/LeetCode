@@ -80,6 +80,5 @@ class Solution:
                 max_score = now_score  
                 ans = i
         return ans
-
 # @lc code=end
 

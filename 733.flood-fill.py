@@ -67,7 +67,6 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         def dfs(i, j):
-            nonlocal color, color_ori, m, n
             if i >= m or i < 0 or j >= n or j < 0:
                 return
             if image[i][j] == color_ori:

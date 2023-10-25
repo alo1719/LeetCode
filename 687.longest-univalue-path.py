@@ -58,21 +58,22 @@
 #         self.left = left
 #         self.right = right
 # Snowflake VOE
+# TC: O(n), SC: O(n)
 class Solution:
     def longestUnivaluePath(self, root: Optional[TreeNode]) -> int:
-        def helper(root, goal):
-            nonlocal global_max
+        # postorder traversal
+        def dfs(root):
+            nonlocal ans
             if not root: return 0
-            left = helper(root.left, root.val)
-            right = helper(root.right, root.val)
-            if left+right > global_max: global_max = left+right
-            if root.val == goal:
-                return max(left, right)+1
-            else:
-                return 0
-            
-        global_max = 0
-        helper(root, 0)
-        return global_max
+            left = dfs(root.left)
+            right = dfs(root.right)
+            left_ans = left+1 if root.left and root.left.val == root.val else 0
+            right_ans = right+1 if root.right and root.right.val == root.val else 0
+            ans = max(ans, left_ans+right_ans)
+            return max(left_ans, right_ans)
+
+        ans = 0
+        dfs(root)
+        return ans
 # @lc code=end
 

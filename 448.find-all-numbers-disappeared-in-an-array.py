@@ -42,6 +42,7 @@
 
 # @lc code=start
 # Snowflake VOE
+# TC: O(n)  SC: O(1)  ignore ans
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
         n, ans = len(nums), []
@@ -50,8 +51,7 @@ class Solution:
                 # cannot reverse, because first set left then set right
                 nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
         for i in range(n):
-            if nums[i] != i+1:
-                ans.append(i+1)
+            if nums[i] != i+1: ans.append(i+1)
         return ans
 # @lc code=end
 

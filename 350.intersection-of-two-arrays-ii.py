@@ -59,13 +59,18 @@
 from typing import List
 
 
+# TC: O(m+n)  SC: O(min(m,n))
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        rst = []
-        for i in nums1:
-            if i in nums2:
-                rst.append(i)
-                nums2.remove(i)
-        return rst
+        if len(nums1) > len(nums2):
+            nums1, nums2 = nums2, nums1
+        c = Counter(nums1)
+        ans = []
+        for num in nums2:
+            if c[num] > 0:
+                ans.append(num)
+                c[num] -= 1
+        return ans
+        
 
 # @lc code=end

@@ -40,15 +40,10 @@
 # @lc code=start
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        d = {}
-        for c in s:
-            d[c] = d.get(c, 0) + 1
-        print(d)
-        for k in d:
-            if d[k] == 1:
-                print(k)
-                print(s.index(k))
-                return s.index(k)
+        c = Counter(s)
+        for i, ch in enumerate(s):
+            if c[ch] == 1:
+                return i
         return -1
 
 

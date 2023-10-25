@@ -63,40 +63,26 @@
 #
 
 # @lc code=start
-
+# TC: O(n)  SC: O(1)
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        # len(s)>=1
-        left = 0
-        res = []
-        res2 = []
-        for c in s:
-            if c=='(':
-                left+=1
-                res.append(c)
-            elif c==')':
-                if left > 0:
-                    left -= 1
-                    res.append(c)
-            else:
-                res.append(c)
-        print(res)
-        res.reverse()
-        right = 0
-        for c in res:
-            if c==')':
-                right+=1
-                res2.append(c)
-            elif c=='(':
+        ans = ''
+        left, right = 0, s.count(')')
+        for ch in s:
+            if ch == '(':
                 if right > 0:
-                    right -=1
-                    res2.append(c)
+                    ans += ch
+                    left += 1
+                    right -= 1
+            elif ch == ')':
+                if left > 0:
+                    ans += ch
+                    left -= 1
+                else:
+                    right -= 1
             else:
-                res2.append(c)
-        res2.reverse()
-        print(res2)
-        return "".join(res2)
-
+                ans += ch
+        return ans
 
 
 Solution.minRemoveToMakeValid(None, "lee(t(c)o)de)")
