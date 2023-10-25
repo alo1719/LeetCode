@@ -89,7 +89,7 @@ class Solution:
             d[int(log2(x))] += 1
         # print(d)
         for i, ch in enumerate(t[::-1]):
-            d[i] -= int(ch)        
+            d[i] -= int(ch)
         print(d)
         
         
